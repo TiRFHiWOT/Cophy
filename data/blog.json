@@ -1,0 +1,35 @@
+[
+  {
+    "id": "1",
+    "slug": "milestones-toward-ultimate-panama-collection",
+    "title": "Milestones Toward the Ultimate Panama Collection",
+    "excerpt": "A journey through the milestones that led to creating our ultimate Panama collection, celebrating the producers and their exceptional coffees.",
+    "content": "Our Ultimate Panama Collection represents years of dedication, relationship-building, and a deep appreciation for the unique terroir of Panama. This article explores the milestones that shaped this collection, from our first encounters with Panamanian producers to the award-winning lots we feature today.",
+    "author": "Nadine Onate",
+    "date": "2024-11-15",
+    "image": "https://archerscoffee.com/cdn/shop/articles/Panama_Collection.jpg",
+    "category": "Coffee Stories"
+  },
+  {
+    "id": "2",
+    "slug": "look-back-archers-summer-24",
+    "title": "A Look Back - Archers Summer '24",
+    "excerpt": "Reflecting on an incredible summer season filled with new releases, community events, and memorable coffee experiences.",
+    "content": "Summer 2024 was a season of growth and celebration at Archers Coffee. We introduced new collections, hosted community events, and continued our mission of bringing exceptional Panamanian coffees to coffee lovers worldwide. Join us as we look back on the highlights.",
+    "author": "Nadine Onate",
+    "date": "2024-09-20",
+    "image": "https://archerscoffee.com/cdn/shop/articles/Summer_24.jpg",
+    "category": "News"
+  },
+  {
+    "id": "3",
+    "slug": "recap-private-tasting-best-of-panama-2024",
+    "title": "A Recap - A Private Tasting Premiere of the 2024 Best of Panama Auction Lots",
+    "excerpt": "An exclusive look at our private tasting event featuring the prestigious 2024 Best of Panama auction lots.",
+    "content": "We were honored to host a private tasting event showcasing the exceptional lots from the 2024 Best of Panama auction. This article recaps the evening, featuring insights from producers, tasting notes, and the stories behind these award-winning coffees.",
+    "author": "Nadine Onate",
+    "date": "2024-08-10",
+    "image": "https://archerscoffee.com/cdn/shop/articles/BOP_Tasting.jpg",
+    "category": "Events"
+  }
+]

@@ -1,0 +1,66 @@
+[
+  {
+    "id": "best-of-panama",
+    "name": "Best of Panama",
+    "slug": "best-of-panama",
+    "description": "Award-winning coffees from the prestigious Best of Panama competition",
+    "image": "https://archerscoffee.com/cdn/shop/files/BOP_Collection.jpg",
+    "products": ["3", "4", "5", "6", "13"]
+  },
+  {
+    "id": "competition-series",
+    "name": "Competition Series (90+)",
+    "slug": "competition-series",
+    "description": "Elite coffees scoring 90 points and above",
+    "image": "https://archerscoffee.com/cdn/shop/files/Competition_Series.jpg",
+    "products": ["14"]
+  },
+  {
+    "id": "ultra-premium",
+    "name": "Ultra Premium Selection",
+    "slug": "ultra-premium",
+    "description": "The finest coffees from legendary producers",
+    "image": "https://archerscoffee.com/cdn/shop/files/Ultra_Premium.jpg",
+    "products": ["7"]
+  },
+  {
+    "id": "heirloom-collection",
+    "name": "Heirloom Collection",
+    "slug": "heirloom-collection",
+    "description": "Rare and unique varietals",
+    "image": "https://archerscoffee.com/cdn/shop/files/Heirloom.jpg",
+    "products": ["1"]
+  },
+  {
+    "id": "essence-collection",
+    "name": "Essence Collection",
+    "slug": "essence-collection",
+    "description": "The pure essence of exceptional terroir",
+    "image": "https://archerscoffee.com/cdn/shop/files/Essence.jpg",
+    "products": ["2"]
+  },
+  {
+    "id": "limited-selection",
+    "name": "Limited Selection",
+    "slug": "limited-selection",
+    "description": "Exclusive, small-batch coffees",
+    "image": "https://archerscoffee.com/cdn/shop/files/Limited.jpg",
+    "products": ["8"]
+  },
+  {
+    "id": "curated-selection",
+    "name": "Curated Selection",
+    "slug": "curated-selection",
+    "description": "Hand-picked coffees from trusted partners",
+    "image": "https://archerscoffee.com/cdn/shop/files/Curated.jpg",
+    "products": ["9", "11"]
+  },
+  {
+    "id": "specialty-selection",
+    "name": "Specialty Selection",
+    "slug": "specialty-selection",
+    "description": "High-quality specialty coffees",
+    "image": "https://archerscoffee.com/cdn/shop/files/Specialty.jpg",
+    "products": ["10", "12", "15", "16"]
+  }
+]

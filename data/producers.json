@@ -1,0 +1,83 @@
+[
+  {
+    "id": "finca-sophia",
+    "name": "Finca Sophia",
+    "slug": "finca-sophia",
+    "description": "Growing with the forest. In every cup from Finca Sophia, you're experiencing the land that grew the beans. Each flavor note and texture was cultivated to transport you to Nueva Suiza, Panama.",
+    "image": "https://archerscoffee.com/cdn/shop/files/Finca_Sophia_Producer.jpg",
+    "location": "Nueva Suiza, Panama",
+    "products": ["1", "2"]
+  },
+  {
+    "id": "hacienda-la-esmeralda",
+    "name": "Hacienda La Esmeralda",
+    "slug": "hacienda-la-esmeralda",
+    "description": "A legacy built by fate. Savor the excitement of tropical fruit and the elegance of florals in a cup of Hacienda La Esmeralda, whose coffees were destined to find its home with you.",
+    "image": "https://archerscoffee.com/cdn/shop/files/Esmeralda_Producer.jpg",
+    "location": "Boquete, Panama",
+    "products": ["7"]
+  },
+  {
+    "id": "lost-origin",
+    "name": "Lost Origin",
+    "slug": "lost-origin",
+    "description": "Shaping the future of Panama coffee. Lost Origin coffees lets curiosity lead your coffee journey, crafting exquisite Panamanian coffees through an experimental combination of craft beer and artisanal coffee production techniques.",
+    "image": "https://archerscoffee.com/cdn/shop/files/LostOrigin_Producer.jpg",
+    "location": "Panama",
+    "products": ["8"]
+  },
+  {
+    "id": "finca-los-cenizos",
+    "name": "Finca Los Cenizos",
+    "slug": "finca-los-cenizos",
+    "description": "A family listening to Panama's terroir. Finca Los Cenizos coffees distill the Panama terroir into layered sweetness. A flavor profile best enjoyed with the family who have shaped your coffee journey.",
+    "image": "https://archerscoffee.com/cdn/shop/files/LosCenizos_Producer.jpg",
+    "location": "Panama",
+    "products": ["9"]
+  },
+  {
+    "id": "mount-totumas",
+    "name": "Mount Totumas",
+    "slug": "mount-totumas",
+    "description": "Coffees co-authored by nature. Let the calm of Panama's native wildlife enter your home whenever you brew Mount Totumas — cups crafted through nature's whims.",
+    "image": "https://archerscoffee.com/cdn/shop/files/MountTotumas_Producer.jpg",
+    "location": "Chiriquí, Panama",
+    "products": ["10"]
+  },
+  {
+    "id": "adaura",
+    "name": "Adaura Coffee",
+    "slug": "adaura",
+    "description": "Three generations of coffee dreams. Enjoy your Adaura Coffee and fuel up on care, connection, and discovery — all condensed into a cup built on familial love and respect for terroir.",
+    "image": "https://archerscoffee.com/cdn/shop/files/Adaura_Producer.jpg",
+    "location": "Panama",
+    "products": ["11"]
+  },
+  {
+    "id": "cuatro-caminos",
+    "name": "Cuatro Caminos",
+    "slug": "cuatro-caminos",
+    "description": "The shared growth within Panama coffee. Enjoy a cup of Cuatro Caminos Coffee Estates to center yourself with intention and care, for both quality and people.",
+    "image": "https://archerscoffee.com/cdn/shop/files/CuatroCaminos_Producer.jpg",
+    "location": "Panama",
+    "products": ["12"]
+  },
+  {
+    "id": "kotowa",
+    "name": "Kotowa",
+    "slug": "kotowa",
+    "description": "A legacy nurtured & rewarded. Brew Kotowa Geisha from Best of Panama 2025 awarded farms, Silvia Marina & Las Brujas, to inspire your own uphill pursuits & celebrate the well-deserved summit.",
+    "image": "https://archerscoffee.com/cdn/shop/files/Kotowa_Producer.jpg",
+    "location": "Boquete, Panama",
+    "products": ["13"]
+  },
+  {
+    "id": "hacienda-copey",
+    "name": "Hacienda Copey",
+    "slug": "hacienda-copey",
+    "description": "Two-peat 1st Place Cup of Excellence winner. A top-tier showcase of Tarrazu, Costa Rica-grown Geisha.",
+    "image": "https://archerscoffee.com/cdn/shop/files/Copey_Producer.jpg",
+    "location": "Tarrazu, Costa Rica",
+    "products": ["14"]
+  }
+]

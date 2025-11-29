@@ -1,0 +1,52 @@
+[
+  {
+    "id": "sca-foundations",
+    "title": "SCA Foundations of Coffee",
+    "description": "Learn the fundamentals of coffee through the Specialty Coffee Association's comprehensive curriculum. Perfect for beginners and coffee enthusiasts.",
+    "duration": "2 days",
+    "level": "beginner",
+    "type": "sca",
+    "price": 450,
+    "image": "https://archerscoffee.com/cdn/shop/files/SCA_Foundations.jpg"
+  },
+  {
+    "id": "sca-brewing",
+    "title": "SCA Brewing Professional",
+    "description": "Master the art and science of coffee brewing. Learn various brewing methods, water chemistry, and extraction principles.",
+    "duration": "3 days",
+    "level": "intermediate",
+    "type": "sca",
+    "price": 650,
+    "image": "https://archerscoffee.com/cdn/shop/files/SCA_Brewing.jpg"
+  },
+  {
+    "id": "sca-barista",
+    "title": "SCA Barista Skills",
+    "description": "Develop professional barista skills including espresso preparation, milk steaming, and customer service excellence.",
+    "duration": "3 days",
+    "level": "intermediate",
+    "type": "sca",
+    "price": 700,
+    "image": "https://archerscoffee.com/cdn/shop/files/SCA_Barista.jpg"
+  },
+  {
+    "id": "cqi-q-grader",
+    "title": "CQI Q Grader Certification",
+    "description": "Become a certified Q Grader through the Coffee Quality Institute. The most prestigious coffee cupping certification in the industry.",
+    "duration": "6 days",
+    "level": "advanced",
+    "type": "cqi",
+    "price": 2500,
+    "image": "https://archerscoffee.com/cdn/shop/files/CQI_QGrader.jpg"
+  },
+  {
+    "id": "brewing-workshop",
+    "title": "Home Brewing Workshop",
+    "description": "Hands-on workshop for home coffee enthusiasts. Learn to brew better coffee at home using various methods.",
+    "duration": "3 hours",
+    "level": "beginner",
+    "type": "workshop",
+    "price": 75,
+    "image": "https://archerscoffee.com/cdn/shop/files/Brewing_Workshop.jpg"
+  }
+]

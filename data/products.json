@@ -1,0 +1,348 @@
+[
+  {
+    "id": "1",
+    "slug": "finca-sophia-gn-lot-fs83a25",
+    "name": "Panama - Finca Sophia GN Lot FS83A25 Heirloom Collection",
+    "description": "A premium Panamanian coffee with exceptional complexity and depth. Grown in the high-altitude regions of Nueva Suiza, this lot showcases the unique terroir of Finca Sophia.",
+    "price": 156,
+    "images": [
+      "https://images.unsplash.com/photo-1559056199-641a0ac8b55e?w=800&h=800&fit=crop",
+      "https://images.unsplash.com/photo-1517487881594-2787fef5ebf7?w=800&h=800&fit=crop"
+    ],
+    "category": "pour-over",
+    "collection": "heirloom-collection",
+    "origin": "Panama, Nueva Suiza",
+    "process": "Natural",
+    "tastingNotes": [
+      "strawberry",
+      "mango",
+      "orange soda",
+      "peach",
+      "white florals"
+    ],
+    "score": 90,
+    "producer": "Finca Sophia",
+    "inStock": true,
+    "featured": true
+  },
+  {
+    "id": "2",
+    "slug": "finca-sophia-gn-lot-fs9225",
+    "name": "Panama - Finca Sophia GN Lot FS9225 Essence Collection",
+    "description": "Delicate and refined, this coffee represents the essence of Finca Sophia's commitment to quality and sustainability.",
+    "price": 145,
+    "images": [
+      "https://images.unsplash.com/photo-1517487881594-2787fef5ebf7?w=800&h=800&fit=crop"
+    ],
+    "category": "pour-over",
+    "collection": "essence-collection",
+    "origin": "Panama, Nueva Suiza",
+    "process": "Washed",
+    "tastingNotes": [
+      "white florals",
+      "mandarine",
+      "peach",
+      "lanzones",
+      "mango"
+    ],
+    "score": 89,
+    "producer": "Finca Sophia",
+    "inStock": true,
+    "featured": true
+  },
+  {
+    "id": "3",
+    "slug": "best-of-panama-agricola-geisha-la-india",
+    "name": "Best of Panama - Agricola Geisha La India GN - 08",
+    "description": "Award-winning Geisha from Best of Panama 2025. This exceptional lot showcases the pinnacle of Panamanian coffee production.",
+    "price": 425,
+    "images": [
+      "https://images.unsplash.com/photo-1461023058943-07fcbe16d735?w=800&h=800&fit=crop"
+    ],
+    "category": "pour-over",
+    "collection": "best-of-panama",
+    "origin": "Panama",
+    "process": "Natural",
+    "tastingNotes": [
+      "lanzones",
+      "cantaloupe",
+      "white flowers",
+      "peach",
+      "rambutan"
+    ],
+    "score": 92,
+    "producer": "Agricola Geisha La India",
+    "inStock": true,
+    "featured": true
+  },
+  {
+    "id": "4",
+    "slug": "best-of-panama-santamaria-mr-luis",
+    "name": "Best of Panama - Santamaria Coffee Estate Mr. Luis GN - 12",
+    "description": "Elegant and complex, this Best of Panama winner represents the dedication of the Santamaria estate to producing world-class coffee.",
+    "price": 405,
+    "images": [
+      "https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=800&h=800&fit=crop"
+    ],
+    "category": "pour-over",
+    "collection": "best-of-panama",
+    "origin": "Panama",
+    "process": "Washed",
+    "tastingNotes": [
+      "white florals",
+      "rose",
+      "nectarine",
+      "peach",
+      "floral honey"
+    ],
+    "score": 91,
+    "producer": "Santamaria Coffee Estate",
+    "inStock": true,
+    "featured": false
+  },
+  {
+    "id": "5",
+    "slug": "best-of-panama-janson-la-higa",
+    "name": "Best of Panama - Janson Coffee Reserve La Higa GN - 20",
+    "description": "A vibrant and juicy coffee with tropical fruit notes that dance on the palate.",
+    "price": 340,
+    "images": [
+      "https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=800&h=800&fit=crop"
+    ],
+    "category": "pour-over",
+    "collection": "best-of-panama",
+    "origin": "Panama",
+    "process": "Natural",
+    "tastingNotes": [
+      "strawberry",
+      "mango",
+      "lychee",
+      "blueberry",
+      "peach",
+      "mandarine"
+    ],
+    "score": 90,
+    "producer": "Janson Coffee Reserve",
+    "inStock": true,
+    "featured": false
+  },
+  {
+    "id": "6",
+    "slug": "best-of-panama-tierra-blanca-c5",
+    "name": "Best of Panama - Tierra Blanca C5 Geisha Washed - 20",
+    "description": "Clean and bright with classic Geisha characteristics, this washed process coffee highlights the varietal's inherent elegance.",
+    "price": 410,
+    "images": [
+      "https://images.unsplash.com/photo-1511920170033-f8396924c348?w=800&h=800&fit=crop"
+    ],
+    "category": "pour-over",
+    "collection": "best-of-panama",
+    "origin": "Panama",
+    "process": "Washed",
+    "tastingNotes": [
+      "coffee flower",
+      "bergamot",
+      "nectarine",
+      "pear",
+      "white grapes"
+    ],
+    "score": 90,
+    "producer": "Tierra Blanca",
+    "inStock": true,
+    "featured": false
+  },
+  {
+    "id": "7",
+    "slug": "hacienda-la-esmeralda-geisha",
+    "name": "Hacienda La Esmeralda Geisha",
+    "description": "The legendary Hacienda La Esmeralda, where Geisha coffee found its home. Experience the serendipitous excellence that started it all.",
+    "price": 380,
+    "images": [
+      "https://images.unsplash.com/photo-1447933601403-0c6688de566e?w=800&h=800&fit=crop"
+    ],
+    "category": "pour-over",
+    "collection": "ultra-premium",
+    "origin": "Panama, Boquete",
+    "process": "Washed",
+    "tastingNotes": [
+      "tropical fruit",
+      "jasmine",
+      "bergamot",
+      "honey",
+      "citrus"
+    ],
+    "score": 93,
+    "producer": "Hacienda La Esmeralda",
+    "inStock": true,
+    "featured": true
+  },
+  {
+    "id": "8",
+    "slug": "lost-origin-experimental",
+    "name": "Lost Origin Experimental Geisha",
+    "description": "Crafted through an experimental combination of craft beer and artisanal coffee production techniques. Curiosity in every sip.",
+    "price": 295,
+    "images": [
+      "https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=800&h=800&fit=crop"
+    ],
+    "category": "pour-over",
+    "collection": "limited-selection",
+    "origin": "Panama",
+    "process": "Experimental",
+    "tastingNotes": ["stone fruit", "wine-like", "complex", "layered"],
+    "score": 88,
+    "producer": "Lost Origin",
+    "inStock": true,
+    "featured": false
+  },
+  {
+    "id": "9",
+    "slug": "finca-los-cenizos-family-reserve",
+    "name": "Finca Los Cenizos Family Reserve",
+    "description": "A family's love distilled into layered sweetness. This coffee represents three generations of dedication to Panama's terroir.",
+    "price": 220,
+    "images": [
+      "https://images.unsplash.com/photo-1511920170033-f8396924c348?w=800&h=800&fit=crop"
+    ],
+    "category": "pour-over",
+    "collection": "curated-selection",
+    "origin": "Panama",
+    "process": "Honey",
+    "tastingNotes": ["caramel", "chocolate", "nuts", "sweet"],
+    "score": 87,
+    "producer": "Finca Los Cenizos",
+    "inStock": true,
+    "featured": false
+  },
+  {
+    "id": "10",
+    "slug": "mount-totumas-wildlife",
+    "name": "Mount Totumas Wildlife Reserve",
+    "description": "Coffees co-authored by nature. Let the calm of Panama's native wildlife enter your home with every brew.",
+    "price": 195,
+    "images": [
+      "https://images.unsplash.com/photo-1447933601403-0c6688de566e?w=800&h=800&fit=crop"
+    ],
+    "category": "pour-over",
+    "collection": "specialty-selection",
+    "origin": "Panama, Chiriquí",
+    "process": "Natural",
+    "tastingNotes": ["wild berries", "cocoa", "spice", "earthy"],
+    "score": 86,
+    "producer": "Mount Totumas",
+    "inStock": true,
+    "featured": false
+  },
+  {
+    "id": "11",
+    "slug": "adaura-heritage",
+    "name": "Adaura Coffee Heritage",
+    "description": "Three generations of coffee dreams. Fuel up on care, connection, and discovery built on familial love and respect for terroir.",
+    "price": 210,
+    "images": [
+      "https://images.unsplash.com/photo-1559056199-641a0ac8b55e?w=800&h=800&fit=crop"
+    ],
+    "category": "pour-over",
+    "collection": "curated-selection",
+    "origin": "Panama",
+    "process": "Washed",
+    "tastingNotes": ["orange", "honey", "tea-like", "delicate"],
+    "score": 87,
+    "producer": "Adaura Coffee",
+    "inStock": true,
+    "featured": false
+  },
+  {
+    "id": "12",
+    "slug": "cuatro-caminos-estate",
+    "name": "Cuatro Caminos Coffee Estates",
+    "description": "Excellent cups through intentional care. Center yourself with intention and care for both quality and people.",
+    "price": 185,
+    "images": [
+      "https://images.unsplash.com/photo-1517487881594-2787fef5ebf7?w=800&h=800&fit=crop"
+    ],
+    "category": "pour-over",
+    "collection": "specialty-selection",
+    "origin": "Panama",
+    "process": "Washed",
+    "tastingNotes": ["apple", "caramel", "clean", "balanced"],
+    "score": 85,
+    "producer": "Cuatro Caminos",
+    "inStock": true,
+    "featured": false
+  },
+  {
+    "id": "13",
+    "slug": "kotowa-geisha-silvia-marina",
+    "name": "Kotowa Geisha - Silvia Marina",
+    "description": "A dream of mountain life, expressed by Panama Geisha. From Best of Panama 2025 awarded farm.",
+    "price": 365,
+    "images": [
+      "https://images.unsplash.com/photo-1461023058943-07fcbe16d735?w=800&h=800&fit=crop"
+    ],
+    "category": "pour-over",
+    "collection": "best-of-panama",
+    "origin": "Panama, Boquete",
+    "process": "Washed",
+    "tastingNotes": ["jasmine", "peach", "honey", "elegant"],
+    "score": 91,
+    "producer": "Kotowa",
+    "inStock": true,
+    "featured": false
+  },
+  {
+    "id": "14",
+    "slug": "hacienda-copey-itadaki-lot-111",
+    "name": "Hacienda Copey - Itadaki Lot 111",
+    "description": "Two-peat 1st Place Cup of Excellence winner. Delicately sweet, floral, and crisp with a silky mouthfeel.",
+    "price": 320,
+    "images": [
+      "https://images.unsplash.com/photo-1447933601403-0c6688de566e?w=800&h=800&fit=crop"
+    ],
+    "category": "pour-over",
+    "collection": "competition-series",
+    "origin": "Costa Rica, Tarrazu",
+    "process": "Washed",
+    "tastingNotes": ["floral", "sweet", "crisp", "silky"],
+    "score": 94,
+    "producer": "Hacienda Copey",
+    "inStock": true,
+    "featured": true
+  },
+  {
+    "id": "15",
+    "slug": "espresso-blend-classic",
+    "name": "Archers Classic Espresso Blend",
+    "description": "A balanced and versatile espresso blend perfect for milk-based drinks. Rich, chocolatey, and smooth.",
+    "price": 85,
+    "images": [
+      "https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=800&h=800&fit=crop"
+    ],
+    "category": "espresso",
+    "collection": "specialty-selection",
+    "origin": "Blend",
+    "process": "Washed",
+    "tastingNotes": ["chocolate", "caramel", "nuts", "creamy"],
+    "producer": "Archers Coffee",
+    "inStock": true,
+    "featured": false
+  },
+  {
+    "id": "16",
+    "slug": "capsule-box-12",
+    "name": "Archers Coffee Capsules - Box of 12",
+    "description": "High-quality specialty coffee in convenient capsule format. Perfect for quick, delicious cups.",
+    "price": 45,
+    "images": [
+      "https://images.unsplash.com/photo-1511920170033-f8396924c348?w=800&h=800&fit=crop"
+    ],
+    "category": "capsule",
+    "collection": "specialty-selection",
+    "origin": "Blend",
+    "process": "Various",
+    "tastingNotes": ["balanced", "smooth", "versatile"],
+    "producer": "Archers Coffee",
+    "inStock": true,
+    "featured": false
+  }
+]
