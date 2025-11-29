@@ -1,5 +1,41 @@
+"use client";
+
+import { useState } from "react";
 import Link from "next/link";
 import { Facebook, Instagram, Youtube } from "lucide-react";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+
+function NewsletterForm() {
+  const [email, setEmail] = useState("");
+  const [submitted, setSubmitted] = useState(false);
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    // Mock submission
+    setSubmitted(true);
+    setTimeout(() => {
+      setSubmitted(false);
+      setEmail("");
+    }, 3000);
+  };
+
+  return (
+    <form onSubmit={handleSubmit} className="space-y-2">
+      <Input
+        type="email"
+        placeholder="Enter your email"
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
+        required
+        className="text-sm"
+      />
+      <Button type="submit" size="sm" className="w-full" disabled={submitted}>
+        {submitted ? "Subscribed!" : "Subscribe"}
+      </Button>
+    </form>
+  );
+}
 
 export function Footer() {
   const footerLinks = {
@@ -23,7 +59,16 @@ export function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           {/* Brand */}
           <div className="space-y-4">
-            <h3 className="text-xl font-bold">Archers Coffee</h3>
+            <h3
+              className="text-xl"
+              style={{
+                fontFamily: "var(--font-cursive), 'Dancing Script', cursive",
+                fontWeight: 600,
+                letterSpacing: "0.02em",
+              }}
+            >
+              Cophy
+            </h3>
             <p className="text-sm text-muted-foreground">
               Quality. Transparency. Sustainability.
             </p>
@@ -80,27 +125,12 @@ export function Footer() {
             <p className="text-sm text-muted-foreground mb-4">
               Get special offers and updates
             </p>
-            <form className="space-y-2">
-              <input
-                type="email"
-                placeholder="Enter your email"
-                className="w-full px-3 py-2 text-sm border rounded-md"
-              />
-              <button
-                type="submit"
-                className="w-full px-4 py-2 text-sm bg-primary text-primary-foreground rounded-md hover:bg-primary/90"
-              >
-                Subscribe
-              </button>
-            </form>
+            <NewsletterForm />
           </div>
         </div>
 
         <div className="mt-8 pt-8 border-t text-center text-sm text-muted-foreground">
-          <p>
-            &copy; {new Date().getFullYear()} Archers Coffee. All rights
-            reserved.
-          </p>
+          <p>&copy; {new Date().getFullYear()} Cophy. All rights reserved.</p>
         </div>
       </div>
     </footer>

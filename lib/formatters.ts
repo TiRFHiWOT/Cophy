@@ -1,7 +1,7 @@
 export function formatPrice(price: number): string {
-  return new Intl.NumberFormat("en-AE", {
+  return new Intl.NumberFormat("en-ET", {
     style: "currency",
-    currency: "AED",
+    currency: "ETB",
     minimumFractionDigits: 0,
     maximumFractionDigits: 0,
   }).format(price);

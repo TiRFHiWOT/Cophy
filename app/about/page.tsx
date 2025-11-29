@@ -24,21 +24,25 @@ export default function AboutPage() {
   ];
 
   return (
-    <div className="container px-4 py-8">
+    <div className="container px-4 py-12">
       <div className="max-w-4xl mx-auto">
-        <h1 className="text-4xl font-bold mb-4">About Archers Coffee</h1>
-        <p className="text-lg text-muted-foreground mb-12">
-          Quality. Transparency. Sustainability.
-        </p>
+        <div className="text-center mb-12">
+          <h1 className="text-4xl md:text-5xl font-bold mb-4">
+            About Archers Coffee
+          </h1>
+          <p className="text-lg text-muted-foreground">
+            Quality. Transparency. Sustainability.
+          </p>
+        </div>
 
-        <div className="prose max-w-none mb-12">
-          <p className="text-lg leading-relaxed mb-6">
+        <div className="prose prose-lg max-w-none mb-12">
+          <p className="text-lg leading-relaxed mb-6 text-foreground">
             Our coffees are seasonally sourced and delicately roasted to
             showcase the hard work and dedication of our producing partners.
             It's a product of passion and consistency passed down from several
             generations.
           </p>
-          <p className="text-lg leading-relaxed">
+          <p className="text-lg leading-relaxed text-foreground">
             We want to honor that work by interfering as little as possible,
             roasting carefully to bring out diversity of flavors, aromatics, and
             acidities allowing each coffee to tell its own story.

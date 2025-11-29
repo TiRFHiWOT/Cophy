@@ -5,21 +5,22 @@ import { BlogPost } from "@/types";
 import { formatDate } from "@/lib/formatters";
 
 interface BlogPostPageProps {
-  params: {
+  params: Promise<{
     slug: string;
-  };
+  }>;
 }
 
-export default function BlogPostPage({ params }: BlogPostPageProps) {
+export default async function BlogPostPage({ params }: BlogPostPageProps) {
+  const { slug } = await params;
   const posts = blogData as BlogPost[];
-  const post = posts.find((p) => p.slug === params.slug);
+  const post = posts.find((p) => p.slug === slug);
 
   if (!post) {
     notFound();
   }
 
   return (
-    <article className="container px-4 py-8 max-w-4xl mx-auto">
+    <article className="container px-4 py-12 max-w-4xl mx-auto">
       <div className="relative h-96 w-full mb-8 rounded-lg overflow-hidden bg-muted">
         <Image
           src={post.image || "https://via.placeholder.com/1024x400?text=Blog"}

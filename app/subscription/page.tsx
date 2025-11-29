@@ -1,3 +1,6 @@
+"use client";
+
+import { useState } from "react";
 import {
   Card,
   CardContent,
@@ -7,9 +10,17 @@ import {
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { formatPrice } from "@/lib/formatters";
-import { Check } from "lucide-react";
+import { Check, CheckCircle } from "lucide-react";
 
 export default function SubscriptionPage() {
+  const [subscribedPlan, setSubscribedPlan] = useState<string | null>(null);
+
+  const handleSubscribe = (planId: string) => {
+    // Mock subscription
+    setSubscribedPlan(planId);
+    // In a real app, this would make an API call
+  };
+
   const plans = [
     {
       id: "casual",
@@ -33,9 +44,9 @@ export default function SubscriptionPage() {
   ];
 
   return (
-    <div className="container px-4 py-8">
+    <div className="container px-4 py-12">
       <div className="max-w-4xl mx-auto text-center mb-12">
-        <h1 className="text-4xl font-bold mb-4">Subscription</h1>
+        <h1 className="text-4xl md:text-5xl font-bold mb-4">Subscription</h1>
         <p className="text-lg text-muted-foreground">
           Never run out of your favorite coffee. Choose a subscription plan that
           fits your lifestyle.
@@ -66,9 +77,20 @@ export default function SubscriptionPage() {
               </ul>
             </CardContent>
             <CardFooter>
-              <Button className="w-full" size="lg">
-                Subscribe Now
-              </Button>
+              {subscribedPlan === plan.id ? (
+                <Button className="w-full" size="lg" variant="outline" disabled>
+                  <CheckCircle className="mr-2 h-5 w-5" />
+                  Subscribed
+                </Button>
+              ) : (
+                <Button
+                  className="w-full"
+                  size="lg"
+                  onClick={() => handleSubscribe(plan.id)}
+                >
+                  Subscribe Now
+                </Button>
+              )}
             </CardFooter>
           </Card>
         ))}

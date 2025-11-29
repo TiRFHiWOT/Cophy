@@ -4,21 +4,22 @@ import productsData from "@/data/products.json";
 import { Product } from "@/types";
 
 interface ProductPageProps {
-  params: {
+  params: Promise<{
     slug: string;
-  };
+  }>;
 }
 
-export default function ProductPage({ params }: ProductPageProps) {
+export default async function ProductPage({ params }: ProductPageProps) {
+  const { slug } = await params;
   const products = productsData as Product[];
-  const product = products.find((p) => p.slug === params.slug);
+  const product = products.find((p) => p.slug === slug);
 
   if (!product) {
     notFound();
   }
 
   return (
-    <div className="container px-4 py-8">
+    <div className="container px-4 py-12">
       <ProductDetail product={product} />
     </div>
   );

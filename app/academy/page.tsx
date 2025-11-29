@@ -1,3 +1,6 @@
+"use client";
+
+import { useState } from "react";
 import Image from "next/image";
 import {
   Card,
@@ -10,14 +13,24 @@ import { Button } from "@/components/ui/button";
 import academyData from "@/data/academy.json";
 import { AcademyCourse } from "@/types";
 import { formatPrice } from "@/lib/formatters";
+import { CheckCircle } from "lucide-react";
 
 export default function AcademyPage() {
   const courses = academyData as AcademyCourse[];
+  const [enrolledCourses, setEnrolledCourses] = useState<Set<string>>(
+    new Set()
+  );
+
+  const handleEnroll = (courseId: string) => {
+    // Mock enrollment
+    setEnrolledCourses((prev) => new Set(prev).add(courseId));
+    // In a real app, this would make an API call
+  };
 
   return (
-    <div className="container px-4 py-8">
+    <div className="container px-4 py-12">
       <div className="mb-12 text-center">
-        <h1 className="text-4xl font-bold mb-4">Coffee Academy</h1>
+        <h1 className="text-4xl md:text-5xl font-bold mb-4">Coffee Academy</h1>
         <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
           As a CQI and SCA-certified campus, Archers Academy delivers learning
           programs that meet global standards, in an environment customized for
@@ -69,7 +82,19 @@ export default function AcademyPage() {
               </div>
             </CardContent>
             <CardFooter>
-              <Button className="w-full">Enroll Now</Button>
+              {enrolledCourses.has(course.id) ? (
+                <Button className="w-full" variant="outline" disabled>
+                  <CheckCircle className="mr-2 h-4 w-4" />
+                  Enrolled
+                </Button>
+              ) : (
+                <Button
+                  className="w-full"
+                  onClick={() => handleEnroll(course.id)}
+                >
+                  Enroll Now
+                </Button>
+              )}
             </CardFooter>
           </Card>
         ))}

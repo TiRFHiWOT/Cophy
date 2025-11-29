@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Geist, Geist_Mono, Dancing_Script } from "next/font/google";
 import "./globals.css";
 import { CartProvider } from "@/context/CartContext";
 import { UIProvider } from "@/context/UIContext";
@@ -16,8 +16,14 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+const dancingScript = Dancing_Script({
+  variable: "--font-cursive",
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+});
+
 export const metadata: Metadata = {
-  title: "Archers Coffee - Premium Specialty Coffee",
+  title: "Cophy - Premium Specialty Coffee",
   description:
     "Quality. Transparency. Sustainability. Discover exceptional Panamanian coffees and specialty selections.",
 };
@@ -30,7 +36,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} ${dancingScript.variable} antialiased`}
       >
         <CartProvider>
           <UIProvider>

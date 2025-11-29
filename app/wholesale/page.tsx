@@ -1,16 +1,25 @@
+"use client";
+
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Coffee, Package, Users } from "lucide-react";
+import { Coffee, Package, Users, Mail } from "lucide-react";
 
 export default function WholesalePage() {
+  const handleContact = () => {
+    // Mock contact action - in a real app, this would open a form or email
+    window.location.href = "mailto:wholesale@archerscoffee.com";
+  };
+
   return (
-    <div className="container px-4 py-8">
+    <div className="container px-4 py-12">
       <div className="max-w-4xl mx-auto">
-        <h1 className="text-4xl font-bold mb-4">Wholesale</h1>
-        <p className="text-lg text-muted-foreground mb-12">
-          Partner with Archers Coffee to bring exceptional specialty coffee to
-          your business.
-        </p>
+        <div className="text-center mb-12">
+          <h1 className="text-4xl md:text-5xl font-bold mb-4">Wholesale</h1>
+          <p className="text-lg text-muted-foreground">
+            Partner with Archers Coffee to bring exceptional specialty coffee to
+            your business.
+          </p>
+        </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
           <Card>
@@ -50,7 +59,10 @@ export default function WholesalePage() {
               Contact us to discuss wholesale pricing and partnership
               opportunities.
             </p>
-            <Button size="lg">Contact Wholesale Team</Button>
+            <Button size="lg" onClick={handleContact}>
+              <Mail className="mr-2 h-5 w-5" />
+              Contact Wholesale Team
+            </Button>
           </CardContent>
         </Card>
       </div>

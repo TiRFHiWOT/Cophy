@@ -81,9 +81,13 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
       removeItem(productId);
       return;
     }
+    // Validate quantity (max 99 per item)
+    const validatedQuantity = Math.min(Math.max(1, Math.floor(quantity)), 99);
     setItems((prev) =>
       prev.map((item) =>
-        item.product.id === productId ? { ...item, quantity } : item
+        item.product.id === productId
+          ? { ...item, quantity: validatedQuantity }
+          : item
       )
     );
   };
