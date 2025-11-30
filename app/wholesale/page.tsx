@@ -7,7 +7,7 @@ import { Coffee, Package, Users, Mail } from "lucide-react";
 export default function WholesalePage() {
   const handleContact = () => {
     // Mock contact action - in a real app, this would open a form or email
-    window.location.href = "mailto:wholesale@archerscoffee.com";
+    window.location.href = "mailto:wholesale@cophy.com";
   };
 
   return (
@@ -16,8 +16,8 @@ export default function WholesalePage() {
         <div className="text-center mb-12">
           <h1 className="text-4xl md:text-5xl font-bold mb-4">Wholesale</h1>
           <p className="text-lg text-muted-foreground">
-            Partner with Archers Coffee to bring exceptional specialty coffee to
-            your business.
+            Partner with Cophy to bring exceptional specialty coffee to your
+            business.
           </p>
         </div>
 

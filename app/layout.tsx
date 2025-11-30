@@ -23,9 +23,45 @@ const dancingScript = Dancing_Script({
 });
 
 export const metadata: Metadata = {
-  title: "Cophy - Premium Specialty Coffee",
+  title: {
+    default: "Cophy - Premium Specialty Coffee",
+    template: "%s | Cophy",
+  },
   description:
-    "Quality. Transparency. Sustainability. Discover exceptional Panamanian coffees and specialty selections.",
+    "Quality. Transparency. Sustainability. Discover exceptional Panamanian coffees and specialty selections. Cophy brings you the finest specialty coffee from farm to cup.",
+  keywords: [
+    "specialty coffee",
+    "premium coffee",
+    "Panamanian coffee",
+    "coffee beans",
+    "artisan coffee",
+    "Cophy",
+  ],
+  authors: [{ name: "Cophy" }],
+  creator: "Cophy",
+  publisher: "Cophy",
+  openGraph: {
+    type: "website",
+    locale: "en_US",
+    url: "https://cophy.com",
+    siteName: "Cophy",
+    title: "Cophy - Premium Specialty Coffee",
+    description:
+      "Quality. Transparency. Sustainability. Discover exceptional Panamanian coffees and specialty selections.",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Cophy - Premium Specialty Coffee",
+    description:
+      "Quality. Transparency. Sustainability. Discover exceptional Panamanian coffees and specialty selections.",
+  },
+  icons: {
+    icon: [
+      { url: "/icon.svg", type: "image/svg+xml" },
+      { url: "/favicon.ico", sizes: "any" },
+    ],
+    apple: "/icon.svg",
+  },
 };
 
 export default function RootLayout({

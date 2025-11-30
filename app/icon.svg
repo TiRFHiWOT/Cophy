@@ -1,0 +1,12 @@
+<svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Coffee Bean Shape -->
+  <ellipse cx="16" cy="16" rx="12" ry="16" fill="hsl(25, 95%, 53%)"/>
+  <!-- Bean Crease -->
+  <path d="M16 4 Q10 8 8 14 Q7 18 8 22 Q9 26 11 28 Q13 30 16 31 Q19 30 21 28 Q23 26 24 22 Q25 18 24 14 Q22 8 16 4 Z" fill="hsl(25, 90%, 48%)" opacity="0.5"/>
+  <!-- Inner Detail -->
+  <path d="M16 8 Q12 10 11 14 Q10 17 11 20 Q12 23 14 24 Q15 25 16 25.5 Q17 25 18 24 Q20 23 21 20 Q22 17 21 14 Q20 10 16 8 Z" fill="hsl(25, 85%, 45%)" opacity="0.4"/>
+  <!-- Highlight -->
+  <ellipse cx="13" cy="14" rx="3" ry="5" fill="hsl(25, 95%, 70%)" opacity="0.5"/>
+</svg>
+
+

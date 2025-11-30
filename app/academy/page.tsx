@@ -32,7 +32,7 @@ export default function AcademyPage() {
       <div className="mb-12 text-center">
         <h1 className="text-4xl md:text-5xl font-bold mb-4">Coffee Academy</h1>
         <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-          As a CQI and SCA-certified campus, Archers Academy delivers learning
+          As a CQI and SCA-certified campus, Cophy Academy delivers learning
           programs that meet global standards, in an environment customized for
           coffee education.
         </p>
