@@ -50,11 +50,6 @@ export default function AcademyPage() {
                 fill
                 className="object-cover"
                 sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                onError={(e) => {
-                  const target = e.target as HTMLImageElement;
-                  target.src =
-                    "https://via.placeholder.com/400x200?text=Course";
-                }}
               />
             </div>
             <CardHeader>

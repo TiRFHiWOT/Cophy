@@ -3,6 +3,9 @@
 @layer base {
   :root {
     --container-max-width: 1440px;
+    --topbar-height: 36px;
+    --header-height: 64px;
+    --header-height-md: 112px;
     /* Warm coffee-inspired theme colors */
     --background: 30 20% 97%; /* #FAF8F5 - Light cream */
     --foreground: 222.2 84% 4.9%; /* Dark brown text */
@@ -28,6 +31,8 @@
     --input: 30 15% 92%; /* Cream input background */
     --ring: 25 95% 53%; /* Primary color for focus rings */
     --radius: 0.5rem;
+    /* Dark green for sections - complements coffee browns */
+    --dark-green: 135 35% 20%; /* #2d5016 - Dark forest green with brown undertones */
   }
 
   .dark {
@@ -64,6 +69,7 @@
   body {
     background-color: hsl(var(--background));
     color: hsl(var(--foreground));
+    font-family: var(--font-sans), system-ui, -apple-system, sans-serif;
   }
 }
 
@@ -98,11 +104,50 @@
     }
   }
 
+  @keyframes scrollLeft {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-33.333%);
+    }
+  }
+
   .animate-slide-in {
     animation: slideInFromTop 0.3s ease-out forwards;
   }
 
   .animate-fade-in {
     animation: fadeIn 0.3s ease-out forwards;
+  }
+
+  @keyframes scrollPartners {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(calc(-250px * 8));
+    }
+  }
+
+  @media (max-width: 768px) {
+    .animate-scroll-left {
+      animation: scrollLeft 10s linear infinite;
+    }
+
+    @keyframes scrollPartners {
+      from {
+        transform: translateX(0);
+      }
+      to {
+        transform: translateX(calc(-200px * 8));
+      }
+    }
+  }
+
+  .animate-scroll-partners {
+    animation: scrollPartners 20s linear infinite;
+    display: flex;
+    will-change: transform;
   }
 }

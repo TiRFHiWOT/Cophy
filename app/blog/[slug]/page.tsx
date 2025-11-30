@@ -29,10 +29,6 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
           className="object-cover"
           sizes="(max-width: 1024px) 100vw, 1024px"
           priority
-          onError={(e) => {
-            const target = e.target as HTMLImageElement;
-            target.src = "https://via.placeholder.com/1024x400?text=Blog";
-          }}
         />
       </div>
       <div className="mb-4">

@@ -366,11 +366,6 @@ export default function CheckoutPage() {
                         className="object-cover"
                         sizes="64px"
                         unoptimized
-                        onError={(e) => {
-                          const target = e.target as HTMLImageElement;
-                          target.src =
-                            "https://via.placeholder.com/64x64?text=Coffee";
-                        }}
                       />
                     </div>
                     <div className="flex-1 min-w-0">

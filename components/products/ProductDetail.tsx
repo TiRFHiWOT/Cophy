@@ -73,10 +73,6 @@ export function ProductDetail({ product }: ProductDetailProps) {
               className="object-cover transition-transform duration-500 hover:scale-105"
               sizes="(max-width: 1024px) 100vw, 50vw"
               priority
-              onError={(e) => {
-                const target = e.target as HTMLImageElement;
-                target.src = "https://via.placeholder.com/600x600?text=Coffee";
-              }}
             />
             {product.featured && (
               <div className="absolute top-4 left-4 bg-primary text-white px-3 py-1.5 rounded-full text-xs font-bold shadow-lg border-2 border-white/20">
@@ -113,11 +109,6 @@ export function ProductDetail({ product }: ProductDetailProps) {
                     fill
                     className="object-cover"
                     sizes="(max-width: 1024px) 25vw, 12.5vw"
-                    onError={(e) => {
-                      const target = e.target as HTMLImageElement;
-                      target.src =
-                        "https://via.placeholder.com/150x150?text=Coffee";
-                    }}
                   />
                 </button>
               ))}

@@ -34,10 +34,6 @@ export function CartItem({ item }: CartItemProps) {
             className="object-cover"
             sizes="(max-width: 768px) 96px, 128px"
             unoptimized
-            onError={(e) => {
-              const target = e.target as HTMLImageElement;
-              target.src = "https://via.placeholder.com/128x128?text=Coffee";
-            }}
           />
         </Link>
         <div className="flex-1 min-w-0 flex flex-col">
