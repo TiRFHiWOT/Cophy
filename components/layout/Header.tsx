@@ -1,23 +1,38 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname } from "next/navigation";
-import { ShoppingCart, Search, User, X } from "lucide-react";
+import Image from "next/image";
+import { usePathname, useRouter } from "next/navigation";
+import { ShoppingCart, Search, User, X, AlertCircle } from "lucide-react";
 import { useCart } from "@/context/CartContext";
 import { useUI } from "@/context/UIContext";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
 import { Logo } from "./Logo";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useMemo } from "react";
+import productsData from "@/data/products.json";
+import { Product } from "@/types";
 
 export function Header() {
   const { getItemCount } = useCart();
-  const { mobileMenuOpen, toggleMobileMenu, setMobileMenuOpen } = useUI();
+  const {
+    mobileMenuOpen,
+    toggleMobileMenu,
+    setMobileMenuOpen,
+    searchOpen,
+    setSearchOpen,
+    toggleSearch,
+    searchQuery,
+    setSearchQuery,
+  } = useUI();
   const pathname = usePathname();
+  const router = useRouter();
   const itemCount = getItemCount();
   const mobileMenuRef = useRef<HTMLDivElement>(null);
-  const [isScrolled, setIsScrolled] = useState(false);
+  const searchInputRef = useRef<HTMLInputElement>(null);
+  const searchOverlayRef = useRef<HTMLDivElement>(null);
+  const allProducts = productsData as Product[];
 
   const navLinks = [
     { href: "/products", label: "OUR COFFEE", hasSubmenu: true },
@@ -25,10 +40,7 @@ export function Header() {
     { href: "/blog", label: "BLOG", hasSubmenu: false },
     { href: "/about", label: "ABOUT US", hasSubmenu: false },
   ];
-
-  const [searchQuery, setSearchQuery] = useState("");
   const [scrollOffset, setScrollOffset] = useState(0);
-  const [isAtTop, setIsAtTop] = useState(true);
   const [topbarHeight, setTopbarHeight] = useState(36);
   const [currentScrollTop, setCurrentScrollTop] = useState(0);
   const lastScrollY = useRef(0);
@@ -95,12 +107,9 @@ export function Header() {
       const scrollTop = window.scrollY || document.documentElement.scrollTop;
       const scrollDelta = scrollTop - lastScrollY.current;
 
-      setIsScrolled(scrollTop > 0);
       setCurrentScrollTop(scrollTop);
 
       // Check if we're at the very top - topbar should ONLY show at scrollTop === 0
-      const isAtTopPosition = scrollTop <= 0;
-      setIsAtTop(isAtTopPosition);
 
       // Calculate total height to hide - always use header + topbar for max height
       // This ensures complete hide regardless of topbar visibility
@@ -160,8 +169,92 @@ export function Header() {
   // Hide immediately on any scroll, but with smooth transition
   const currentTopbarHeight = currentScrollTop === 0 ? topbarHeight : 0;
 
+  // Filter products based on search query
+  const searchResults = useMemo(() => {
+    if (!searchQuery.trim()) return [];
+    const query = searchQuery.toLowerCase().trim();
+    return allProducts.filter((product) => {
+      const searchableText = [
+        product.name,
+        product.description,
+        product.origin,
+        product.process,
+        product.producer,
+        ...product.tastingNotes,
+      ]
+        .join(" ")
+        .toLowerCase();
+      return searchableText.includes(query);
+    });
+  }, [searchQuery, allProducts]);
+
+  // Focus search input when search opens
+  useEffect(() => {
+    if (searchOpen && searchInputRef.current) {
+      searchInputRef.current.focus();
+    }
+  }, [searchOpen]);
+
+  // Prevent body scroll when search is open
+  useEffect(() => {
+    if (searchOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "unset";
+    }
+    return () => {
+      document.body.style.overflow = "unset";
+    };
+  }, [searchOpen]);
+
+  // Handle search input keydown
+  const handleSearchKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter" && searchQuery.trim()) {
+      router.push(`/search?q=${encodeURIComponent(searchQuery.trim())}`);
+      setSearchOpen(false);
+      setSearchQuery("");
+    } else if (e.key === "Escape") {
+      setSearchOpen(false);
+      setSearchQuery("");
+    }
+  };
+
+  // Close search when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        searchOpen &&
+        searchOverlayRef.current &&
+        !searchOverlayRef.current.contains(event.target as Node) &&
+        !(event.target as HTMLElement).closest("button[aria-label='Search']")
+      ) {
+        setSearchOpen(false);
+        setSearchQuery("");
+      }
+    };
+
+    if (searchOpen) {
+      document.addEventListener("mousedown", handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [searchOpen, setSearchOpen, setSearchQuery]);
+
   return (
     <>
+      {/* Search Backdrop - Desktop */}
+      {searchOpen && (
+        <div
+          className="hidden lg:block fixed inset-0 bg-black/20 backdrop-blur-sm z-[100] transition-opacity duration-300"
+          onClick={() => {
+            setSearchOpen(false);
+            setSearchQuery("");
+          }}
+          aria-hidden="true"
+        />
+      )}
       {/* Mobile Menu Backdrop - Outside header container */}
       {mobileMenuOpen && (
         <div
@@ -171,7 +264,7 @@ export function Header() {
         />
       )}
       <div
-        className="fixed top-0 left-0 right-0 z-60 w-full"
+        className="fixed top-0 left-0 right-0 z-50 w-full"
         style={{
           transform: `translateY(-${Math.max(scrollOffset, 0)}px)`,
           transition: "transform 0.2s ease-out",
@@ -307,6 +400,7 @@ export function Header() {
                 size="icon"
                 className="hidden lg:flex h-10 w-10 transition-all duration-300 hover:bg-primary/10 hover:scale-110"
                 aria-label="Search"
+                onClick={toggleSearch}
               >
                 <Search className="h-5 w-5" />
               </Button>
@@ -452,6 +546,196 @@ export function Header() {
             </div>
           </div>
         </header>
+      </div>
+
+      {/* Desktop Search Overlay - Outside header container for proper z-index */}
+      <div
+        ref={searchOverlayRef}
+        className={cn(
+          "hidden lg:block fixed top-0 left-0 right-0 bg-gradient-to-b from-[#F5F1EB] via-[#F5F1EB]/98 to-[#F5F1EB]/95 backdrop-blur-lg border-b border-gray-200/50 shadow-2xl z-[101] transition-all duration-500 ease-out overflow-hidden",
+          searchOpen
+            ? "max-h-screen opacity-100 translate-y-0"
+            : "max-h-0 opacity-0 -translate-y-8 pointer-events-none"
+        )}
+        style={{
+          maxHeight: searchOpen ? "100vh" : "0",
+          paddingTop: searchOpen
+            ? `${headerHeight + currentTopbarHeight}px`
+            : "0",
+        }}
+        onClick={(e) => {
+          // Prevent clicks inside the overlay from closing it
+          e.stopPropagation();
+        }}
+      >
+        <div className="container px-4 md:px-6 py-8">
+          {/* Search Input */}
+          <div className="relative mb-6 max-w-3xl mx-auto">
+            <div className="absolute left-5 top-1/2 -translate-y-1/2 text-gray-500 z-10">
+              <Search className="h-6 w-6" />
+            </div>
+            <Input
+              ref={searchInputRef}
+              type="text"
+              placeholder="Search for coffee, origin, tasting notes..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              onKeyDown={handleSearchKeyDown}
+              className={cn(
+                "w-full pl-14 h-16 text-xl border border-gray-300 focus-visible:ring-0 focus-visible:outline-none rounded-xl bg-white/90 backdrop-blur-sm transition-all duration-200 placeholder:text-gray-400",
+                searchQuery ? "pr-12" : "pr-14"
+              )}
+            />
+            {searchQuery && (
+              <button
+                onClick={() => {
+                  setSearchQuery("");
+                  searchInputRef.current?.focus();
+                }}
+                className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-700 hover:bg-gray-100 rounded-full p-1.5 transition-all duration-200 z-20"
+                aria-label="Clear search"
+              >
+                <X className="h-5 w-5" />
+              </button>
+            )}
+          </div>
+
+          {/* Search Results */}
+          {searchQuery.trim() && (
+            <div className="max-h-[calc(100vh-280px)] overflow-y-auto max-w-5xl mx-auto">
+              {searchResults.length > 0 ? (
+                <div className="space-y-6">
+                  <div className="flex items-center justify-between">
+                    <div className="text-sm font-semibold text-gray-700 uppercase tracking-wider">
+                      Products ({searchResults.length})
+                    </div>
+                    {searchResults.length > 10 && (
+                      <button
+                        onClick={() => {
+                          router.push(
+                            `/search?q=${encodeURIComponent(
+                              searchQuery.trim()
+                            )}`
+                          );
+                          setSearchOpen(false);
+                          setSearchQuery("");
+                        }}
+                        className="text-sm text-primary hover:text-primary/80 font-medium transition-colors"
+                      >
+                        View all results →
+                      </button>
+                    )}
+                  </div>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                    {searchResults.slice(0, 10).map((product, index) => {
+                      // Highlight matching text
+                      const highlightText = (text: string, query: string) => {
+                        const parts = text.split(
+                          new RegExp(`(${query})`, "gi")
+                        );
+                        return parts.map((part, i) =>
+                          part.toLowerCase() === query.toLowerCase() ? (
+                            <mark
+                              key={i}
+                              className="bg-primary/20 text-primary font-semibold px-0.5 rounded"
+                            >
+                              {part}
+                            </mark>
+                          ) : (
+                            part
+                          )
+                        );
+                      };
+
+                      return (
+                        <Link
+                          key={product.id}
+                          href={`/products/${product.slug}`}
+                          onClick={() => {
+                            setSearchOpen(false);
+                            setSearchQuery("");
+                          }}
+                          className="flex items-center gap-4 p-4 rounded-xl hover:bg-white/90 hover:shadow-md transition-all duration-200 group border border-transparent hover:border-gray-200"
+                          style={{
+                            animation: searchOpen
+                              ? `fadeInUp 0.3s ease-out ${index * 0.05}s both`
+                              : "none",
+                          }}
+                        >
+                          <div className="relative w-20 h-20 shrink-0 rounded-lg overflow-hidden bg-gray-100 shadow-sm group-hover:shadow-md transition-shadow">
+                            {product.images[0] && (
+                              <Image
+                                src={product.images[0]}
+                                alt={product.name}
+                                width={80}
+                                height={80}
+                                className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+                              />
+                            )}
+                            {product.featured && (
+                              <div className="absolute top-1 right-1 bg-primary text-white text-[10px] font-bold px-1.5 py-0.5 rounded shadow-sm">
+                                FEATURED
+                              </div>
+                            )}
+                          </div>
+                          <div className="flex-1 min-w-0">
+                            <h3 className="font-semibold text-gray-900 group-hover:text-primary transition-colors line-clamp-2 mb-1">
+                              {highlightText(product.name, searchQuery)}
+                            </h3>
+                            <p className="text-xs text-gray-500 mb-2 line-clamp-1">
+                              {product.origin}
+                            </p>
+                            <div className="flex items-center justify-between">
+                              <p className="text-base font-bold text-primary">
+                                From ${product.price.toFixed(2)}
+                              </p>
+                              {product.score && (
+                                <div className="flex items-center gap-1 bg-gray-100 px-2 py-0.5 rounded-full">
+                                  <span className="text-xs font-semibold text-gray-700">
+                                    ⭐ {product.score}
+                                  </span>
+                                </div>
+                              )}
+                            </div>
+                          </div>
+                        </Link>
+                      );
+                    })}
+                  </div>
+                </div>
+              ) : (
+                <div className="text-center py-16">
+                  <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-gray-100 mb-4">
+                    <AlertCircle className="h-8 w-8 text-gray-400" />
+                  </div>
+                  <p className="text-lg font-medium text-gray-700 mb-2">
+                    No products found for &quot;
+                    <span className="font-semibold">{searchQuery}</span>
+                    &quot;
+                  </p>
+                  <p className="text-sm text-gray-500">
+                    Try searching with different terms
+                  </p>
+                </div>
+              )}
+            </div>
+          )}
+
+          {/* Empty State - No search query */}
+          {!searchQuery.trim() && (
+            <div className="text-center py-12 max-w-2xl mx-auto">
+              <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-white/50 mb-6 shadow-inner">
+                <Search className="h-10 w-10 text-gray-400" />
+              </div>
+              <p className="text-lg font-medium text-gray-700 mb-2">
+                Start typing to search
+              </p>
+              <p className="text-sm text-gray-500">
+                Search by coffee name, origin, tasting notes, or producer
+              </p>
+            </div>
+          )}
+        </div>
       </div>
     </>
   );
