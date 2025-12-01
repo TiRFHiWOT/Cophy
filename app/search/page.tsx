@@ -29,9 +29,9 @@ function SearchPage() {
   const allProducts = productsData as Product[];
   const [sortBy, setSortBy] = useState<SortOption>("alphabetical");
   const [showFilters, setShowFilters] = useState(true);
-  const [selectedCountries, setSelectedCountries] = useState<string[]>([]);
-  const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
-  const [selectedProcesses, setSelectedProcesses] = useState<string[]>([]);
+  const [selectedCountry, setSelectedCountry] = useState<string | null>(null);
+  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
+  const [selectedProcess, setSelectedProcess] = useState<string | null>(null);
   const [priceRange, setPriceRange] = useState<[number, number]>([0, 1000]);
 
   // Update search query when URL changes
@@ -72,23 +72,23 @@ function SearchPage() {
   const filteredProducts = useMemo(() => {
     return searchedProducts.filter((product) => {
       // Country filter
-      if (selectedCountries.length > 0) {
+      if (selectedCountry) {
         const productCountry = product.origin.split(",")[0].trim();
-        if (!selectedCountries.includes(productCountry)) {
+        if (productCountry !== selectedCountry) {
           return false;
         }
       }
 
       // Category filter
-      if (selectedCategories.length > 0) {
-        if (!selectedCategories.includes(product.category)) {
+      if (selectedCategory) {
+        if (product.category !== selectedCategory) {
           return false;
         }
       }
 
       // Process filter
-      if (selectedProcesses.length > 0) {
-        if (!selectedProcesses.includes(product.process)) {
+      if (selectedProcess) {
+        if (product.process !== selectedProcess) {
           return false;
         }
       }
@@ -102,9 +102,9 @@ function SearchPage() {
     });
   }, [
     searchedProducts,
-    selectedCountries,
-    selectedCategories,
-    selectedProcesses,
+    selectedCountry,
+    selectedCategory,
+    selectedProcess,
     priceRange,
   ]);
 
@@ -138,28 +138,16 @@ function SearchPage() {
     });
   }, [filteredProducts, sortBy]);
 
-  const handleCountryChange = (country: string) => {
-    setSelectedCountries((prev) =>
-      prev.includes(country)
-        ? prev.filter((c) => c !== country)
-        : [...prev, country]
-    );
+  const handleCountryChange = (country: string | null) => {
+    setSelectedCountry(country);
   };
 
-  const handleCategoryChange = (category: string) => {
-    setSelectedCategories((prev) =>
-      prev.includes(category)
-        ? prev.filter((c) => c !== category)
-        : [...prev, category]
-    );
+  const handleCategoryChange = (category: string | null) => {
+    setSelectedCategory(category);
   };
 
-  const handleProcessChange = (process: string) => {
-    setSelectedProcesses((prev) =>
-      prev.includes(process)
-        ? prev.filter((p) => p !== process)
-        : [...prev, process]
-    );
+  const handleProcessChange = (process: string | null) => {
+    setSelectedProcess(process);
   };
 
   const handleSearchSubmit = (e: React.FormEvent) => {
@@ -251,12 +239,13 @@ function SearchPage() {
         <FilterSidebar
           isOpen={showFilters}
           products={searchedProducts}
-          selectedCountries={selectedCountries}
-          selectedCategories={selectedCategories}
-          selectedProcesses={selectedProcesses}
+          selectedCountry={selectedCountry}
+          selectedCategory={selectedCategory}
+          selectedProcess={selectedProcess}
           onCountryChange={handleCountryChange}
           onCategoryChange={handleCategoryChange}
           onProcessChange={handleProcessChange}
+          onClose={() => setShowFilters(false)}
         />
         <div className="flex-1">
           {sortedProducts.length > 0 ? (
