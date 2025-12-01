@@ -451,16 +451,9 @@ export function Header() {
           >
             <div className="flex flex-col flex-1 px-4 py-6">
               {/* Mobile Menu Header */}
-              <div className="flex items-center justify-end mb-6">
+              <div className="flex items-center justify-between mb-6 pl-2">
                 {/* User Icon - Left Side */}
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  className="h-8 w-8 hidden"
-                  aria-label="Account"
-                >
-                  <User className="h-5 w-5 text-foreground" />
-                </Button>
+                <Logo />
 
                 {/* Right Side - Close Button */}
                 <Button
