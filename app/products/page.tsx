@@ -5,7 +5,7 @@ import { ProductCard } from "@/components/products/ProductCard";
 import { FilterSidebar } from "@/components/products/FilterSidebar";
 import { SortDropdown } from "@/components/products/SortDropdown";
 import { Button } from "@/components/ui/button";
-import { Filter, Grid2x2, Grid3x3, Square } from "lucide-react";
+import { Filter, Grid2x2, Grid3x3 } from "lucide-react";
 import productsData from "@/data/products.json";
 import { Product } from "@/types";
 
@@ -25,38 +25,38 @@ function ProductsPage() {
   const [sortBy, setSortBy] = useState<SortOption>("alphabetical");
   const [gridSize, setGridSize] = useState<GridSize>(3);
   const [showFilters, setShowFilters] = useState(false);
-  const [selectedCountries, setSelectedCountries] = useState<string[]>([]);
-  const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
-  const [selectedProcesses, setSelectedProcesses] = useState<string[]>([]);
+  const [selectedCountry, setSelectedCountry] = useState<string | null>(null);
+  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
+  const [selectedProcess, setSelectedProcess] = useState<string | null>(null);
 
   // Filter products
   const filteredProducts = useMemo(() => {
     return allProducts.filter((product) => {
       // Country filter
-      if (selectedCountries.length > 0) {
+      if (selectedCountry) {
         const productCountry = product.origin.split(",")[0].trim();
-        if (!selectedCountries.includes(productCountry)) {
+        if (productCountry !== selectedCountry) {
           return false;
         }
       }
 
       // Category filter
-      if (selectedCategories.length > 0) {
-        if (!selectedCategories.includes(product.category)) {
+      if (selectedCategory) {
+        if (product.category !== selectedCategory) {
           return false;
         }
       }
 
       // Process filter
-      if (selectedProcesses.length > 0) {
-        if (!selectedProcesses.includes(product.process)) {
+      if (selectedProcess) {
+        if (product.process !== selectedProcess) {
           return false;
         }
       }
 
       return true;
     });
-  }, [allProducts, selectedCountries, selectedCategories, selectedProcesses]);
+  }, [allProducts, selectedCountry, selectedCategory, selectedProcess]);
 
   // Sort products
   const sortedProducts = useMemo(() => {
@@ -91,28 +91,16 @@ function ProductsPage() {
     });
   }, [filteredProducts, sortBy]);
 
-  const handleCountryChange = (country: string) => {
-    setSelectedCountries((prev) =>
-      prev.includes(country)
-        ? prev.filter((c) => c !== country)
-        : [...prev, country]
-    );
+  const handleCountryChange = (country: string | null) => {
+    setSelectedCountry(country);
   };
 
-  const handleCategoryChange = (category: string) => {
-    setSelectedCategories((prev) =>
-      prev.includes(category)
-        ? prev.filter((c) => c !== category)
-        : [...prev, category]
-    );
+  const handleCategoryChange = (category: string | null) => {
+    setSelectedCategory(category);
   };
 
-  const handleProcessChange = (process: string) => {
-    setSelectedProcesses((prev) =>
-      prev.includes(process)
-        ? prev.filter((p) => p !== process)
-        : [...prev, process]
-    );
+  const handleProcessChange = (process: string | null) => {
+    setSelectedProcess(process);
   };
 
   const gridCols = {
@@ -153,49 +141,70 @@ function ProductsPage() {
         </div>
 
         {/* Filter and Sort Bar */}
-        <div className="flex flex-wrap items-center gap-4 py-4 border-y border-gray-200">
-          {/* Filter Button */}
-          <Button
-            variant="outline"
-            onClick={() => setShowFilters(!showFilters)}
-            className="flex items-center gap-2"
-          >
-            <Filter className="h-4 w-4" />
-            {showFilters ? "HIDE FILTERS" : "FILTER"}
-          </Button>
+        <div className="flex items-center py-4 border-y border-gray-200">
+          {/* Mobile: Filter and Sort side by side on left */}
+          <div className="flex items-center lg:hidden">
+            <Button
+              variant="outline"
+              onClick={() => setShowFilters(!showFilters)}
+              className="flex items-center gap-2 rounded-none border-0 border-r border-gray-200 px-4 py-2 h-auto bg-transparent hover:bg-gray-50"
+            >
+              <Filter className="h-4 w-4" />
+              FILTER
+            </Button>
+            <div className="border-r border-gray-200 h-6 mx-0" />
+            <SortDropdown
+              value={sortBy}
+              onChange={setSortBy}
+              className="rounded-none border-0 bg-transparent hover:bg-gray-50"
+            />
+          </div>
 
-          {/* Sort Dropdown */}
-          <SortDropdown value={sortBy} onChange={setSortBy} />
+          {/* Desktop: Filter, Sort, and Grid Size */}
+          <div className="hidden lg:flex items-center w-full">
+            {/* Left side: Filter and Sort with separators */}
+            <div className="flex items-center">
+              <Button
+                variant="outline"
+                onClick={() => setShowFilters(!showFilters)}
+                className="flex items-center gap-2 rounded-none border-0 border-r border-gray-200 px-4 py-2 h-auto bg-transparent hover:bg-gray-50"
+              >
+                <Filter className="h-4 w-4" />
+                FILTER
+              </Button>
+              <div className="border-r border-gray-200 h-6 mx-0" />
+              <SortDropdown
+                value={sortBy}
+                onChange={setSortBy}
+                className="rounded-none border-0 bg-transparent hover:bg-gray-50"
+              />
+            </div>
 
-          {/* Grid Size Selector */}
-          <div className="ml-auto flex items-center gap-2">
-            <Button
-              variant="ghost"
-              size="icon"
-              onClick={() => setGridSize(2)}
-              className={gridSize === 2 ? "bg-primary/10" : ""}
-              aria-label="2 columns"
-            >
-              <Grid2x2 className="h-5 w-5" />
-            </Button>
-            <Button
-              variant="ghost"
-              size="icon"
-              onClick={() => setGridSize(3)}
-              className={gridSize === 3 ? "bg-primary/10" : ""}
-              aria-label="3 columns"
-            >
-              <Grid3x3 className="h-5 w-5" />
-            </Button>
-            <Button
-              variant="ghost"
-              size="icon"
-              onClick={() => setGridSize(4)}
-              className={gridSize === 4 ? "bg-primary/10" : ""}
-              aria-label="4 columns"
-            >
-              <Square className="h-5 w-5" />
-            </Button>
+            {/* Right side: Grid Size Selector */}
+            <div className="ml-auto flex items-center gap-2">
+              <Button
+                variant="ghost"
+                size="icon"
+                onClick={() => setGridSize(2)}
+                className={`h-8 w-8 rounded-none ${
+                  gridSize === 2 ? "bg-gray-100" : "hover:bg-gray-50"
+                }`}
+                aria-label="2 columns"
+              >
+                <Grid2x2 className="h-5 w-5 text-gray-700" />
+              </Button>
+              <Button
+                variant="ghost"
+                size="icon"
+                onClick={() => setGridSize(3)}
+                className={`h-8 w-8 rounded-none ${
+                  gridSize === 3 ? "bg-gray-100" : "hover:bg-gray-50"
+                }`}
+                aria-label="3 columns"
+              >
+                <Grid3x3 className="h-5 w-5 text-gray-700" />
+              </Button>
+            </div>
           </div>
         </div>
       </div>
@@ -205,12 +214,13 @@ function ProductsPage() {
         <FilterSidebar
           isOpen={showFilters}
           products={allProducts}
-          selectedCountries={selectedCountries}
-          selectedCategories={selectedCategories}
-          selectedProcesses={selectedProcesses}
+          selectedCountry={selectedCountry}
+          selectedCategory={selectedCategory}
+          selectedProcess={selectedProcess}
           onCountryChange={handleCountryChange}
           onCategoryChange={handleCategoryChange}
           onProcessChange={handleProcessChange}
+          onClose={() => setShowFilters(false)}
         />
         <div className="flex-1">
           {/* Products Grid */}

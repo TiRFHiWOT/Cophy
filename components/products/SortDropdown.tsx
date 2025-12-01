@@ -18,6 +18,7 @@ type SortOption =
 interface SortDropdownProps {
   value: SortOption;
   onChange: (value: SortOption) => void;
+  className?: string;
 }
 
 const sortOptions: { value: SortOption; label: string }[] = [
@@ -31,7 +32,11 @@ const sortOptions: { value: SortOption; label: string }[] = [
   { value: "date-new", label: "DATE, NEW TO OLD" },
 ];
 
-export function SortDropdown({ value, onChange }: SortDropdownProps) {
+export function SortDropdown({
+  value,
+  onChange,
+  className,
+}: SortDropdownProps) {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const buttonRef = useRef<HTMLButtonElement>(null);
@@ -68,11 +73,14 @@ export function SortDropdown({ value, onChange }: SortDropdownProps) {
         ref={buttonRef}
         variant="outline"
         onClick={() => setIsOpen(!isOpen)}
-        className="flex items-center gap-2 w-[240px] justify-between"
+        className={`flex items-center gap-2 w-auto lg:w-[240px] justify-between ${
+          className || ""
+        }`}
       >
         <div className="flex items-center gap-2">
           <ArrowUpDown className="h-4 w-4" />
-          <span>{currentLabel}</span>
+          <span className="hidden sm:inline">{currentLabel}</span>
+          <span className="sm:hidden">SORT</span>
         </div>
       </Button>
 
