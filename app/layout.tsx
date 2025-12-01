@@ -5,6 +5,7 @@ import { CartProvider } from "@/context/CartContext";
 import { UIProvider } from "@/context/UIContext";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
+import { ScrollToTop } from "@/components/layout/ScrollToTop";
 
 const inter = Inter({
   variable: "--font-sans",
@@ -74,6 +75,7 @@ export default function RootLayout({
       >
         <CartProvider>
           <UIProvider>
+            <ScrollToTop />
             <div className="flex min-h-screen flex-col">
               <Header />
               <main className="flex-1 pt-[calc(var(--topbar-height,36px)+var(--header-height,64px))] md:pt-[calc(var(--topbar-height,36px)+var(--header-height-md,112px))]">

@@ -41,15 +41,12 @@ export function Footer() {
   const footerLinks = {
     company: [
       { href: "/about", label: "About Us" },
-      { href: "/wholesale", label: "Wholesale" },
       { href: "/products", label: "Our Coffee" },
-      { href: "/academy", label: "Coffee Academy" },
+      { href: "/wholesale", label: "Wholesale" },
     ],
     support: [
       { href: "/contact", label: "Contact Us" },
       { href: "/shipping", label: "Shipping & Returns" },
-      { href: "/terms", label: "Terms & Conditions" },
-      { href: "/privacy", label: "Privacy Policy" },
     ],
   };
 
