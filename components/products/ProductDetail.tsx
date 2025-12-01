@@ -59,7 +59,7 @@ export function ProductDetail({ product }: ProductDetailProps) {
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
         {/* Images Section */}
-        <div className="space-y-4">
+        <div className="space-y-4 order-1 lg:order-1">
           {/* Main Image */}
           <div className="relative aspect-square w-full overflow-hidden rounded-xl bg-muted border border-gray-200">
             <Image
@@ -115,8 +115,8 @@ export function ProductDetail({ product }: ProductDetailProps) {
             </div>
           )}
 
-          {/* Description */}
-          <div className="pt-6">
+          {/* Description - Desktop only */}
+          <div className="pt-6 hidden lg:block">
             <h2 className="font-semibold text-xl mb-3">Description</h2>
             <p className="text-muted-foreground leading-relaxed text-lg">
               {product.description}
@@ -125,7 +125,7 @@ export function ProductDetail({ product }: ProductDetailProps) {
         </div>
 
         {/* Details Section */}
-        <div className="space-y-6">
+        <div className="space-y-6 order-2 lg:order-2">
           {/* Header */}
           <div>
             <div className="flex items-center gap-2 mb-3">
@@ -159,6 +159,14 @@ export function ProductDetail({ product }: ProductDetailProps) {
                   </>
                 )}
             </div>
+          </div>
+
+          {/* Description - Mobile only (after title) */}
+          <div className="pt-2 lg:hidden">
+            <h2 className="font-semibold text-xl mb-3">Description</h2>
+            <p className="text-muted-foreground leading-relaxed text-lg">
+              {product.description}
+            </p>
           </div>
 
           {/* Tasting Notes */}

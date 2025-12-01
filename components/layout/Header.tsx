@@ -409,7 +409,7 @@ export function Header() {
               <Button
                 variant="ghost"
                 size="icon"
-                className="hidden lg:flex h-10 w-10 transition-all duration-300 hover:bg-primary/10 hover:scale-110"
+                className="hidden h-10 w-10 transition-all duration-300 hover:bg-primary/10 hover:scale-110"
                 aria-label="Account"
               >
                 <User className="h-5 w-5" />
@@ -451,12 +451,12 @@ export function Header() {
           >
             <div className="flex flex-col flex-1 px-4 py-6">
               {/* Mobile Menu Header */}
-              <div className="flex items-center justify-between mb-6">
+              <div className="flex items-center justify-end mb-6">
                 {/* User Icon - Left Side */}
                 <Button
                   variant="ghost"
                   size="icon"
-                  className="h-8 w-8"
+                  className="h-8 w-8 hidden"
                   aria-label="Account"
                 >
                   <User className="h-5 w-5 text-foreground" />
@@ -481,6 +481,15 @@ export function Header() {
                   placeholder="Search..."
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter" && searchQuery.trim()) {
+                      router.push(
+                        `/search?q=${encodeURIComponent(searchQuery.trim())}`
+                      );
+                      setMobileMenuOpen(false);
+                      setSearchQuery("");
+                    }
+                  }}
                   className="w-full border-none border-gray-300 text-foreground placeholder:text-gray-400 placeholder:italic"
                 />
                 <Button
@@ -488,10 +497,119 @@ export function Header() {
                   size="icon"
                   className="absolute right-2 top-1/2 -translate-y-1/2 h-5 w-5"
                   aria-label="Search"
+                  onClick={() => {
+                    if (searchQuery.trim()) {
+                      router.push(
+                        `/search?q=${encodeURIComponent(searchQuery.trim())}`
+                      );
+                      setMobileMenuOpen(false);
+                      setSearchQuery("");
+                    }
+                  }}
                 >
                   <Search className="h-4 w-4 text-gray-400" />
                 </Button>
               </div>
+
+              {/* Mobile Search Results */}
+              {searchQuery.trim() && (
+                <div className="mt-3 max-h-[60vh] overflow-y-auto mb-4">
+                  {searchResults.length > 0 ? (
+                    <div className="space-y-2">
+                      <div className="text-xs font-semibold text-gray-700 uppercase tracking-wide px-2">
+                        Products ({searchResults.length})
+                      </div>
+                      <div className="space-y-1">
+                        {searchResults.slice(0, 5).map((product) => {
+                          // Highlight matching text
+                          const highlightText = (
+                            text: string,
+                            query: string
+                          ) => {
+                            const parts = text.split(
+                              new RegExp(`(${query})`, "gi")
+                            );
+                            return parts.map((part, i) =>
+                              part.toLowerCase() === query.toLowerCase() ? (
+                                <mark
+                                  key={i}
+                                  className="bg-primary/20 text-primary font-semibold px-0.5 rounded"
+                                >
+                                  {part}
+                                </mark>
+                              ) : (
+                                part
+                              )
+                            );
+                          };
+
+                          return (
+                            <Link
+                              key={product.id}
+                              href={`/products/${product.slug}`}
+                              onClick={() => {
+                                setMobileMenuOpen(false);
+                                setSearchQuery("");
+                              }}
+                              className="flex items-center gap-3 p-3 rounded-lg hover:bg-white/80 transition-colors border"
+                            >
+                              <div className="relative w-12 h-12 shrink-0 rounded-md overflow-hidden bg-gray-100">
+                                {product.images[0] && (
+                                  <Image
+                                    src={product.images[0]}
+                                    alt={product.name}
+                                    width={48}
+                                    height={48}
+                                    className="w-full h-full object-cover"
+                                  />
+                                )}
+                              </div>
+                              <div className="flex-1 min-w-0">
+                                <h3 className="font-medium text-gray-900 text-sm line-clamp-1">
+                                  {highlightText(product.name, searchQuery)}
+                                </h3>
+                                <p className="text-xs text-gray-600 mt-0.5">
+                                  From ${product.price.toFixed(2)}
+                                </p>
+                              </div>
+                            </Link>
+                          );
+                        })}
+                      </div>
+                      {searchResults.length > 5 && (
+                        <button
+                          onClick={() => {
+                            router.push(
+                              `/search?q=${encodeURIComponent(
+                                searchQuery.trim()
+                              )}`
+                            );
+                            setMobileMenuOpen(false);
+                            setSearchQuery("");
+                          }}
+                          className="w-full text-center py-2 text-sm text-primary hover:text-primary/80 font-medium"
+                        >
+                          View all {searchResults.length} results →
+                        </button>
+                      )}
+                    </div>
+                  ) : (
+                    <div className="text-center py-8 border-t">
+                      <div className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-gray-100 mb-3">
+                        <AlertCircle className="h-6 w-6 text-gray-400" />
+                      </div>
+                      <p className="text-sm font-medium text-gray-700 mb-1">
+                        No products found
+                      </p>
+                      <p className="text-xs text-gray-500">
+                        Try searching for &quot;
+                        <span className="font-semibold">{searchQuery}</span>
+                        &quot; with different terms
+                      </p>
+                    </div>
+                  )}
+                </div>
+              )}
 
               {/* Navigation Links */}
               <nav className="flex flex-col space-y-0 border-t border-gray-300 pt-4 flex-1">
