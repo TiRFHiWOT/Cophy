@@ -28,7 +28,7 @@ function NewsletterForm() {
         value={email}
         onChange={(e) => setEmail(e.target.value)}
         required
-        className="text-sm"
+        className="text-sm border-white/30 bg-white/10 text-white placeholder:text-white/60 focus-visible:ring-white/20 focus-visible:border-white/50"
       />
       <Button type="submit" size="sm" className="w-full" disabled={submitted}>
         {submitted ? "Subscribed!" : "Subscribe"}
@@ -51,7 +51,7 @@ export function Footer() {
   };
 
   return (
-    <footer className="border-t bg-muted/50">
+    <footer className="border-t bg-[hsl(var(--dark-green))] text-white">
       <div className="container px-4 py-12">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           {/* Brand */}
@@ -66,17 +66,17 @@ export function Footer() {
             >
               Cophy
             </h3>
-            <p className="text-sm text-muted-foreground">
+            <p className="text-sm text-white/80">
               Quality. Transparency. Sustainability.
             </p>
             <div className="flex space-x-4">
-              <a href="#" className="text-muted-foreground hover:text-primary">
+              <a href="#" className="text-white/80 hover:text-white">
                 <Facebook className="h-5 w-5" />
               </a>
-              <a href="#" className="text-muted-foreground hover:text-primary">
+              <a href="#" className="text-white/80 hover:text-white">
                 <Instagram className="h-5 w-5" />
               </a>
-              <a href="#" className="text-muted-foreground hover:text-primary">
+              <a href="#" className="text-white/80 hover:text-white">
                 <Youtube className="h-5 w-5" />
               </a>
             </div>
@@ -90,7 +90,7 @@ export function Footer() {
                 <li key={link.href}>
                   <Link
                     href={link.href}
-                    className="text-sm text-muted-foreground hover:text-primary"
+                    className="text-sm text-white/80 hover:text-white"
                   >
                     {link.label}
                   </Link>
@@ -107,7 +107,7 @@ export function Footer() {
                 <li key={link.href}>
                   <Link
                     href={link.href}
-                    className="text-sm text-muted-foreground hover:text-primary"
+                    className="text-sm text-white/80 hover:text-white"
                   >
                     {link.label}
                   </Link>
@@ -119,14 +119,14 @@ export function Footer() {
           {/* Newsletter */}
           <div>
             <h4 className="font-semibold mb-4">Newsletter</h4>
-            <p className="text-sm text-muted-foreground mb-4">
+            <p className="text-sm text-white/80 mb-4">
               Get special offers and updates
             </p>
             <NewsletterForm />
           </div>
         </div>
 
-        <div className="mt-8 pt-8 border-t text-center text-sm text-muted-foreground">
+        <div className="mt-8 pt-8 border-t border-white/20 text-center text-sm text-white/80">
           <p>&copy; {new Date().getFullYear()} Cophy. All rights reserved.</p>
         </div>
       </div>

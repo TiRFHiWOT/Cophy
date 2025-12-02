@@ -51,7 +51,7 @@ export function Newsletter() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
-              className="flex-1"
+              className="flex-1 border-gray-300 focus-visible:border-gray-400"
             />
             <Button
               type="submit"
