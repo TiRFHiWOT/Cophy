@@ -40,6 +40,7 @@ export function Header() {
     { href: "/blog", label: "BLOG", hasSubmenu: false },
     { href: "/about", label: "ABOUT US", hasSubmenu: false },
   ];
+  const [hoveredNav, setHoveredNav] = useState<string | null>(null);
   const [scrollOffset, setScrollOffset] = useState(0);
   const [topbarHeight, setTopbarHeight] = useState(36);
   const [currentScrollTop, setCurrentScrollTop] = useState(0);
@@ -369,25 +370,164 @@ export function Header() {
                 const isActive =
                   pathname === link.href ||
                   (link.href !== "/" && pathname.startsWith(link.href));
+                const isHovered = hoveredNav === link.label;
+                const showUnderline = isActive || isHovered;
+
+                if (link.hasSubmenu) {
+                  // Dropdown menu items
+                  const ourCoffeeItems = [
+                    [
+                      {
+                        label: "COFFEE FOR ESPRESSO AND MILK",
+                        href: "/products?category=espresso",
+                      },
+                      {
+                        label: "COFFEE FOR POUR-OVERS",
+                        href: "/products?category=pour-over",
+                      },
+                      {
+                        label: "COFFEE CAPSULES",
+                        href: "/products?category=capsules",
+                      },
+                      { label: "DRIP COFFEE", href: "/products?category=drip" },
+                    ],
+                    [
+                      {
+                        label: "COFFEE BUNDLES",
+                        href: "/products?category=bundles",
+                      },
+                      {
+                        label: "BESPOKE BLENDS",
+                        href: "/products?category=blends",
+                      },
+                      {
+                        label: "LATEST RELEASE",
+                        href: "/products?featured=true",
+                      },
+                      { label: "BROWSE OUR COLLECTIONS", href: "/products" },
+                    ],
+                  ];
+
+                  const wholesaleItems = [
+                    {
+                      label: "ROASTED COFFEE",
+                      href: "/wholesale?type=roasted",
+                    },
+                    { label: "GREEN COFFEE", href: "/wholesale?type=green" },
+                  ];
+
+                  return (
+                    <div
+                      key={link.label}
+                      className="relative"
+                      onMouseEnter={() => setHoveredNav(link.label)}
+                      onMouseLeave={() => setHoveredNav(null)}
+                    >
+                      <Link
+                        href={link.href}
+                        className={cn(
+                          "relative text-sm text-gray-600 font-medium transition-all duration-300 py-2 block",
+                          showUnderline ? "" : " hover:text-foreground"
+                        )}
+                      >
+                        <span className="relative z-10">{link.label}</span>
+                        <span
+                          className={cn(
+                            "absolute bottom-0 left-0 right-0 h-px bg-gray-300 transition-all duration-300",
+                            showUnderline ? "scale-x-100" : "scale-x-0"
+                          )}
+                        />
+                      </Link>
+
+                      {/* Dropdown Menu */}
+                      {isHovered && (
+                        <div className="absolute top-full left-1/2 -translate-x-1/2 pt-6 bg-gray-50 text-gray-600 z-50 animate-dropdown">
+                          {link.label === "OUR COFFEE" ? (
+                            <div className="py-4 px-6 min-w-7xl">
+                              {/* First Row */}
+                              <div className="grid grid-cols-4 gap-6">
+                                {ourCoffeeItems[0].map((item, idx) => (
+                                  <Link
+                                    key={idx}
+                                    href={item.href}
+                                    className="text-sm whitespace-nowrap font-medium text-foreground hover:text-primary transition-colors py-2 border-b border-gray-200 animate-dropdown-item"
+                                    style={{
+                                      animationDelay: `${idx * 30}ms`,
+                                      animationFillMode: "both",
+                                    }}
+                                  >
+                                    {item.label}
+                                  </Link>
+                                ))}
+                              </div>
+                              {/* Second Row */}
+                              <div className="grid grid-cols-4 gap-6 mt-4">
+                                {ourCoffeeItems[1].map((item, idx) => (
+                                  <Link
+                                    key={idx}
+                                    href={item.href}
+                                    className="text-sm font-medium text-foreground hover:text-primary transition-colors py-2 border-b border-gray-200 animate-dropdown-item"
+                                    style={{
+                                      animationDelay: `${(idx + 4) * 30}ms`,
+                                      animationFillMode: "both",
+                                    }}
+                                  >
+                                    {item.label}
+                                  </Link>
+                                ))}
+                              </div>
+                            </div>
+                          ) : (
+                            // Wholesale dropdown
+                            <div className="py-4 px-6 min-w-[200px]">
+                              {wholesaleItems.map((item, idx) => (
+                                <Link
+                                  key={idx}
+                                  href={item.href}
+                                  className="block text-sm font-medium text-foreground hover:text-primary transition-colors py-2 animate-dropdown-item"
+                                  style={{
+                                    animationDelay: `${idx * 50}ms`,
+                                    animationFillMode: "both",
+                                  }}
+                                >
+                                  {item.label}
+                                </Link>
+                              ))}
+                            </div>
+                          )}
+                        </div>
+                      )}
+                    </div>
+                  );
+                }
+
+                // Regular nav items without dropdown
+                const isHoveredRegular = hoveredNav === link.label;
+                const showUnderlineRegular = isActive || isHoveredRegular;
+
                 return (
-                  <Link
+                  <div
                     key={link.label}
-                    href={link.href}
-                    className={cn(
-                      "relative text-sm font-medium transition-all duration-300 py-2",
-                      isActive
-                        ? "text-primary"
-                        : "text-foreground hover:text-primary"
-                    )}
+                    className="relative"
+                    onMouseEnter={() => setHoveredNav(link.label)}
+                    onMouseLeave={() => setHoveredNav(null)}
                   >
-                    <span className="relative z-10">{link.label}</span>
-                    {isActive && (
-                      <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-primary rounded-full" />
-                    )}
-                    {!isActive && (
-                      <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-primary rounded-full scale-x-0 origin-center transition-transform duration-300 hover:scale-x-100" />
-                    )}
-                  </Link>
+                    <Link
+                      href={link.href}
+                      className={cn(
+                        "relative text-sm text-gray-600 font-medium transition-all duration-300 py-2 block",
+                        showUnderlineRegular ? "" : " hover:text-foreground"
+                      )}
+                    >
+                      <span className="relative z-10">{link.label}</span>
+                      <span
+                        className={cn(
+                          "absolute bottom-0 left-0 right-0 h-px bg-gray-300 transition-all duration-300",
+                          showUnderlineRegular ? "scale-x-100" : "scale-x-0"
+                        )}
+                      />
+                    </Link>
+                  </div>
                 );
               })}
             </nav>
