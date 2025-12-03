@@ -11,6 +11,9 @@ interface UIContextType {
   toggleSearch: () => void;
   searchQuery: string;
   setSearchQuery: (query: string) => void;
+  authModalOpen: boolean;
+  setAuthModalOpen: (open: boolean) => void;
+  toggleAuthModal: () => void;
 }
 
 const UIContext = createContext<UIContextType | undefined>(undefined);
@@ -19,6 +22,7 @@ export function UIProvider({ children }: { children: React.ReactNode }) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
+  const [authModalOpen, setAuthModalOpen] = useState(false);
 
   const toggleMobileMenu = () => {
     setMobileMenuOpen((prev) => !prev);
@@ -32,6 +36,10 @@ export function UIProvider({ children }: { children: React.ReactNode }) {
     }
   };
 
+  const toggleAuthModal = () => {
+    setAuthModalOpen((prev) => !prev);
+  };
+
   return (
     <UIContext.Provider
       value={{
@@ -43,6 +51,9 @@ export function UIProvider({ children }: { children: React.ReactNode }) {
         toggleSearch,
         searchQuery,
         setSearchQuery,
+        authModalOpen,
+        setAuthModalOpen,
+        toggleAuthModal,
       }}
     >
       {children}

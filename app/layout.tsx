@@ -3,6 +3,7 @@ import { Inter, Dancing_Script } from "next/font/google";
 import "./globals.css";
 import { CartProvider } from "@/context/CartContext";
 import { UIProvider } from "@/context/UIContext";
+import { AuthProvider } from "@/context/AuthContext";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { ScrollToTop } from "@/components/layout/ScrollToTop";
@@ -75,14 +76,16 @@ export default function RootLayout({
       >
         <CartProvider>
           <UIProvider>
-            <ScrollToTop />
-            <div className="flex min-h-screen flex-col">
-              <Header />
-              <main className="flex-1 pt-[calc(var(--topbar-height,36px)+var(--header-height,64px))] md:pt-[calc(var(--topbar-height,36px)+var(--header-height-md,112px))]">
-                {children}
-              </main>
-              <Footer />
-            </div>
+            <AuthProvider>
+              <ScrollToTop />
+              <div className="flex min-h-screen flex-col">
+                <Header />
+                <main className="flex-1 pt-[calc(var(--topbar-height,36px)+var(--header-height,64px))] md:pt-[calc(var(--topbar-height,36px)+var(--header-height-md,112px))]">
+                  {children}
+                </main>
+                <Footer />
+              </div>
+            </AuthProvider>
           </UIProvider>
         </CartProvider>
       </body>

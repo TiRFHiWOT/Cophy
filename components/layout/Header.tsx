@@ -3,13 +3,22 @@
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
-import { ShoppingCart, Search, User, X, AlertCircle } from "lucide-react";
+import {
+  ShoppingCart,
+  Search,
+  User,
+  X,
+  AlertCircle,
+  LogOut,
+} from "lucide-react";
 import { useCart } from "@/context/CartContext";
 import { useUI } from "@/context/UIContext";
+import { useAuth } from "@/context/AuthContext";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
 import { Logo } from "./Logo";
+import { AuthModal } from "@/components/auth/AuthModal";
 import { useEffect, useRef, useState, useMemo } from "react";
 import productsData from "@/data/products.json";
 import { Product } from "@/types";
@@ -25,7 +34,9 @@ export function Header() {
     toggleSearch,
     searchQuery,
     setSearchQuery,
+    toggleAuthModal,
   } = useUI();
+  const { user, logout } = useAuth();
   const pathname = usePathname();
   const router = useRouter();
   const itemCount = getItemCount();
@@ -41,6 +52,8 @@ export function Header() {
     { href: "/about", label: "ABOUT US", hasSubmenu: false },
   ];
   const [hoveredNav, setHoveredNav] = useState<string | null>(null);
+  const [userMenuOpen, setUserMenuOpen] = useState(false);
+  const userMenuRef = useRef<HTMLDivElement>(null);
   const [scrollOffset, setScrollOffset] = useState(0);
   const [topbarHeight, setTopbarHeight] = useState(36);
   const [currentScrollTop, setCurrentScrollTop] = useState(0);
@@ -67,6 +80,27 @@ export function Header() {
   useEffect(() => {
     setMobileMenuOpen(false);
   }, [pathname, setMobileMenuOpen]);
+
+  // Close user menu when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        userMenuOpen &&
+        userMenuRef.current &&
+        !userMenuRef.current.contains(event.target as Node)
+      ) {
+        setUserMenuOpen(false);
+      }
+    };
+
+    if (userMenuOpen) {
+      document.addEventListener("mousedown", handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [userMenuOpen]);
 
   // Prevent body scroll when mobile menu is open
   useEffect(() => {
@@ -534,6 +568,56 @@ export function Header() {
 
             {/* Right side actions */}
             <div className="flex items-center space-x-2 md:space-x-4 ml-auto">
+              {/* Account Icon - Desktop */}
+              {user ? (
+                <div ref={userMenuRef} className="hidden lg:block relative">
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    className="h-10 w-10 transition-all duration-300 hover:bg-primary/10 hover:scale-110"
+                    aria-label="Account menu"
+                    onClick={() => setUserMenuOpen(!userMenuOpen)}
+                  >
+                    <div className="h-8 w-8 rounded-full bg-black text-white flex items-center justify-center text-sm font-semibold">
+                      {user.name.charAt(0).toUpperCase()}
+                    </div>
+                  </Button>
+
+                  {/* User Menu Dropdown */}
+                  {userMenuOpen && (
+                    <div className="absolute top-full right-0 mt-2 w-48 bg-white rounded-lg shadow-lg border border-gray-200 py-1 z-50 animate-dropdown">
+                      <div className="px-4 py-2 border-b border-gray-100">
+                        <p className="text-sm font-medium text-foreground">
+                          {user.name}
+                        </p>
+                        <p className="text-xs text-muted-foreground truncate">
+                          {user.email}
+                        </p>
+                      </div>
+                      <button
+                        onClick={() => {
+                          logout();
+                          setUserMenuOpen(false);
+                        }}
+                        className="w-full px-4 py-2 text-sm text-foreground hover:bg-gray-50 transition-colors flex items-center gap-2"
+                      >
+                        <LogOut className="h-4 w-4" />
+                        Logout
+                      </button>
+                    </div>
+                  )}
+                </div>
+              ) : (
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  className="hidden lg:flex h-10 w-10 transition-all duration-300 hover:bg-primary/10 hover:scale-110"
+                  aria-label="Sign in"
+                  onClick={toggleAuthModal}
+                >
+                  <User className="h-5 w-5" />
+                </Button>
+              )}
               {/* Search Icon - Desktop */}
               <Button
                 variant="ghost"
@@ -543,16 +627,6 @@ export function Header() {
                 onClick={toggleSearch}
               >
                 <Search className="h-5 w-5" />
-              </Button>
-
-              {/* Account Icon - Desktop */}
-              <Button
-                variant="ghost"
-                size="icon"
-                className="hidden h-10 w-10 transition-all duration-300 hover:bg-primary/10 hover:scale-110"
-                aria-label="Account"
-              >
-                <User className="h-5 w-5" />
               </Button>
 
               {/* Cart Icon */}
@@ -772,27 +846,49 @@ export function Header() {
                 })}
               </nav>
 
-              {/* Logo at Bottom */}
-              <div className="mt-auto pt-6 pb-4">
-                <Link
-                  href="/"
-                  className="inline-flex items-center"
-                  onClick={toggleMobileMenu}
-                >
-                  <div className="flex items-center">
-                    <span
-                      className="text-xl text-foreground leading-none"
-                      style={{
-                        fontFamily:
-                          "var(--font-cursive), 'Dancing Script', cursive",
-                        fontWeight: 800,
-                        letterSpacing: "0.02em",
+              {/* User Info or Login Button at Bottom */}
+              <div className="mt-auto pt-6 pb-4 border-t border-gray-300">
+                {user ? (
+                  <div className="px-4">
+                    <div className="flex items-center gap-3">
+                      <div className="h-10 w-10 rounded-full bg-black text-white flex items-center justify-center text-sm font-semibold flex-shrink-0">
+                        {user.name.charAt(0).toUpperCase()}
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <p className="text-sm font-medium text-foreground truncate">
+                          {user.name}
+                        </p>
+                        <p className="text-xs text-muted-foreground truncate">
+                          {user.email}
+                        </p>
+                      </div>
+                      <Button
+                        variant="outline"
+                        size="icon"
+                        className="flex-shrink-0 h-10 w-10"
+                        onClick={() => {
+                          logout();
+                          setMobileMenuOpen(false);
+                        }}
+                        aria-label="Logout"
+                      >
+                        <LogOut className="h-4 w-4" />
+                      </Button>
+                    </div>
+                  </div>
+                ) : (
+                  <div className="px-4">
+                    <Button
+                      className="w-full bg-primary hover:bg-primary/90 text-primary-foreground"
+                      onClick={() => {
+                        setMobileMenuOpen(false);
+                        toggleAuthModal();
                       }}
                     >
-                      Cophy
-                    </span>
+                      Sign In
+                    </Button>
                   </div>
-                </Link>
+                )}
               </div>
             </div>
           </div>
@@ -988,6 +1084,9 @@ export function Header() {
           )}
         </div>
       </div>
+
+      {/* Auth Modal */}
+      <AuthModal />
     </>
   );
 }
