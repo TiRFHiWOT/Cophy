@@ -7,10 +7,10 @@ import { ProducingPartners } from "@/components/sections/ProducingPartners";
 import { Reviews } from "@/components/sections/Reviews";
 import { Newsletter } from "@/components/sections/Newsletter";
 import productsData from "@/data/products.json";
-import { Product } from "@/types";
+import { CoffeeLot } from "@/types";
 
 export default function Home() {
-  const products = productsData as Product[];
+  const products = productsData as unknown as CoffeeLot[];
 
   return (
     <div>

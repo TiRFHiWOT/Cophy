@@ -1,15 +1,15 @@
-import { Product } from "@/types";
+import { CoffeeLot } from "@/types";
 import { ProductCard } from "./ProductCard";
 
 interface ProductGridProps {
-  products: Product[];
+  products: CoffeeLot[];
 }
 
 export function ProductGrid({ products }: ProductGridProps) {
   if (products.length === 0) {
     return (
       <div className="text-center py-12">
-        <p className="text-muted-foreground">No products found.</p>
+        <p className="text-muted-foreground">No coffee lots found.</p>
       </div>
     );
   }

@@ -1,13 +1,13 @@
 "use client";
 
-import { Product } from "@/types";
+import { CoffeeLot } from "@/types";
 import { ProductGrid } from "@/components/products/ProductGrid";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 
 interface LatestReleaseProps {
-  products: Product[];
+  products: CoffeeLot[];
 }
 
 export function LatestRelease({ products }: LatestReleaseProps) {

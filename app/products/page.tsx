@@ -7,7 +7,7 @@ import { SortDropdown } from "@/components/products/SortDropdown";
 import { Button } from "@/components/ui/button";
 import { Filter, Grid2x2, Grid3x3 } from "lucide-react";
 import productsData from "@/data/products.json";
-import { Product } from "@/types";
+import { CoffeeLot } from "@/types";
 
 type SortOption =
   | "featured"
@@ -21,7 +21,7 @@ type SortOption =
 type GridSize = 2 | 3 | 4;
 
 function ProductsPage() {
-  const allProducts = productsData as Product[];
+  const allProducts = productsData as unknown as CoffeeLot[];
   const [sortBy, setSortBy] = useState<SortOption>("alphabetical");
   const [gridSize, setGridSize] = useState<GridSize>(3);
   const [showFilters, setShowFilters] = useState(false);
@@ -34,7 +34,7 @@ function ProductsPage() {
     return allProducts.filter((product) => {
       // Country filter
       if (selectedCountry) {
-        const productCountry = product.origin.split(",")[0].trim();
+        const productCountry = product.region;
         if (productCountry !== selectedCountry) {
           return false;
         }
@@ -49,7 +49,7 @@ function ProductsPage() {
 
       // Process filter
       if (selectedProcess) {
-        if (product.process !== selectedProcess) {
+        if (product.processMethod !== selectedProcess) {
           return false;
         }
       }
@@ -76,9 +76,9 @@ function ProductsPage() {
         case "alphabetical-desc":
           return b.name.localeCompare(a.name);
         case "price-asc":
-          return a.price - b.price;
+          return a.fobPriceUsd - b.fobPriceUsd;
         case "price-desc":
-          return b.price - a.price;
+          return b.fobPriceUsd - a.fobPriceUsd;
         case "date-old":
           // Assuming products are ordered by ID for date, lower ID = older
           return parseInt(a.id) - parseInt(b.id);

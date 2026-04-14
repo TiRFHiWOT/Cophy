@@ -9,7 +9,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Filter, Search, X, AlertCircle } from "lucide-react";
 import productsData from "@/data/products.json";
-import { Product } from "@/types";
+import { CoffeeLot } from "@/types";
 
 type SortOption =
   | "featured"
@@ -26,7 +26,7 @@ function SearchPage() {
   const router = useRouter();
   const query = searchParams.get("q") || "";
   const [searchQuery, setSearchQuery] = useState(query);
-  const allProducts = productsData as Product[];
+  const allProducts = productsData as unknown as CoffeeLot[];
   const [sortBy, setSortBy] = useState<SortOption>("alphabetical");
   const [showFilters, setShowFilters] = useState(true);
   const [selectedCountry, setSelectedCountry] = useState<string | null>(null);
@@ -42,7 +42,7 @@ function SearchPage() {
   // Calculate price range from products
   useEffect(() => {
     if (allProducts.length > 0) {
-      const prices = allProducts.map((p) => p.price);
+      const prices = allProducts.map((p) => p.fobPriceUsd);
       const minPrice = Math.floor(Math.min(...prices));
       const maxPrice = Math.ceil(Math.max(...prices));
       setPriceRange([minPrice, maxPrice]);
@@ -57,10 +57,10 @@ function SearchPage() {
       const searchableText = [
         product.name,
         product.description,
-        product.origin,
-        product.process,
-        product.producer,
-        ...product.tastingNotes,
+        product.region,
+        product.processMethod,
+        product.washingStation,
+        product.lotNumber,
       ]
         .join(" ")
         .toLowerCase();
@@ -73,8 +73,7 @@ function SearchPage() {
     return searchedProducts.filter((product) => {
       // Country filter
       if (selectedCountry) {
-        const productCountry = product.origin.split(",")[0].trim();
-        if (productCountry !== selectedCountry) {
+        if (product.region !== selectedCountry) {
           return false;
         }
       }
@@ -88,13 +87,13 @@ function SearchPage() {
 
       // Process filter
       if (selectedProcess) {
-        if (product.process !== selectedProcess) {
+        if (product.processMethod !== selectedProcess) {
           return false;
         }
       }
 
       // Price filter
-      if (product.price < priceRange[0] || product.price > priceRange[1]) {
+      if (product.fobPriceUsd < priceRange[0] || product.fobPriceUsd > priceRange[1]) {
         return false;
       }
 
@@ -125,9 +124,9 @@ function SearchPage() {
         case "alphabetical-desc":
           return b.name.localeCompare(a.name);
         case "price-asc":
-          return a.price - b.price;
+          return a.fobPriceUsd - b.fobPriceUsd;
         case "price-desc":
-          return b.price - a.price;
+          return b.fobPriceUsd - a.fobPriceUsd;
         case "date-old":
           return parseInt(a.id) - parseInt(b.id);
         case "date-new":

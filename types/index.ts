@@ -1,18 +1,21 @@
-export interface Product {
+export interface CoffeeLot {
   id: string;
+  lotNumber: string;
   slug: string;
   name: string;
   description: string;
-  price: number;
-  originalPrice?: number;
+  region: string;
+  washingStation: string;
+  altitudeRange: string;
+  processMethod: "Washed" | "Natural" | "Honey" | "Anaerobic";
+  scaScore: number;
+  moistureContent: number;
+  harvestYear: number;
+  bagsAvailable: number;
+  bagWeightKg: number;
+  fobPriceUsd: number;
   images: string[];
   category: "espresso" | "pour-over" | "capsule" | "drip";
-  collection?: string;
-  origin: string;
-  process: string;
-  tastingNotes: string[];
-  score?: number;
-  producer?: string;
   inStock: boolean;
   featured?: boolean;
 }
@@ -39,7 +42,7 @@ export interface BlogPost {
 }
 
 export interface CartItem {
-  product: Product;
+  product: CoffeeLot;
   quantity: number;
   grind?: "whole-bean" | "filter" | "espresso";
   brewMethod?: string;

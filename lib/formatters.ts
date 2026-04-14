@@ -1,10 +1,14 @@
 export function formatPrice(price: number): string {
-  return new Intl.NumberFormat("en-ET", {
+  return new Intl.NumberFormat("en-US", {
     style: "currency",
-    currency: "ETB",
-    minimumFractionDigits: 0,
-    maximumFractionDigits: 0,
+    currency: "USD",
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
   }).format(price);
+}
+
+export function formatLOT(lotNumber: string): string {
+  return lotNumber.toUpperCase();
 }
 
 export function formatDate(date: string): string {

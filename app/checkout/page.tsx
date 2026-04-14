@@ -381,7 +381,7 @@ export default function CheckoutPage() {
                         Qty: {item.quantity}
                       </p>
                       <p className="text-sm font-semibold mt-1">
-                        {formatPrice(item.product.price * item.quantity)}
+                        {formatPrice(item.product.fobPriceUsd * item.quantity)}
                       </p>
                     </div>
                   </div>

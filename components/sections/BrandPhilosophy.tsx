@@ -1,73 +1,89 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import Image from "next/image";
+import { motion } from "framer-motion";
+import { Ship, Shield, Leaf } from "lucide-react";
 
-const carouselImages = [
-  "https://images.unsplash.com/photo-1517487881594-2787fef5ebf7?w=1920&h=600&fit=crop",
-  "https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=1920&h=600&fit=crop",
-  "https://images.unsplash.com/photo-1447933601403-0c6688de566e?w=1920&h=600&fit=crop",
+const pillars = [
+  {
+    icon: Shield,
+    title: "Full Traceability",
+    description:
+      "Every lot is traceable from the washing station to your roastery. We provide full documentation: phytosanitary certificates, certificates of origin, and ICO export permits.",
+  },
+  {
+    icon: Leaf,
+    title: "Sustainable Sourcing",
+    description:
+      "We work directly with smallholder cooperatives. Fair premiums go to farmers, not middlemen. Every lot meets NOP/EU organic and Fair Trade standards.",
+  },
+  {
+    icon: Ship,
+    title: "Export-Ready Logistics",
+    description:
+      "From dry mill processing to FOB Djibouti or Addis port. We handle SPS inspection, warehousing, and container loading. FCL and LCL options available.",
+  },
 ];
 
 export function BrandPhilosophy() {
-  const [currentIndex, setCurrentIndex] = useState(0);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentIndex((prev) => (prev + 1) % carouselImages.length);
-    }, 5000);
-
-    return () => clearInterval(interval);
-  }, []);
-
   return (
     <section className="w-full">
-      {/* Content Section */}
-      <div className="w-full bg-[hsl(var(--dark-green))] text-white py-20">
+      <div className="w-full bg-[#1B3022] text-white py-24">
         <div className="container px-4">
-          <div className="max-w-4xl mx-auto">
-            {/* Main Heading - Each word on its own line */}
+          <div className="max-w-5xl mx-auto">
+            {/* Section Header */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-100px" }}
               transition={{ duration: 0.7, ease: "easeOut" }}
-              className="text-center mb-12"
+              className="text-center mb-20"
             >
-              <h2 className="text-4xl md:text-5xl font-bold tracking-wide leading-tight">
-                QUALITY.
+              <div className="flex items-center justify-center gap-3 mb-6">
+                <div className="h-px w-12 bg-[#D9C5B2]/40" />
+                <span className="text-[10px] font-bold tracking-[0.3em] text-[#D9C5B2] uppercase">
+                  Why Partner With Us
+                </span>
+                <div className="h-px w-12 bg-[#D9C5B2]/40" />
+              </div>
+              <h2 className="text-4xl md:text-5xl font-serif font-bold tracking-tight leading-tight mb-6">
+                Reliability at
                 <br />
-                TRANSPARENCY.
-                <br />
-                SUSTAINABILITY.
+                <span className="text-[#D9C5B2]">Every Stage</span>
               </h2>
-            </motion.div>
-
-            {/* Content */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-100px" }}
-              transition={{ duration: 0.7, delay: 0.15, ease: "easeOut" }}
-              className="space-y-6 md:space-y-8"
-            >
-              <p className="text-lg md:text-xl leading-relaxed text-white/80 font-normal max-w-3xl mx-auto text-center">
-                Our coffees are seasonally sourced and delicately roasted to
-                showcase the hard work and dedication of our producing partners.
-              </p>
-
-              <p className="text-base md:text-lg leading-relaxed text-white/80 max-w-3xl mx-auto text-center font-light">
-                It&apos;s a product of passion and consistency passed down from
-                several generations.
-              </p>
-
-              <p className="text-base md:text-lg leading-relaxed text-white/80 max-w-3xl mx-auto text-center font-light">
-                We want to honor that work by interfering as little as possible,
-                roasting carefully to bring out diversity of flavors, aromatics,
-                and acidities — allowing each coffee to tell its own story.
+              <p className="text-lg text-white/60 max-w-2xl mx-auto leading-relaxed font-light">
+                From cherry to container, we manage the entire chain with
+                precision. Our export infrastructure ensures your coffee arrives
+                on spec, on time, every time.
               </p>
             </motion.div>
+
+            {/* Three Pillars */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-0 md:gap-0">
+              {pillars.map((pillar, index) => (
+                <motion.div
+                  key={pillar.title}
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: "-50px" }}
+                  transition={{
+                    duration: 0.6,
+                    delay: index * 0.15,
+                    ease: "easeOut",
+                  }}
+                  className="border border-white/10 p-10 hover:bg-white/5 transition-all duration-300 group"
+                >
+                  <div className="h-14 w-14 bg-white/5 border border-white/10 flex items-center justify-center mb-8 group-hover:bg-[#D9C5B2]/10 group-hover:border-[#D9C5B2]/30 transition-all duration-300">
+                    <pillar.icon className="h-7 w-7 text-[#D9C5B2]" />
+                  </div>
+                  <h3 className="text-lg font-bold uppercase tracking-widest text-white mb-4">
+                    {pillar.title}
+                  </h3>
+                  <p className="text-sm text-white/50 leading-relaxed font-light">
+                    {pillar.description}
+                  </p>
+                </motion.div>
+              ))}
+            </div>
           </div>
         </div>
       </div>

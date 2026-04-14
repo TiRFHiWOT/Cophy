@@ -1,12 +1,12 @@
 "use client";
 
 import React, { createContext, useContext, useEffect, useState } from "react";
-import { Product, CartItem } from "@/types";
+import { CoffeeLot, CartItem } from "@/types";
 
 interface CartContextType {
   items: CartItem[];
   addItem: (
-    product: Product,
+    product: CoffeeLot,
     quantity?: number,
     grind?: CartItem["grind"],
     brewMethod?: string,
@@ -44,7 +44,7 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
   }, [items, mounted]);
 
   const addItem = (
-    product: Product,
+    product: CoffeeLot,
     quantity = 1,
     grind?: CartItem["grind"],
     brewMethod?: string,
@@ -98,7 +98,7 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
 
   const getTotalPrice = () => {
     return items.reduce(
-      (total, item) => total + item.product.price * item.quantity,
+      (total, item) => total + item.product.fobPriceUsd * item.quantity,
       0
     );
   };

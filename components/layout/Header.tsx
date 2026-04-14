@@ -21,7 +21,7 @@ import { Logo } from "./Logo";
 import { AuthModal } from "@/components/auth/AuthModal";
 import { useEffect, useRef, useState, useMemo } from "react";
 import productsData from "@/data/products.json";
-import { Product } from "@/types";
+import { CoffeeLot } from "@/types";
 
 export function Header() {
   const { getItemCount } = useCart();
@@ -43,7 +43,7 @@ export function Header() {
   const mobileMenuRef = useRef<HTMLDivElement>(null);
   const searchInputRef = useRef<HTMLInputElement>(null);
   const searchOverlayRef = useRef<HTMLDivElement>(null);
-  const allProducts = productsData as Product[];
+  const allProducts = productsData as unknown as CoffeeLot[];
 
   const navLinks = [
     { href: "/products", label: "OUR COFFEE", hasSubmenu: true },
@@ -212,10 +212,10 @@ export function Header() {
       const searchableText = [
         product.name,
         product.description,
-        product.origin,
-        product.process,
-        product.producer,
-        ...product.tastingNotes,
+        product.region,
+        product.processMethod,
+        product.washingStation,
+        product.lotNumber,
       ]
         .join(" ")
         .toLowerCase();
@@ -776,7 +776,7 @@ export function Header() {
                                   {highlightText(product.name, searchQuery)}
                                 </h3>
                                 <p className="text-xs text-gray-600 mt-0.5">
-                                  From ${product.price.toFixed(2)}
+                                  FOB ${product.fobPriceUsd.toFixed(2)}/kg
                                 </p>
                               </div>
                             </Link>
@@ -1030,16 +1030,16 @@ export function Header() {
                               {highlightText(product.name, searchQuery)}
                             </h3>
                             <p className="text-xs text-gray-500 mb-2 line-clamp-1">
-                              {product.origin}
+                              {product.region}
                             </p>
                             <div className="flex items-center justify-between">
                               <p className="text-base font-bold text-primary">
-                                From ${product.price.toFixed(2)}
+                                FOB ${product.fobPriceUsd.toFixed(2)}/kg
                               </p>
-                              {product.score && (
+                              {product.scaScore && (
                                 <div className="flex items-center gap-1 bg-gray-100 px-2 py-0.5 rounded-full">
                                   <span className="text-xs font-semibold text-gray-700">
-                                    ⭐ {product.score}
+                                    ⭐ {product.scaScore}
                                   </span>
                                 </div>
                               )}

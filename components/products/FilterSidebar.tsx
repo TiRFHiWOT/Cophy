@@ -2,14 +2,14 @@
 
 import { motion } from "framer-motion";
 import { ChevronUp, X } from "lucide-react";
-import { Product } from "@/types";
+import { CoffeeLot } from "@/types";
 import { useState, useMemo, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
 interface FilterSidebarProps {
   isOpen: boolean;
-  products: Product[];
+  products: CoffeeLot[];
   selectedCountry: string | null;
   selectedCategory: string | null;
   selectedProcess: string | null;
@@ -43,16 +43,16 @@ export function FilterSidebar({
     const processes = new Set<string>();
 
     products.forEach((product) => {
-      // Extract country from origin (e.g., "Panama, Nueva Suiza" -> "Panama")
-      const country = product.origin.split(",")[0].trim();
+      // Use region as country for B2B
+      const country = product.region;
       if (country && country !== "Blend") {
         countries.add(country);
       }
       if (product.category) {
         categories.add(product.category);
       }
-      if (product.process) {
-        processes.add(product.process);
+      if (product.processMethod) {
+        processes.add(product.processMethod);
       }
     });
 

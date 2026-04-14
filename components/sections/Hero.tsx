@@ -4,26 +4,31 @@ import { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Globe, Shield, Award } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
 const heroImages = [
-  "https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=1920&h=1080&fit=crop",
+  "https://images.unsplash.com/photo-1611854779393-1b2da9d400fe?w=1920&h=1080&fit=crop",
   "https://images.unsplash.com/photo-1559056199-641a0ac8b55e?w=1920&h=1080&fit=crop",
-  "https://images.unsplash.com/photo-1442512595331-e89e73853f31?w=1920&h=1080&fit=crop",
-  "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=1920&h=1080&fit=crop",
+  "https://images.unsplash.com/photo-1504630083234-14187a9df0f5?w=1920&h=1080&fit=crop",
+  "https://images.unsplash.com/photo-1524350876685-274059332603?w=1920&h=1080&fit=crop",
+];
+
+const stats = [
+  { icon: Award, value: "85+", label: "SCA Score Average" },
+  { icon: Globe, value: "32", label: "Countries Served" },
+  { icon: Shield, value: "100%", label: "Traceable Lots" },
 ];
 
 function Hero() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [direction, setDirection] = useState(0);
 
-  // Auto-play carousel
   useEffect(() => {
     const interval = setInterval(() => {
       setDirection(1);
       setCurrentIndex((prev) => (prev + 1) % heroImages.length);
-    }, 5000);
+    }, 6000);
 
     return () => clearInterval(interval);
   }, []);
@@ -36,8 +41,8 @@ function Hero() {
   const slideVariants = {
     enter: (direction: number) => ({
       opacity: 0,
-      scale: 1.1,
-      x: direction > 0 ? 100 : -100,
+      scale: 1.08,
+      x: direction > 0 ? 60 : -60,
     }),
     center: {
       opacity: 1,
@@ -46,14 +51,14 @@ function Hero() {
     },
     exit: (direction: number) => ({
       opacity: 0,
-      scale: 0.95,
-      x: direction > 0 ? -100 : 100,
+      scale: 0.97,
+      x: direction > 0 ? -60 : 60,
     }),
   };
 
   return (
-    <section className="relative w-full h-[500px] md:h-[600px] lg:h-[700px] overflow-hidden">
-      {/* Image Carousel - Smooth crossfade with zoom */}
+    <section className="relative w-full h-[600px] md:h-[700px] lg:h-[800px] overflow-hidden">
+      {/* Image Carousel */}
       <AnimatePresence initial={false} custom={direction}>
         <motion.div
           key={currentIndex}
@@ -63,15 +68,15 @@ function Hero() {
           animate="center"
           exit="exit"
           transition={{
-            opacity: { duration: 1.2, ease: [0.4, 0, 0.2, 1] },
-            scale: { duration: 1.2, ease: [0.4, 0, 0.2, 1] },
-            x: { duration: 1.2, ease: [0.4, 0, 0.2, 1] },
+            opacity: { duration: 1.4, ease: [0.4, 0, 0.2, 1] },
+            scale: { duration: 1.4, ease: [0.4, 0, 0.2, 1] },
+            x: { duration: 1.4, ease: [0.4, 0, 0.2, 1] },
           }}
           className="absolute inset-0"
         >
           <Image
             src={heroImages[currentIndex]}
-            alt="Coffee hero"
+            alt="Coffee export supply chain"
             fill
             className="object-cover"
             priority={currentIndex === 0}
@@ -80,59 +85,94 @@ function Hero() {
         </motion.div>
       </AnimatePresence>
 
-      {/* Enhanced Coffee-themed Overlay - Static, doesn't fade */}
-      {/* Base dark overlay for readability */}
-      <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/45 to-black/65" />
-      {/* Warm coffee tones from sides */}
-      <div className="absolute inset-0 bg-gradient-to-r from-[#5D4037]/40 via-transparent to-[#8B6F47]/40" />
-      {/* Subtle amber glow in center */}
-      <div
-        className="absolute inset-0"
-        style={{
-          background:
-            "radial-gradient(ellipse 80% 50% at center, rgba(255, 167, 38, 0.12) 0%, transparent 70%)",
-        }}
-      />
+      {/* Overlay — deep, industrial feel */}
+      <div className="absolute inset-0 bg-gradient-to-b from-[#1B3022]/80 via-[#1B3022]/55 to-[#1B3022]/85" />
+      <div className="absolute inset-0 bg-gradient-to-r from-[#1B3022]/50 via-transparent to-[#1B3022]/30" />
 
       {/* Content */}
-      <div className="container px-4 relative z-10 h-full flex items-center justify-center">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          className="max-w-4xl mx-auto text-center"
-        >
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 text-white drop-shadow-lg">
-            PREMIUM SPECIALTY COFFEE
-          </h1>
-          <p className="text-lg md:text-xl mb-8 max-w-2xl mx-auto text-white/95 leading-relaxed">
-            Discover exceptional coffees sourced with care and roasted to
-            perfection
-          </p>
-          <Link href="/products">
-            <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.98 }}>
-              <Button
-                size="lg"
-                className="bg-primary text-white hover:bg-primary/90 text-base md:text-lg px-10 py-7 h-auto font-semibold shadow-2xl border-2 border-white/30 backdrop-blur-sm transition-all duration-300 hover:shadow-primary/50 hover:border-white/50"
-              >
-                VIEW PRODUCTS
-                <ArrowRight className="ml-2 h-5 w-5" />
-              </Button>
-            </motion.div>
-          </Link>
-        </motion.div>
+      <div className="container px-4 relative z-10 h-full flex items-center">
+        <div className="max-w-4xl">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+          >
+            {/* Eyebrow */}
+            <div className="flex items-center gap-3 mb-6">
+              <div className="h-px w-12 bg-[#D9C5B2]" />
+              <span className="text-xs font-bold tracking-[0.3em] text-[#D9C5B2] uppercase">
+                Direct-Trade Specialty Coffee
+              </span>
+            </div>
+
+            <h1 className="text-4xl md:text-6xl lg:text-7xl font-serif font-bold mb-6 text-white leading-[1.1] tracking-tight">
+              Scalable Supply Chains
+              <br />
+              <span className="text-[#D9C5B2]">for Global Roasters</span>
+            </h1>
+
+            <p className="text-lg md:text-xl mb-10 max-w-2xl text-white/80 leading-relaxed font-light">
+              Single-origin lots from Ethiopia, Panama, and Colombia.
+              Full traceability from washing station to port. SCA-scored
+              and export-ready.
+            </p>
+
+            <div className="flex flex-col sm:flex-row gap-4 mb-16">
+              <Link href="/products">
+                <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.98 }}>
+                  <Button
+                    size="lg"
+                    className="bg-white text-[#1B3022] hover:bg-[#D9C5B2] hover:text-[#1B3022] text-sm md:text-base px-10 py-7 h-auto font-bold uppercase tracking-widest rounded-none shadow-2xl transition-all duration-300"
+                  >
+                    Browse Catalog
+                    <ArrowRight className="ml-3 h-5 w-5" />
+                  </Button>
+                </motion.div>
+              </Link>
+              <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.98 }}>
+                <Button
+                  size="lg"
+                  variant="outline"
+                  className="border-2 border-white/40 text-white hover:bg-white/10 hover:border-white text-sm md:text-base px-10 py-7 h-auto font-bold uppercase tracking-widest rounded-none backdrop-blur-sm transition-all duration-300"
+                >
+                  Request a Sample
+                </Button>
+              </motion.div>
+            </div>
+          </motion.div>
+
+          {/* Stats Bar */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.6 }}
+            className="flex gap-8 md:gap-12"
+          >
+            {stats.map((stat) => (
+              <div key={stat.label} className="flex items-center gap-3">
+                <div className="h-10 w-10 bg-white/10 backdrop-blur-sm flex items-center justify-center border border-white/20">
+                  <stat.icon className="h-5 w-5 text-[#D9C5B2]" />
+                </div>
+                <div>
+                  <p className="text-2xl md:text-3xl font-bold text-white leading-none">{stat.value}</p>
+                  <p className="text-[10px] md:text-xs text-white/60 uppercase tracking-widest font-medium">{stat.label}</p>
+                </div>
+              </div>
+            ))}
+          </motion.div>
+        </div>
       </div>
 
       {/* Navigation Dots */}
-      <div className="absolute bottom-6 left-1/2 -translate-x-1/2 z-20 flex gap-2">
+      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20 flex gap-2">
         {heroImages.map((_, index) => (
           <button
             key={index}
             onClick={() => handleDotClick(index)}
-            className={`h-2 rounded-full transition-all duration-300 ${
+            className={`h-1 rounded-full transition-all duration-500 ${
               index === currentIndex
-                ? "w-8 bg-white"
-                : "w-2 bg-white/50 hover:bg-white/75"
+                ? "w-10 bg-[#D9C5B2]"
+                : "w-4 bg-white/30 hover:bg-white/50"
             }`}
             aria-label={`Go to slide ${index + 1}`}
           />

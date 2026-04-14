@@ -44,7 +44,7 @@ export function CartItem({ item }: CartItemProps) {
               </h3>
             </Link>
             <p className="text-sm text-muted-foreground mb-2">
-              {formatPrice(product.price)} each
+              {formatPrice(product.fobPriceUsd)} each
             </p>
             {item.grind && (
               <div className="inline-flex items-center px-2 py-1 rounded-md bg-muted text-xs font-medium mb-2">
@@ -78,7 +78,8 @@ export function CartItem({ item }: CartItemProps) {
             </div>
             <div className="flex items-center gap-4">
               <p className="font-bold text-lg md:text-xl text-primary">
-                {formatPrice(product.price * quantity)}
+                {formatPrice(product.fobPriceUsd * quantity)}
+
               </p>
               <Button
                 variant="ghost"

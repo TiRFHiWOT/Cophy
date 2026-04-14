@@ -1,11 +1,11 @@
 "use client";
 
-import { Product } from "@/types";
+import { CoffeeLot } from "@/types";
 import { ProductGrid } from "@/components/products/ProductGrid";
 import { motion } from "framer-motion";
 
 interface FeaturedProductsProps {
-  products: Product[];
+  products: CoffeeLot[];
 }
 
 export function FeaturedProducts({ products }: FeaturedProductsProps) {
