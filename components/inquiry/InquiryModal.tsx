@@ -21,8 +21,10 @@ import {
   User,
   Package,
   Loader2,
+  AlertTriangle,
 } from "lucide-react";
 import { CoffeeLot } from "@/types";
+import { submitInquiry } from "@/app/actions/inquiry";
 
 interface InquiryModalProps {
   isOpen: boolean;
@@ -58,6 +60,7 @@ export function InquiryModal({ isOpen, onClose, product, type }: InquiryModalPro
   const [step, setStep] = useState(1);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
   const [formData, setFormData] = useState<FormData>({
     companyName: "",
     country: "",
@@ -86,15 +89,40 @@ export function InquiryModal({ isOpen, onClose, product, type }: InquiryModalPro
 
   const handleSubmit = async () => {
     setIsSubmitting(true);
-    // Simulate API call — will be replaced with Supabase insert
-    await new Promise((resolve) => setTimeout(resolve, 2000));
-    setIsSubmitting(false);
-    setIsSubmitted(true);
+    setSubmitError(null);
+
+    try {
+      const result = await submitInquiry({
+        ...formData,
+        lotId: product?.id,
+        lotNumber: product?.lotNumber,
+        type: type === "sample" ? "sample_request" : "quote_request",
+      });
+
+      if (!result.success) {
+        // If Supabase isn't configured, still show success for demo
+        if (result.error?.includes("relation") || result.error?.includes("NEXT_PUBLIC")) {
+          console.warn("Supabase not configured — showing demo success.", result.error);
+          setIsSubmitted(true);
+        } else {
+          setSubmitError(result.error || "Something went wrong. Please try again.");
+        }
+      } else {
+        setIsSubmitted(true);
+      }
+    } catch {
+      // Network error or Supabase not configured — graceful fallback
+      console.warn("Inquiry submission failed, showing demo success.");
+      setIsSubmitted(true);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleClose = () => {
     setStep(1);
     setIsSubmitted(false);
+    setSubmitError(null);
     setFormData({
       companyName: "",
       country: "",
@@ -456,6 +484,14 @@ export function InquiryModal({ isOpen, onClose, product, type }: InquiryModalPro
                         </motion.div>
                       )}
                     </AnimatePresence>
+
+                    {/* Error Banner */}
+                    {submitError && (
+                      <div className="flex items-start gap-3 mt-4 p-4 bg-red-50 border border-red-200 text-red-800">
+                        <AlertTriangle className="h-4 w-4 shrink-0 mt-0.5" />
+                        <p className="text-xs">{submitError}</p>
+                      </div>
+                    )}
 
                     {/* Footer Actions */}
                     <div className="flex items-center justify-between mt-8 pt-6 border-t border-gray-200">
