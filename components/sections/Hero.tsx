@@ -8,9 +8,9 @@ import { ArrowRight, Globe, Shield, Award } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
 const heroImages = [
+  "https://images.unsplash.com/photo-1559525839-b184a4d698c7?w=1920&h=1080&fit=crop", // drying beds / coffee farms
+  "https://images.unsplash.com/photo-1514432324607-a2c622d54ea9?w=1920&h=1080&fit=crop", // green beans close up
   "https://images.unsplash.com/photo-1611854779393-1b2da9d400fe?w=1920&h=1080&fit=crop",
-  "https://images.unsplash.com/photo-1559056199-641a0ac8b55e?w=1920&h=1080&fit=crop",
-  "https://images.unsplash.com/photo-1504630083234-14187a9df0f5?w=1920&h=1080&fit=crop",
   "https://images.unsplash.com/photo-1524350876685-274059332603?w=1920&h=1080&fit=crop",
 ];
 
@@ -86,8 +86,8 @@ function Hero() {
       </AnimatePresence>
 
       {/* Overlay — deep, industrial feel */}
-      <div className="absolute inset-0 bg-gradient-to-b from-[#1B3022]/80 via-[#1B3022]/55 to-[#1B3022]/85" />
-      <div className="absolute inset-0 bg-gradient-to-r from-[#1B3022]/50 via-transparent to-[#1B3022]/30" />
+      <div className="absolute inset-0 bg-gradient-to-b from-secondary/80 via-secondary/55 to-secondary/85 backdrop-blur-sm" />
+      <div className="absolute inset-0 bg-gradient-to-r from-secondary/50 via-transparent to-secondary/30" />
 
       {/* Content */}
       <div className="container px-4 relative z-10 h-full flex items-center">
@@ -99,8 +99,8 @@ function Hero() {
           >
             {/* Eyebrow */}
             <div className="flex items-center gap-3 mb-6">
-              <div className="h-px w-12 bg-[#D9C5B2]" />
-              <span className="text-xs font-bold tracking-[0.3em] text-[#D9C5B2] uppercase">
+              <div className="h-px w-12 bg-primary" />
+              <span className="text-xs font-bold tracking-[0.3em] text-primary uppercase">
                 Direct-Trade Specialty Coffee
               </span>
             </div>
@@ -108,7 +108,7 @@ function Hero() {
             <h1 className="text-4xl md:text-6xl lg:text-7xl font-serif font-bold mb-6 text-white leading-[1.1] tracking-tight">
               Scalable Supply Chains
               <br />
-              <span className="text-[#D9C5B2]">for Global Roasters</span>
+              <span className="text-primary">for Global Roasters</span>
             </h1>
 
             <p className="text-lg md:text-xl mb-10 max-w-2xl text-white/80 leading-relaxed font-light">
@@ -122,7 +122,7 @@ function Hero() {
                 <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.98 }}>
                   <Button
                     size="lg"
-                    className="bg-white text-[#1B3022] hover:bg-[#D9C5B2] hover:text-[#1B3022] text-sm md:text-base px-10 py-7 h-auto font-bold uppercase tracking-widest rounded-none shadow-2xl transition-all duration-300"
+                    className="bg-white text-secondary hover:bg-primary hover:text-white text-sm md:text-base px-10 py-7 h-auto font-bold uppercase tracking-widest rounded-export shadow-2xl transition-all duration-300"
                   >
                     Browse Catalog
                     <ArrowRight className="ml-3 h-5 w-5" />
@@ -133,7 +133,7 @@ function Hero() {
                 <Button
                   size="lg"
                   variant="outline"
-                  className="border-2 border-white/40 text-white hover:bg-white/10 hover:border-white text-sm md:text-base px-10 py-7 h-auto font-bold uppercase tracking-widest rounded-none backdrop-blur-sm transition-all duration-300"
+                  className="border-2 border-white/40 text-white hover:bg-white/10 hover:border-white text-sm md:text-base px-10 py-7 h-auto font-bold uppercase tracking-widest rounded-export backdrop-blur-md transition-all duration-300"
                 >
                   Request a Sample
                 </Button>
@@ -150,8 +150,8 @@ function Hero() {
           >
             {stats.map((stat) => (
               <div key={stat.label} className="flex items-center gap-3">
-                <div className="h-10 w-10 bg-white/10 backdrop-blur-sm flex items-center justify-center border border-white/20">
-                  <stat.icon className="h-5 w-5 text-[#D9C5B2]" />
+                <div className="h-10 w-10 bg-white/10 backdrop-blur-md flex items-center justify-center border border-white/20">
+                  <stat.icon className="h-5 w-5 text-primary" />
                 </div>
                 <div>
                   <p className="text-2xl md:text-3xl font-bold text-white leading-none">{stat.value}</p>
@@ -171,7 +171,7 @@ function Hero() {
             onClick={() => handleDotClick(index)}
             className={`h-1 rounded-full transition-all duration-500 ${
               index === currentIndex
-                ? "w-10 bg-[#D9C5B2]"
+                ? "w-10 bg-primary"
                 : "w-4 bg-white/30 hover:bg-white/50"
             }`}
             aria-label={`Go to slide ${index + 1}`}

@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter, Dancing_Script } from "next/font/google";
+import { Inter, Playfair_Display, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import { CartProvider } from "@/context/CartContext";
 import { UIProvider } from "@/context/UIContext";
@@ -15,45 +15,51 @@ const inter = Inter({
   display: "swap",
 });
 
-const dancingScript = Dancing_Script({
-  variable: "--font-cursive",
+const playfair = Playfair_Display({
+  variable: "--font-serif",
   subsets: ["latin"],
   weight: ["400", "500", "600", "700"],
   display: "swap",
 });
 
+const jetbrainsMono = JetBrains_Mono({
+  variable: "--font-mono",
+  subsets: ["latin"],
+  weight: ["400", "500"],
+  display: "swap",
+});
+
 export const metadata: Metadata = {
   title: {
-    default: "Cophy - Premium Specialty Coffee",
-    template: "%s | Cophy",
+    default: "Cophy - Direct Trade Coffee Export Portal",
+    template: "%s | Cophy Export",
   },
   description:
-    "Quality. Transparency. Sustainability. Discover exceptional Panamanian coffees and specialty selections. Cophy brings you the finest specialty coffee from farm to cup.",
+    "Premium B2B Speciality Coffee Export Portal. Discover high-quality direct-trade offers with full lot specifications including SCA Score, Moisture and Altitude.",
   keywords: [
-    "specialty coffee",
-    "premium coffee",
-    "Panamanian coffee",
-    "coffee beans",
-    "artisan coffee",
-    "Cophy",
+    "specialty coffee wholesale",
+    "direct trade coffee",
+    "B2B coffee export",
+    "coffee bean logistics",
+    "Cophy B2B",
   ],
-  authors: [{ name: "Cophy" }],
+  authors: [{ name: "Cophy Logistics" }],
   creator: "Cophy",
   publisher: "Cophy",
   openGraph: {
     type: "website",
     locale: "en_US",
     url: "https://cophy.com",
-    siteName: "Cophy",
-    title: "Cophy - Premium Specialty Coffee",
+    siteName: "Cophy Export Portal",
+    title: "Cophy - Direct Trade Coffee Export Portal",
     description:
-      "Quality. Transparency. Sustainability. Discover exceptional Panamanian coffees and specialty selections.",
+      "Premium B2B Speciality Coffee Export Portal. Discover high-quality direct-trade offers with full lot specifications.",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Cophy - Premium Specialty Coffee",
+    title: "Cophy - Direct Trade Coffee Export Portal",
     description:
-      "Quality. Transparency. Sustainability. Discover exceptional Panamanian coffees and specialty selections.",
+      "Premium B2B Speciality Coffee Export Portal. Discover high-quality direct-trade offers with full lot specifications.",
   },
   icons: {
     icon: [
@@ -72,13 +78,13 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${inter.variable} ${dancingScript.variable} font-sans antialiased`}
+        className={`${inter.variable} ${playfair.variable} ${jetbrainsMono.variable} font-sans antialiased`}
       >
         <CartProvider>
           <UIProvider>
             <AuthProvider>
               <ScrollToTop />
-              <div className="flex min-h-screen flex-col">
+              <div className="flex min-h-screen flex-col bg-[hsl(var(--background))]">
                 <Header />
                 <main className="flex-1 pt-[calc(var(--topbar-height,36px)+var(--header-height,64px))] md:pt-[calc(var(--topbar-height,36px)+var(--header-height-md,112px))]">
                   {children}

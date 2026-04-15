@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useMemo } from "react";
-import { ProductCard } from "@/components/products/ProductCard";
+import { LotSpecificationCard } from "@/components/products/LotSpecificationCard";
 import { FilterSidebar } from "@/components/products/FilterSidebar";
 import { SortDropdown } from "@/components/products/SortDropdown";
 import { Button } from "@/components/ui/button";
@@ -113,30 +113,20 @@ function ProductsPage() {
     <div className="container px-4 py-12">
       {/* Header Section - Full Width */}
       <div className="mb-12">
-        <h1 className="text-4xl md:text-5xl text-gray-800 font-bold mb-6">
-          OUR COFFEE SELECTION
+        <h1 className="text-4xl md:text-5xl text-foreground font-bold mb-6 font-serif uppercase tracking-tight">
+          DIRECT-TRADE OFFER LIST
         </h1>
 
         {/* Description Paragraphs */}
         <div className="space-y-4 mb-8">
-          <p className="text-base md:text-lg leading-relaxed text-gray-600">
-            Our coffees are sourced in season and roasted with care to honor the
-            producers&apos; hard work and bring out the flavors, aromatics, and
-            acidities allowing each coffee to tell its own story.
+          <p className="text-base md:text-lg leading-relaxed text-muted-foreground font-light">
+            Access our verified, export-ready inventory of green and roasted coffee lots. 
+            All offerings are rigorously scored by SCA-certified Q-graders and meticulously 
+            traced from partner washing stations.
           </p>
-          <p className="text-base md:text-lg leading-relaxed text-gray-600">
-            Enjoy browsing our extensive selection featuring a broad range of
-            flavor profiles and varieties. Find your perfect coffee among our
-            catalog of different origins and according to your preferred drink
-            method or roast profile.
-          </p>
-          <p className="text-base md:text-lg leading-relaxed text-gray-600">
-            Our espresso roast coffee are recommended if you have an espresso
-            machine or if you are using a Mokha Pot.
-          </p>
-          <p className="text-base md:text-lg leading-relaxed text-gray-600">
-            Meanwhile, our filter roast coffees are recommended for pour-overs,
-            AeroPress, Chemex, and other drip filter device that you have.
+          <p className="text-base md:text-lg leading-relaxed text-muted-foreground font-light">
+            Filter by processing method, altitude, and current availability. Review the 
+            cupping scores, moisture content, and submit samples/quotes directly to our logistics team.
           </p>
         </div>
 
@@ -226,7 +216,7 @@ function ProductsPage() {
           {/* Products Grid */}
           <div className={`grid ${gridCols[gridSize]} gap-6`}>
             {sortedProducts.map((product, index) => (
-              <ProductCard key={product.id} product={product} index={index} />
+              <LotSpecificationCard key={product.id} product={product} index={index} />
             ))}
           </div>
         </div>

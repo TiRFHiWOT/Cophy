@@ -4,7 +4,7 @@
 -- =============================================================
 
 -- 1. Coffee Lots (The Products)
-CREATE TABLE IF NOT EXISTS coffee_lots (
+CREATE TABLE IF NOT EXISTS products (
   id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
   lot_number text UNIQUE NOT NULL,
   name text NOT NULL,
@@ -12,12 +12,13 @@ CREATE TABLE IF NOT EXISTS coffee_lots (
   washing_station text NOT NULL,
   altitude_range text,
   process_method text NOT NULL CHECK (process_method IN ('Washed', 'Natural', 'Honey', 'Anaerobic')),
-  sca_score decimal(4,2),
-  moisture_content decimal(4,2),
+  sca_score float,
+  moisture_content float,
   harvest_year int NOT NULL,
+  total_bags int NOT NULL DEFAULT 0,
   bags_available int NOT NULL DEFAULT 0,
   bag_weight_kg int NOT NULL DEFAULT 60,
-  fob_price_usd decimal(10,2) NOT NULL,
+  fob_price_usd decimal(10,2), -- Restricted via column-level security or split view in production
   is_published boolean DEFAULT false,
   created_at timestamptz DEFAULT now()
 );

@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@config "../tailwind.config.js";
 
 @layer base {
   :root {
@@ -7,21 +8,21 @@
     --header-height: 64px;
     --header-height-md: 112px;
     /* Warm coffee-inspired theme colors */
-    --background: 30 20% 97%; /* #FAF8F5 - Light cream */
+    --background: 30 20% 97%; /* #FAF8F5 - Paper Cream */
     --foreground: 222.2 84% 4.9%; /* Dark brown text */
     --card: 0 0% 100%; /* White cards */
     --card-foreground: 222.2 84% 4.9%;
     --popover: 0 0% 100%;
     --popover-foreground: 222.2 84% 4.9%;
     /* Primary: Rich amber/orange (coffee roast tones) */
-    --primary: 25 95% 53%; /* Warm amber */
+    --primary: 25 95% 53%; /* Roast Amber */
     --primary-foreground: 210 40% 98%; /* Light text on primary */
-    /* Secondary: Warm browns */
-    --secondary: 30 25% 55%; /* #8B6F47 - Warm brown */
-    --secondary-foreground: 222.2 47.4% 11.2%;
-    /* Muted: Cream tones */
-    --muted: 30 15% 92%; /* #F5F1EB - Cream background */
-    --muted-foreground: 215.4 16.3% 46.9%; /* Muted brown text */
+    /* Secondary */
+    --secondary: 135 35% 20%; /* Industrial Green */
+    --secondary-foreground: 210 40% 98%;
+    /* Muted */
+    --muted: 30 25% 55%; /* Earthy Tan */
+    --muted-foreground: 210 40% 98%; 
     /* Accent: Deep coffee browns */
     --accent: 15 30% 30%; /* #5D4037 - Deep coffee brown */
     --accent-foreground: 210 40% 98%;
@@ -32,29 +33,29 @@
     --ring: 25 95% 53%; /* Primary color for focus rings */
     --radius: 0.5rem;
     /* Dark green for sections - complements coffee browns */
-    --dark-green: 135 35% 20%; /* #2d5016 - Dark forest green with brown undertones */
+    --dark-green: 135 35% 20%; /* Same as secondary */
   }
 
   .dark {
-    /* Dark mode: Deep coffee browns with warm accents */
-    --background: 15 20% 8%; /* Very dark brown */
-    --foreground: 30 20% 95%; /* Light cream text */
-    --card: 15 25% 12%; /* Dark brown cards */
-    --card-foreground: 30 20% 95%;
-    --popover: 15 25% 12%;
-    --popover-foreground: 30 20% 95%;
-    --primary: 25 95% 53%; /* Keep warm amber for contrast */
-    --primary-foreground: 15 20% 8%; /* Dark text on primary */
-    --secondary: 15 30% 20%; /* Dark coffee brown */
-    --secondary-foreground: 30 20% 95%;
-    --muted: 15 25% 15%; /* Dark muted background */
-    --muted-foreground: 30 15% 70%; /* Muted cream text */
+    /* Dark mode */
+    --background: 135 35% 8%; /* Very dark green */
+    --foreground: 30 20% 97%; /* Paper Cream */
+    --card: 135 35% 12%; 
+    --card-foreground: 30 20% 97%;
+    --popover: 135 35% 12%;
+    --popover-foreground: 30 20% 97%;
+    --primary: 25 95% 53%; /* Roast Amber */
+    --primary-foreground: 135 35% 8%; 
+    --secondary: 135 35% 20%; /* Industrial Green */
+    --secondary-foreground: 30 20% 97%;
+    --muted: 30 25% 35%; /* Darker Earthy Tan */
+    --muted-foreground: 30 20% 97%; 
     --accent: 15 35% 25%; /* Deep coffee brown accent */
-    --accent-foreground: 30 20% 95%;
+    --accent-foreground: 30 20% 97%;
     --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 30 20% 95%;
-    --border: 15 25% 20%; /* Dark brown border */
-    --input: 15 25% 15%; /* Dark input background */
+    --destructive-foreground: 30 20% 97%;
+    --border: 135 35% 20%; 
+    --input: 135 35% 15%; 
     --ring: 25 95% 53%;
   }
 }

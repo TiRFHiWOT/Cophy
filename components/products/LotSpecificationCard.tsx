@@ -6,22 +6,20 @@ import { CoffeeLot } from "@/types";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { formatPrice } from "@/lib/formatters";
-import { InquiryModal } from "@/components/inquiry/InquiryModal";
-import { ClipboardList, Star, FlaskConical, MapPin, Warehouse } from "lucide-react";
+import { SampleRequestModal } from "@/components/inquiry/SampleRequestModal";
+import { Star, MapPin, Warehouse } from "lucide-react";
 import { motion } from "framer-motion";
 import { useState } from "react";
 
-interface ProductCardProps {
+interface LotSpecificationCardProps {
   product: CoffeeLot;
   index?: number;
 }
 
-export function ProductCard({ product, index = 0 }: ProductCardProps) {
+export function LotSpecificationCard({ product, index = 0 }: LotSpecificationCardProps) {
   const [inquiryOpen, setInquiryOpen] = useState(false);
-  const [inquiryType, setInquiryType] = useState<"sample" | "quote">("sample");
 
-  const openInquiry = (type: "sample" | "quote") => {
-    setInquiryType(type);
+  const openInquiry = () => {
     setInquiryOpen(true);
   };
 
@@ -49,13 +47,13 @@ export function ProductCard({ product, index = 0 }: ProductCardProps) {
             <div className="absolute inset-0 bg-gradient-to-t from-[#1B3022]/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
 
             {/* Lot Number badge */}
-            <div className="absolute top-3 left-3 bg-[#1B3022] text-white px-3 py-1.5 rounded-sm text-[10px] font-bold tracking-widest uppercase shadow-lg border border-white/10">
+            <div className="absolute top-3 left-3 bg-primary text-primary-foreground px-3 py-1.5 rounded-export text-xs font-mono font-bold tracking-widest uppercase shadow-lg backdrop-blur-md border border-white/10">
               LOT: {product.lotNumber}
             </div>
 
             {/* SCA Score badge */}
-            <div className="absolute top-3 right-3 bg-white/90 text-[#1B3022] px-2.5 py-1.5 rounded-sm text-xs font-bold backdrop-blur-sm border border-[#1B3022]/10 flex items-center gap-1">
-              <Star className="h-3 w-3 fill-[#1B3022]" />
+            <div className="absolute top-3 right-3 bg-background/90 text-foreground px-2.5 py-1.5 rounded-export text-xs font-bold backdrop-blur-md border border-border/40 flex items-center gap-1">
+              <Star className="h-3 w-3 text-primary" />
               {product.scaScore}
             </div>
           </div>
@@ -75,24 +73,32 @@ export function ProductCard({ product, index = 0 }: ProductCardProps) {
 
           {/* Technical Grid */}
           <div className="grid grid-cols-2 gap-3 mb-4">
-            <div className="flex flex-col border-l-2 border-[#D9C5B2] pl-2">
+            <div className="flex flex-col border-l-2 border-primary/50 pl-2">
               <span className="text-[10px] uppercase text-muted-foreground font-bold">Process</span>
-              <span className="text-sm font-medium text-[#454848]">{product.processMethod}</span>
+              <span className="text-sm font-medium text-foreground">{product.processMethod}</span>
             </div>
-            <div className="flex flex-col border-l-2 border-[#D9C5B2] pl-2">
+            <div className="flex flex-col border-l-2 border-primary/50 pl-2">
               <span className="text-[10px] uppercase text-muted-foreground font-bold">Moisture</span>
-              <span className="text-sm font-medium text-[#454848]">{product.moistureContent}%</span>
+              <span className="text-sm font-medium text-foreground">{product.moistureContent || "11"}%</span>
+            </div>
+            <div className="flex flex-col border-l-2 border-primary/50 pl-2">
+              <span className="text-[10px] uppercase text-muted-foreground font-bold">SCA Score</span>
+              <span className="text-sm font-medium text-foreground">{product.scaScore}</span>
+            </div>
+            <div className="flex flex-col border-l-2 border-primary/50 pl-2">
+              <span className="text-[10px] uppercase text-muted-foreground font-bold">Altitude</span>
+              <span className="text-sm font-medium text-foreground">{product.altitude || "1800m"}</span>
             </div>
           </div>
 
-          <div className="flex items-center gap-2 mb-4 text-xs font-medium text-[#454848]/80">
+          <div className="flex items-center gap-2 mb-4 text-xs font-medium text-muted-foreground">
             <Warehouse className="h-3.5 w-3.5" />
             <span>Station: {product.washingStation}</span>
           </div>
 
           <div className="mt-auto">
             <p className="text-sm text-muted-foreground font-medium mb-1">Price (FOB)</p>
-            <p className="text-2xl font-bold text-[#1B3022]">
+            <p className="text-2xl font-bold text-foreground">
               {formatPrice(product.fobPriceUsd)} <span className="text-xs font-normal text-muted-foreground italic">/ kg</span>
             </p>
           </div>
@@ -100,28 +106,20 @@ export function ProductCard({ product, index = 0 }: ProductCardProps) {
 
         <CardFooter className="p-5 pt-0 gap-2">
           <Button
-            onClick={() => openInquiry("sample")}
-            className="flex-1 h-10 text-xs font-bold uppercase tracking-wider bg-[#1B3022] hover:bg-[#2c4c36] text-white rounded-none cursor-pointer"
+            onClick={openInquiry}
+            className="w-full h-10 text-xs font-bold uppercase tracking-wider bg-secondary hover:bg-secondary/90 text-secondary-foreground rounded-export cursor-pointer"
             variant="default"
           >
             Request Sample
-          </Button>
-          <Button
-            onClick={() => openInquiry("quote")}
-            variant="outline"
-            className="flex-1 h-10 text-xs font-bold uppercase tracking-wider border-[#1B3022] text-[#1B3022] hover:bg-[#1B3022] hover:text-white rounded-none cursor-pointer"
-          >
-            Request Quote
           </Button>
         </CardFooter>
       </Card>
 
       {/* Inquiry Modal */}
-      <InquiryModal
+      <SampleRequestModal
         isOpen={inquiryOpen}
         onClose={() => setInquiryOpen(false)}
         product={product}
-        type={inquiryType}
       />
     </motion.div>
   );

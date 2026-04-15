@@ -46,9 +46,8 @@ export function Header() {
   const allProducts = productsData as unknown as CoffeeLot[];
 
   const navLinks = [
-    { href: "/products", label: "OUR COFFEE", hasSubmenu: true },
-    { href: "/wholesale", label: "WHOLESALE", hasSubmenu: true },
-    { href: "/blog", label: "BLOG", hasSubmenu: false },
+    { href: "/products", label: "DIRECT-TRADE OFFER LIST", hasSubmenu: false },
+    { href: "/logistics", label: "LOGISTICS SERVICES", hasSubmenu: false },
     { href: "/about", label: "ABOUT US", hasSubmenu: false },
   ];
   const [hoveredNav, setHoveredNav] = useState<string | null>(null);
@@ -339,17 +338,7 @@ export function Header() {
         {/* Header */}
         <header
           ref={headerRef}
-          className={cn("w-full bg-background transition-all duration-300")}
-          style={{
-            backgroundColor:
-              currentScrollTop > 0
-                ? "rgba(255, 255, 255, 0.8)"
-                : "hsl(var(--background))",
-            backdropFilter:
-              currentScrollTop > 0 ? "blur(10px) saturate(180%)" : "none",
-            WebkitBackdropFilter:
-              currentScrollTop > 0 ? "blur(10px) saturate(180%)" : "none",
-          }}
+          className={cn("w-full transition-all duration-300 z-40 relative", currentScrollTop > 0 ? "bg-background/80 backdrop-blur-md border-b border-border/40 shadow-sm" : "bg-background")}
         >
           <div className="container flex h-16 md:h-28 items-center px-4 md:px-6 relative">
             {/* Left side - Mobile Menu Button / Logo on Desktop */}

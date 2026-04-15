@@ -2,7 +2,7 @@
 
 import { useState, useMemo, useEffect } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
-import { ProductCard } from "@/components/products/ProductCard";
+import { LotSpecificationCard } from "@/components/products/LotSpecificationCard";
 import { FilterSidebar } from "@/components/products/FilterSidebar";
 import { SortDropdown } from "@/components/products/SortDropdown";
 import { Button } from "@/components/ui/button";
@@ -250,7 +250,7 @@ function SearchPage() {
           {sortedProducts.length > 0 ? (
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
               {sortedProducts.map((product, index) => (
-                <ProductCard key={product.id} product={product} index={index} />
+                <LotSpecificationCard key={product.id} product={product} index={index} />
               ))}
             </div>
           ) : (
