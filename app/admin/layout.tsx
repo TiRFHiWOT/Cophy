@@ -7,6 +7,7 @@ import {
   FileText, 
   ArrowLeft 
 } from "lucide-react";
+import AdminHeader from "@/components/admin/AdminHeader";
 
 export const metadata: Metadata = {
   title: "Admin | Lot 251 Export Portal",
@@ -76,12 +77,15 @@ export default function AdminLayout({
         </div>
       </aside>
 
-      {/* Main Content */}
-      <main className="ml-64 min-h-screen">
-        <div className="max-w-[1600px] mx-auto">
-          {children}
-        </div>
-      </main>
+      {/* Main Content Area */}
+      <div className="ml-64 flex flex-col min-h-screen">
+        <AdminHeader />
+        <main className="flex-1">
+          <div className="max-w-[1600px] mx-auto">
+            {children}
+          </div>
+        </main>
+      </div>
     </div>
   );
 }
