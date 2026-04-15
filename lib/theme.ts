@@ -1,6 +1,6 @@
 /**
  * Theme Configuration
- * Warm coffee-inspired design system for Cophy
+ * Warm coffee-inspired design system for Lot 251
  *
  * This theme creates a warm, inviting coffee shop aesthetic using
  * browns, creams, and amber tones that evoke the feeling of

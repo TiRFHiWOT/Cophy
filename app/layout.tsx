@@ -31,40 +31,41 @@ const jetbrainsMono = JetBrains_Mono({
 
 export const metadata: Metadata = {
   title: {
-    default: "Cophy - Direct Trade Coffee Export Portal",
-    template: "%s | Cophy Export",
+    default: "Lot 251 — Global Coffee Commodity Exchange",
+    template: "%s | Lot 251 Exchange",
   },
   description:
-    "Premium B2B Speciality Coffee Export Portal. Discover high-quality direct-trade offers with full lot specifications including SCA Score, Moisture and Altitude.",
+    "Premium B2B Ethiopian Speciality Coffee Export Portal. Technical specifications, transparent logistics, and SCA-scored lots direct from origin.",
   keywords: [
+    "Ethiopian coffee export",
     "specialty coffee wholesale",
-    "direct trade coffee",
-    "B2B coffee export",
-    "coffee bean logistics",
-    "Cophy B2B",
+    "green coffee beans",
+    "B2B coffee exchange",
+    "Lot 251",
+    "SCA scored coffee",
+    "direct trade Ethiopia",
   ],
-  authors: [{ name: "Cophy Logistics" }],
-  creator: "Cophy",
-  publisher: "Cophy",
+  authors: [{ name: "Lot 251 Logistics" }],
+  creator: "Lot 251",
+  publisher: "Lot 251",
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: "https://cophy.com",
-    siteName: "Cophy Export Portal",
-    title: "Cophy - Direct Trade Coffee Export Portal",
+    url: "https://lot251.com",
+    siteName: "Lot 251 Exchange",
+    title: "Lot 251 — Global Coffee Commodity Exchange",
     description:
-      "Premium B2B Speciality Coffee Export Portal. Discover high-quality direct-trade offers with full lot specifications.",
+      "Premium B2B Ethiopian Speciality Coffee Export Portal. Access technical lot data and request samples directly from origin.",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Cophy - Direct Trade Coffee Export Portal",
+    title: "Lot 251 — Global Coffee Commodity Exchange",
     description:
-      "Premium B2B Speciality Coffee Export Portal. Discover high-quality direct-trade offers with full lot specifications.",
+      "Premium B2B Ethiopian Speciality Coffee Export Portal. Access technical lot data and request samples.",
   },
   icons: {
     icon: [
       { url: "/icon.svg", type: "image/svg+xml" },
-      { url: "/favicon.ico", sizes: "any" },
     ],
     apple: "/icon.svg",
   },
@@ -84,7 +85,7 @@ export default function RootLayout({
           <UIProvider>
             <AuthProvider>
               <ScrollToTop />
-              <div className="flex min-h-screen flex-col bg-[hsl(var(--background))]">
+              <div className="flex min-h-screen flex-col bg-lot-paper">
                 <Header />
                 <main className="flex-1 pt-[calc(var(--topbar-height,36px)+var(--header-height,64px))] md:pt-[calc(var(--topbar-height,36px)+var(--header-height-md,112px))]">
                   {children}

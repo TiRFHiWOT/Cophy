@@ -1,66 +1,34 @@
 [
   {
-    "id": "best-of-panama",
-    "name": "Best of Panama",
-    "slug": "best-of-panama",
-    "description": "Award-winning coffees from the prestigious Best of Panama competition",
-    "image": "https://images.unsplash.com/photo-1559056199-641a0ac8b55e?w=800&h=600&fit=crop",
-    "products": ["3", "4", "5", "6", "13"]
+    "id": "sidama-selection",
+    "name": "Sidama Selection",
+    "slug": "sidama-selection",
+    "description": "High-clarity washed and vibrant natural lots from the Sidama highlands.",
+    "image": "https://images.unsplash.com/photo-1611854779393-1b2da9d400fe?w=800&h=600&fit=crop",
+    "products": ["1", "4"]
   },
   {
-    "id": "competition-series",
-    "name": "Competition Series (90+)",
-    "slug": "competition-series",
-    "description": "Elite coffees scoring 90 points and above",
-    "image": "https://images.unsplash.com/photo-1517487881594-2787fef5ebf7?w=800&h=600&fit=crop",
-    "products": ["14"]
-  },
-  {
-    "id": "ultra-premium",
-    "name": "Ultra Premium Selection",
-    "slug": "ultra-premium",
-    "description": "The finest coffees from legendary producers",
-    "image": "https://images.unsplash.com/photo-1442512595331-e89e73853f31?w=800&h=600&fit=crop",
-    "products": ["7"]
-  },
-  {
-    "id": "heirloom-collection",
-    "name": "Heirloom Collection",
-    "slug": "heirloom-collection",
-    "description": "Rare and unique varietals",
-    "image": "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=800&h=600&fit=crop",
-    "products": ["1"]
-  },
-  {
-    "id": "essence-collection",
-    "name": "Essence Collection",
-    "slug": "essence-collection",
-    "description": "The pure essence of exceptional terroir",
-    "image": "https://images.unsplash.com/photo-1511920170033-f8396924c348?w=800&h=600&fit=crop",
+    "id": "yirgacheffe-selection",
+    "name": "Yirgacheffe Selection",
+    "slug": "yirgacheffe-selection",
+    "description": "Classic floral and citrus tea-like coffees from the birthplace of washed processing.",
+    "image": "https://images.unsplash.com/photo-1559525839-b184a4d698c7?w=800&h=600&fit=crop",
     "products": ["2"]
   },
   {
-    "id": "limited-selection",
-    "name": "Limited Selection",
-    "slug": "limited-selection",
-    "description": "Exclusive, small-batch coffees",
-    "image": "https://images.unsplash.com/photo-1461023058943-07fcbe16d735?w=800&h=600&fit=crop",
-    "products": ["8"]
+    "id": "guji-selection",
+    "name": "Guji Selection",
+    "slug": "guji-selection",
+    "description": "Elegant and fruity naturals from the dense forests of Guji.",
+    "image": "https://images.unsplash.com/photo-1447933601403-0c6688de566e?w=800&h=600&fit=crop",
+    "products": ["3"]
   },
   {
-    "id": "curated-selection",
-    "name": "Curated Selection",
-    "slug": "curated-selection",
-    "description": "Hand-picked coffees from trusted partners",
-    "image": "https://images.unsplash.com/photo-1559056199-641a0ac8b55e?w=800&h=600&fit=crop",
-    "products": ["9", "11"]
-  },
-  {
-    "id": "specialty-selection",
-    "name": "Specialty Selection",
-    "slug": "specialty-selection",
-    "description": "High-quality specialty coffees",
-    "image": "https://images.unsplash.com/photo-1517487881594-2787fef5ebf7?w=800&h=600&fit=crop",
-    "products": ["10", "12", "15", "16"]
+    "id": "harar-limu-selection",
+    "name": "Harar & Limu Selection",
+    "slug": "harar-limu-selection",
+    "description": "Wild, winey Harar naturals and balanced, sweet Limu washed lots.",
+    "image": "https://images.unsplash.com/photo-1541173104593-494c2e6f4368?w=800&h=600&fit=crop",
+    "products": ["5", "6"]
   }
 ]

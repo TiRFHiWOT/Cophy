@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Admin | Cophy Export Portal",
+  title: "Admin | Lot 251 Export Portal",
   description: "Manage coffee lots, inquiries, and trade documents.",
 };
 
@@ -17,7 +17,7 @@ export default function AdminLayout({
         {/* Logo */}
         <div className="px-6 py-6 border-b border-white/10">
           <h1 className="text-lg font-serif font-bold tracking-tight">
-            Cophy <span className="text-[#D9C5B2]">Admin</span>
+            Lot 251 <span className="text-[#D9C5B2]">Admin</span>
           </h1>
           <p className="text-[10px] text-white/40 uppercase tracking-[0.2em] mt-1">
             Export Management

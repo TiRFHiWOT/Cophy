@@ -5,8 +5,8 @@ import { Coffee } from "lucide-react";
 
 export function SectionDivider() {
   return (
-    <div className="relative w-full bg-[hsl(var(--dark-green))] overflow-hidden">
-      <div className="absolute inset-0 bg-gradient-to-b from-[hsl(var(--dark-green))] via-[hsl(var(--dark-green))]/95 to-[hsl(var(--dark-green))]"></div>
+    <div className="relative w-full bg-lot-forest overflow-hidden">
+      <div className="absolute inset-0 bg-gradient-to-b from-lot-forest via-lot-forest/95 to-lot-forest"></div>
 
       {/* Decorative elements */}
       <div className="relative py-8 md:py-12">

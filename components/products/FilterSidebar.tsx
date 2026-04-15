@@ -135,7 +135,7 @@ export function FilterSidebar({
         animate={isOpen ? "open" : "closed"}
         transition={{ type: "tween", duration: 0.3, ease: "easeInOut" }}
         className={cn(
-          "lg:hidden fixed left-0 top-0 h-screen w-full bg-[#F5F1EB] overflow-y-auto z-50 shadow-2xl flex flex-col",
+          "lg:hidden fixed left-0 top-0 h-screen w-full bg-lot-paper overflow-y-auto z-50 shadow-2xl flex flex-col",
           isOpen
             ? "opacity-100 translate-x-0 visible pointer-events-auto"
             : "opacity-0 -translate-x-full invisible pointer-events-none"
@@ -197,7 +197,7 @@ export function FilterSidebar({
                           type="checkbox"
                           checked={isSelected}
                           readOnly
-                          className="w-4 h-4 text-primary border-gray-300 rounded focus:ring-0 focus:outline-none cursor-pointer pointer-events-none"
+                          className="w-4 h-4 text-lot-amber border-gray-300 rounded focus:ring-0 focus:outline-none cursor-pointer pointer-events-none"
                         />
                       </button>
                     );
@@ -303,7 +303,7 @@ export function FilterSidebar({
         initial="closed"
         animate={isOpen ? "open" : "closed"}
         transition={{ type: "tween", duration: 0.3, ease: "easeInOut" }}
-        className="hidden lg:block border-r border-gray-200 overflow-y-auto shrink-0"
+        className="hidden lg:block border-r border-lot-earth/10 h-full overflow-y-auto shrink-0 bg-white shadow-sm"
         style={{ overflow: isOpen ? "auto" : "hidden" }}
       >
         <div className="p-6">

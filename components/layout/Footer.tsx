@@ -1,133 +1,97 @@
 "use client";
 
-import { useState } from "react";
 import Link from "next/link";
-import { Facebook, Instagram, Youtube } from "lucide-react";
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
-
-function NewsletterForm() {
-  const [email, setEmail] = useState("");
-  const [submitted, setSubmitted] = useState(false);
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    // Mock submission
-    setSubmitted(true);
-    setTimeout(() => {
-      setSubmitted(false);
-      setEmail("");
-    }, 3000);
-  };
-
-  return (
-    <form onSubmit={handleSubmit} className="space-y-2">
-      <Input
-        type="email"
-        placeholder="Enter your email"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-        required
-        className="text-sm border-white/30 bg-white/10 text-white placeholder:text-white/60 focus-visible:ring-white/20 focus-visible:border-white/50"
-      />
-      <Button type="submit" size="sm" className="w-full" disabled={submitted}>
-        {submitted ? "Subscribed!" : "Subscribe"}
-      </Button>
-    </form>
-  );
-}
+import { Facebook, Instagram, Linkedin, Mail, MapPin, Clock } from "lucide-react";
+import { Logo } from "./Logo";
 
 export function Footer() {
-  const footerLinks = {
-    company: [
-      { href: "/about", label: "About Us" },
-      { href: "/products", label: "Our Coffee" },
-      { href: "/wholesale", label: "Wholesale" },
-    ],
-    support: [
-      { href: "/contact", label: "Contact Us" },
-      { href: "/shipping", label: "Shipping & Returns" },
-    ],
-  };
+  const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="border-t bg-[hsl(var(--dark-green))] text-white">
-      <div className="container px-4 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-          {/* Brand */}
-          <div className="space-y-4">
-            <h3
-              className="text-xl"
-              style={{
-                fontFamily: "var(--font-cursive), 'Dancing Script', cursive",
-                fontWeight: 600,
-                letterSpacing: "0.02em",
-              }}
-            >
-              Cophy
-            </h3>
-            <p className="text-sm text-white/80">
-              Quality. Transparency. Sustainability.
+    <footer className="bg-lot-forest text-white pt-20 pb-10">
+      <div className="container px-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8 mb-20">
+          {/* Brand & Mission */}
+          <div className="space-y-6">
+            <Logo />
+            <p className="text-sm text-white/60 leading-relaxed font-light mt-4">
+              Lot 251 is a global commodity exchange specializing in the direct export of the finest Ethiopian green coffee. Built on 30 years of sourcing heritage.
             </p>
             <div className="flex space-x-4">
-              <a href="#" className="text-white/80 hover:text-white">
-                <Facebook className="h-5 w-5" />
+              <a href="#" className="h-10 w-10 flex items-center justify-center border border-white/10 hover:border-lot-amber transition-colors">
+                <Linkedin className="h-4 w-4" />
               </a>
-              <a href="#" className="text-white/80 hover:text-white">
-                <Instagram className="h-5 w-5" />
+              <a href="#" className="h-10 w-10 flex items-center justify-center border border-white/10 hover:border-lot-amber transition-colors">
+                <Instagram className="h-4 w-4" />
               </a>
-              <a href="#" className="text-white/80 hover:text-white">
-                <Youtube className="h-5 w-5" />
+              <a href="#" className="h-10 w-10 flex items-center justify-center border border-white/10 hover:border-lot-amber transition-colors">
+                <Facebook className="h-4 w-4" />
               </a>
             </div>
           </div>
 
-          {/* Company Links */}
+          {/* Core Navigation */}
           <div>
-            <h4 className="font-semibold mb-4">Company</h4>
-            <ul className="space-y-2">
-              {footerLinks.company.map((link) => (
-                <li key={link.href}>
-                  <Link
-                    href={link.href}
-                    className="text-sm text-white/80 hover:text-white"
-                  >
-                    {link.label}
-                  </Link>
-                </li>
-              ))}
+            <h4 className="text-[10px] font-bold tracking-[0.3em] uppercase mb-8 opacity-40">Exchange</h4>
+            <ul className="space-y-4">
+              <li><Link href="/products" className="text-sm hover:text-lot-amber transition-colors">Current Offerings</Link></li>
+              <li><Link href="/logistics" className="text-sm hover:text-lot-amber transition-colors">Logistics Services</Link></li>
+              <li><Link href="/ordering-info" className="text-sm hover:text-lot-amber transition-colors">Contract Terms</Link></li>
+              <li><Link href="/about" className="text-sm hover:text-lot-amber transition-colors">Sourcing Standards</Link></li>
             </ul>
           </div>
 
-          {/* Support Links */}
+          {/* Coffee Origins */}
           <div>
-            <h4 className="font-semibold mb-4">Support</h4>
-            <ul className="space-y-2">
-              {footerLinks.support.map((link) => (
-                <li key={link.href}>
-                  <Link
-                    href={link.href}
-                    className="text-sm text-white/80 hover:text-white"
-                  >
-                    {link.label}
-                  </Link>
-                </li>
-              ))}
+            <h4 className="text-[10px] font-bold tracking-[0.3em] uppercase mb-8 opacity-40">Origins</h4>
+            <ul className="space-y-4">
+              <li><Link href="/products?region=Sidama" className="text-sm hover:text-lot-amber transition-colors">Sidama (G1 - G4)</Link></li>
+              <li><Link href="/products?region=Yirgacheffe" className="text-sm hover:text-lot-amber transition-colors">Yirgacheffe (G1 - G2)</Link></li>
+              <li><Link href="/products?region=Guji" className="text-sm hover:text-lot-amber transition-colors">Guji & Hambella</Link></li>
+              <li><Link href="/products?region=Harar" className="text-sm hover:text-lot-amber transition-colors">Harar & Jimma</Link></li>
             </ul>
           </div>
 
-          {/* Newsletter */}
-          <div>
-            <h4 className="font-semibold mb-4">Newsletter</h4>
-            <p className="text-sm text-white/80 mb-4">
-              Get special offers and updates
-            </p>
-            <NewsletterForm />
+          {/* Global Contact */}
+          <div className="space-y-8">
+            <div>
+              <h4 className="text-[10px] font-bold tracking-[0.3em] uppercase mb-6 opacity-40">Headquarters</h4>
+              <div className="flex gap-4 items-start">
+                 <MapPin className="h-4 w-4 text-lot-amber shrink-0 mt-1" />
+                 <p className="text-xs text-white/60 leading-normal">
+                   Yesak Building, 3rd Floor<br />
+                   Lideta, Addis Ababa<br />
+                   Ethiopia
+                 </p>
+              </div>
+            </div>
+            
+            <div>
+              <h4 className="text-[10px] font-bold tracking-[0.3em] uppercase mb-6 opacity-40">Business Hours</h4>
+              <div className="flex gap-4 items-start mb-4">
+                 <Clock className="h-4 w-4 text-lot-amber shrink-0 mt-1" />
+                 <p className="text-xs text-white/60 leading-normal">
+                   Mon - Fri: 09:00 - 17:00<br />
+                   EAT (UTC+3)
+                 </p>
+              </div>
+              <div className="flex gap-4 items-center">
+                 <Mail className="h-4 w-4 text-lot-amber shrink-0" />
+                 <a href="mailto:contact@lot251.coffee" className="text-xs text-white hover:text-lot-amber transition-colors">contact@lot251.coffee</a>
+              </div>
+            </div>
           </div>
         </div>
 
-        <div className="mt-8 pt-8 border-t border-white/20 text-center text-sm text-white/80">
-          <p>&copy; {new Date().getFullYear()} Cophy. All rights reserved.</p>
+        <div className="pt-10 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-6">
+          <div className="text-[10px] text-white/40 font-mono tracking-widest uppercase text-center md:text-left">
+            &copy; {currentYear} Lot 251 Import & Export PLC. Licensed Exporter.
+          </div>
+          <div className="flex gap-8">
+            <Link href="/terms" className="text-[10px] text-white/40 hover:text-white transition-colors uppercase font-bold tracking-widest">Terms</Link>
+            <Link href="/privacy" className="text-[10px] text-white/40 hover:text-white transition-colors uppercase font-bold tracking-widest">Privacy</Link>
+            <Link href="/contact" className="text-[10px] text-white/40 hover:text-white transition-colors uppercase font-bold tracking-widest">Global Support</Link>
+          </div>
         </div>
       </div>
     </footer>

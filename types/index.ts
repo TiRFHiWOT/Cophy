@@ -10,10 +10,16 @@ export interface CoffeeLot {
   processMethod: "Washed" | "Natural" | "Honey" | "Anaerobic";
   scaScore: number;
   moistureContent: number;
+  waterActivity?: number;
+  screenSize?: string;
+  cupProfile?: string[];
+  variety?: string;
+  grade?: string;
   harvestYear: number;
   bagsAvailable: number;
   bagWeightKg: number;
   fobPriceUsd: number;
+  fobPriceRange?: string; // e.g. "$8.00 - $9.50"
   images: string[];
   category: "espresso" | "pour-over" | "capsule" | "drip";
   inStock: boolean;

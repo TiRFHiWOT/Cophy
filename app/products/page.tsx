@@ -112,21 +112,21 @@ function ProductsPage() {
   return (
     <div className="container px-4 py-12">
       {/* Header Section - Full Width */}
-      <div className="mb-12">
-        <h1 className="text-4xl md:text-5xl text-foreground font-bold mb-6 font-serif uppercase tracking-tight">
-          DIRECT-TRADE OFFER LIST
+      <div className="mb-16">
+        <h1 className="text-5xl md:text-7xl text-lot-forest font-serif font-black mb-10 tracking-tighter uppercase">
+          Direct-Trade <span className="text-lot-amber italic">Offer List</span>
         </h1>
 
         {/* Description Paragraphs */}
-        <div className="space-y-4 mb-8">
-          <p className="text-base md:text-lg leading-relaxed text-muted-foreground font-light">
-            Access our verified, export-ready inventory of green and roasted coffee lots. 
+        <div className="space-y-6 mb-12 max-w-4xl">
+          <p className="text-lg md:text-xl leading-relaxed text-lot-earth font-light">
+            Access our verified, export-ready inventory of Ethiopian specialty green coffee lots. 
             All offerings are rigorously scored by SCA-certified Q-graders and meticulously 
-            traced from partner washing stations.
+            traced from our partner washing stations.
           </p>
-          <p className="text-base md:text-lg leading-relaxed text-muted-foreground font-light">
-            Filter by processing method, altitude, and current availability. Review the 
-            cupping scores, moisture content, and submit samples/quotes directly to our logistics team.
+          <p className="text-sm md:text-base leading-relaxed text-lot-earth/80 font-mono font-bold uppercase tracking-widest">
+            Filter by processing method, altitude, and current availability. Review cupping scores, 
+            moisture content, and request samples.
           </p>
         </div>
 
@@ -212,9 +212,9 @@ function ProductsPage() {
           onProcessChange={handleProcessChange}
           onClose={() => setShowFilters(false)}
         />
-        <div className="flex-1">
+        <div className="flex-1 lg:pl-10">
           {/* Products Grid */}
-          <div className={`grid ${gridCols[gridSize]} gap-6`}>
+          <div className={`grid ${gridCols[gridSize]} gap-8`}>
             {sortedProducts.map((product, index) => (
               <LotSpecificationCard key={product.id} product={product} index={index} />
             ))}

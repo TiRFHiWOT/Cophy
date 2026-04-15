@@ -110,7 +110,7 @@ export default function ShippingPage() {
                     How to Return
                   </h3>
                   <ol className="space-y-2 list-decimal list-inside">
-                    <li>Contact us at info@cophy.com with your order number</li>
+                    <li>Contact us at info@lot251.coffee with your order number</li>
                     <li>We&apos;ll provide you with a return shipping label</li>
                     <li>Package the item securely and ship it back</li>
                     <li>Once received, we&apos;ll process your refund</li>

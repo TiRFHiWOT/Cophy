@@ -37,7 +37,7 @@ export default function AboutPage() {
         <div className="text-center mb-12">
           <div className="inline-block">
             <h1 className="text-4xl md:text-5xl font-bold text-gray-800 mb-4">
-              About Cophy
+              About Lot 251
             </h1>
             <div className="w-1/4 h-1 bg-gray-400 mx-auto rounded-full"></div>
           </div>
@@ -161,7 +161,7 @@ export default function AboutPage() {
             <h2 className="text-2xl font-bold text-gray-800 mb-4">Our Story</h2>
             <div className="space-y-4 text-muted-foreground leading-relaxed">
               <p>
-                Founded in Addis Ababa, Cophy was born from a deep appreciation
+                Founded in Addis Ababa, Lot 251 was born from a deep appreciation
                 for the rich coffee heritage of Ethiopia and the exceptional
                 quality of specialty coffees from Panama. We recognized that
                 great coffee is not just about the final cup, but about the

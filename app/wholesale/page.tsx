@@ -7,7 +7,7 @@ import { Mail, Coffee, Package, Users, ArrowRight } from "lucide-react";
 
 export default function WholesalePage() {
   const handleContact = () => {
-    window.location.href = "mailto:wholesale@cophy.com";
+    window.location.href = "mailto:wholesale@lot251.coffee";
   };
 
   const offerings = [

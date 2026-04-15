@@ -8,175 +8,132 @@ import { ArrowRight, Globe, Shield, Award } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
 const heroImages = [
-  "https://images.unsplash.com/photo-1559525839-b184a4d698c7?w=1920&h=1080&fit=crop", // drying beds / coffee farms
-  "https://images.unsplash.com/photo-1514432324607-a2c622d54ea9?w=1920&h=1080&fit=crop", // green beans close up
-  "https://images.unsplash.com/photo-1611854779393-1b2da9d400fe?w=1920&h=1080&fit=crop",
-  "https://images.unsplash.com/photo-1524350876685-274059332603?w=1920&h=1080&fit=crop",
+  "https://images.unsplash.com/photo-1611854779393-1b2da9d400fe?w=1920&h=1080&fit=crop", // Ethiopian drying beds
+  "https://images.unsplash.com/photo-1447933601403-0c6688de566e?w=1920&h=1080&fit=crop", // Jute sacks
+  "https://images.unsplash.com/photo-1559525839-b184a4d698c7?w=1920&h=1080&fit=crop", // High-altitude coffee farm
+  "https://images.unsplash.com/photo-1514432324607-a2c622d54ea9?w=1920&h=1080&fit=crop", // Green beans processing
 ];
 
 const stats = [
-  { icon: Award, value: "85+", label: "SCA Score Average" },
-  { icon: Globe, value: "32", label: "Countries Served" },
+  { icon: Award, value: "85+", label: "Avg SCA Score" },
+  { icon: Globe, value: "32", label: "Countries" },
   { icon: Shield, value: "100%", label: "Traceable Lots" },
 ];
 
 function Hero() {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [direction, setDirection] = useState(0);
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setDirection(1);
       setCurrentIndex((prev) => (prev + 1) % heroImages.length);
-    }, 6000);
-
+    }, 8000);
     return () => clearInterval(interval);
   }, []);
 
-  const handleDotClick = (index: number) => {
-    setDirection(index > currentIndex ? 1 : -1);
-    setCurrentIndex(index);
-  };
-
-  const slideVariants = {
-    enter: (direction: number) => ({
-      opacity: 0,
-      scale: 1.08,
-      x: direction > 0 ? 60 : -60,
-    }),
-    center: {
-      opacity: 1,
-      scale: 1,
-      x: 0,
-    },
-    exit: (direction: number) => ({
-      opacity: 0,
-      scale: 0.97,
-      x: direction > 0 ? -60 : 60,
-    }),
-  };
-
   return (
-    <section className="relative w-full h-[600px] md:h-[700px] lg:h-[800px] overflow-hidden">
+    <section className="relative w-full h-[600px] md:h-[750px] lg:h-[850px] overflow-hidden bg-lot-forest">
       {/* Image Carousel */}
-      <AnimatePresence initial={false} custom={direction}>
+      <AnimatePresence initial={false}>
         <motion.div
           key={currentIndex}
-          custom={direction}
-          variants={slideVariants}
-          initial="enter"
-          animate="center"
-          exit="exit"
-          transition={{
-            opacity: { duration: 1.4, ease: [0.4, 0, 0.2, 1] },
-            scale: { duration: 1.4, ease: [0.4, 0, 0.2, 1] },
-            x: { duration: 1.4, ease: [0.4, 0, 0.2, 1] },
-          }}
+          initial={{ opacity: 0, scale: 1.1 }}
+          animate={{ opacity: 1, scale: 1 }}
+          exit={{ opacity: 0, scale: 0.95 }}
+          transition={{ duration: 2, ease: [0.4, 0, 0.2, 1] }}
           className="absolute inset-0"
         >
           <Image
             src={heroImages[currentIndex]}
-            alt="Coffee export supply chain"
+            alt="Ethiopian Coffee Supply Chain"
             fill
             className="object-cover"
-            priority={currentIndex === 0}
+            priority
             sizes="100vw"
           />
         </motion.div>
       </AnimatePresence>
 
-      {/* Overlay — deep, industrial feel */}
-      <div className="absolute inset-0 bg-gradient-to-b from-secondary/80 via-secondary/55 to-secondary/85 backdrop-blur-sm" />
-      <div className="absolute inset-0 bg-gradient-to-r from-secondary/50 via-transparent to-secondary/30" />
+      {/* Industrial Overlays */}
+      <div className="absolute inset-0 bg-gradient-to-r from-lot-forest/90 via-lot-forest/40 to-transparent" />
+      <div className="absolute inset-0 bg-gradient-to-t from-lot-forest via-transparent to-transparent opacity-40" />
 
       {/* Content */}
-      <div className="container px-4 relative z-10 h-full flex items-center">
+      <div className="container relative z-10 h-full flex flex-col justify-center px-6">
         <div className="max-w-4xl">
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
+            initial={{ opacity: 0, x: -30 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 1, delay: 0.5 }}
           >
             {/* Eyebrow */}
-            <div className="flex items-center gap-3 mb-6">
-              <div className="h-px w-12 bg-primary" />
-              <span className="text-xs font-bold tracking-[0.3em] text-primary uppercase">
-                Direct-Trade Specialty Coffee
+            <div className="flex items-center gap-4 mb-8">
+              <div className="h-[2px] w-12 bg-lot-amber" />
+              <span className="text-[10px] md:text-xs font-bold tracking-[0.4em] text-lot-amber uppercase">
+                Green Coffee Export · Est. 2019
               </span>
             </div>
 
-            <h1 className="text-4xl md:text-6xl lg:text-7xl font-serif font-bold mb-6 text-white leading-[1.1] tracking-tight">
-              Scalable Supply Chains
-              <br />
-              <span className="text-primary">for Global Roasters</span>
+            <h1 className="text-5xl md:text-7xl lg:text-8xl font-serif font-black mb-8 text-white leading-[0.95] tracking-tighter">
+              Ethiopian Specialty <br />
+              <span className="text-lot-amber italic">for Global Roasters</span>
             </h1>
 
-            <p className="text-lg md:text-xl mb-10 max-w-2xl text-white/80 leading-relaxed font-light">
-              Single-origin lots from Ethiopia, Panama, and Colombia.
-              Full traceability from washing station to port. SCA-scored
-              and export-ready.
+            <p className="text-lg md:text-xl mb-12 max-w-2xl text-white/70 leading-relaxed font-light">
+              Single-origin microlots from Sidama, Yirgacheffe, and Guji. 
+              Full identity preservation from drying bed to port. 
+              Sample-to-bag consistency guaranteed.
             </p>
 
-            <div className="flex flex-col sm:flex-row gap-4 mb-16">
+            <div className="flex flex-col sm:flex-row gap-4 mb-20">
               <Link href="/products">
-                <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.98 }}>
-                  <Button
-                    size="lg"
-                    className="bg-white text-secondary hover:bg-primary hover:text-white text-sm md:text-base px-10 py-7 h-auto font-bold uppercase tracking-widest rounded-export shadow-2xl transition-all duration-300"
-                  >
-                    Browse Catalog
-                    <ArrowRight className="ml-3 h-5 w-5" />
-                  </Button>
-                </motion.div>
+                <Button
+                  size="lg"
+                  className="bg-lot-amber text-white hover:bg-white hover:text-lot-forest text-xs font-bold uppercase tracking-[0.2em] px-10 py-8 h-auto rounded-none shadow-2xl transition-all duration-500"
+                >
+                  Browse Current Lots
+                  <ArrowRight className="ml-3 h-4 w-4" />
+                </Button>
               </Link>
-              <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.98 }}>
+              <Link href="/contact">
                 <Button
                   size="lg"
                   variant="outline"
-                  className="border-2 border-white/40 text-white hover:bg-white/10 hover:border-white text-sm md:text-base px-10 py-7 h-auto font-bold uppercase tracking-widest rounded-export backdrop-blur-md transition-all duration-300"
+                  className="border-white/30 text-white hover:bg-white/10 text-xs font-bold uppercase tracking-[0.2em] px-10 py-8 h-auto rounded-none backdrop-blur-md transition-all duration-500"
                 >
                   Request a Sample
                 </Button>
-              </motion.div>
+              </Link>
             </div>
           </motion.div>
 
           {/* Stats Bar */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.6 }}
-            className="flex gap-8 md:gap-12"
+            transition={{ duration: 0.8, delay: 1 }}
+            className="flex flex-wrap gap-8 md:gap-16 items-center"
           >
-            {stats.map((stat) => (
-              <div key={stat.label} className="flex items-center gap-3">
-                <div className="h-10 w-10 bg-white/10 backdrop-blur-md flex items-center justify-center border border-white/20">
-                  <stat.icon className="h-5 w-5 text-primary" />
+            {stats.map((stat, idx) => (
+              <div key={idx} className="flex flex-col gap-2">
+                <div className="flex items-center gap-3">
+                  <div className="h-8 w-8 border border-white/20 flex items-center justify-center">
+                    <stat.icon className="h-4 w-4 text-lot-amber" />
+                  </div>
+                  <span className="text-3xl font-mono font-bold text-white">{stat.value}</span>
                 </div>
-                <div>
-                  <p className="text-2xl md:text-3xl font-bold text-white leading-none">{stat.value}</p>
-                  <p className="text-[10px] md:text-xs text-white/60 uppercase tracking-widest font-medium">{stat.label}</p>
-                </div>
+                <span className="text-[10px] text-white/40 uppercase tracking-[0.3em] font-bold">
+                  {stat.label}
+                </span>
               </div>
             ))}
           </motion.div>
         </div>
       </div>
 
-      {/* Navigation Dots */}
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20 flex gap-2">
-        {heroImages.map((_, index) => (
-          <button
-            key={index}
-            onClick={() => handleDotClick(index)}
-            className={`h-1 rounded-full transition-all duration-500 ${
-              index === currentIndex
-                ? "w-10 bg-primary"
-                : "w-4 bg-white/30 hover:bg-white/50"
-            }`}
-            aria-label={`Go to slide ${index + 1}`}
-          />
-        ))}
+      {/* Decorative Navigation Element */}
+      <div className="absolute bottom-12 right-12 hidden lg:flex items-center gap-4">
+         <span className="text-[10px] font-mono text-white/40 uppercase tracking-widest leading-none">Scroll to Explore Lots</span>
+         <div className="w-12 h-px bg-white/20" />
       </div>
     </section>
   );
