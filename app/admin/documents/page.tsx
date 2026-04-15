@@ -7,8 +7,9 @@ import {
   FileText,
   Trash2,
   Download,
-  Search,
   FolderOpen,
+  Database,
+  Calendar,
 } from "lucide-react";
 
 interface DocRow {
@@ -50,9 +51,7 @@ export default function DocumentsPage() {
         .select("*")
         .order("uploaded_at", { ascending: false });
 
-      if (!error && data) {
-        setDocuments(data);
-      }
+      if (!error && data) setDocuments(data);
     } catch (e) {
       console.warn("Failed to fetch documents:", e);
     } finally {
@@ -67,7 +66,6 @@ export default function DocumentsPage() {
     setUploading(true);
 
     try {
-      // Upload to Supabase Storage
       const filePath = `${inquiryId}/${Date.now()}_${file.name}`;
       const { error: uploadError } = await supabase.storage
         .from("trade-documents")
@@ -79,12 +77,10 @@ export default function DocumentsPage() {
         return;
       }
 
-      // Get public URL
       const { data: urlData } = supabase.storage
         .from("trade-documents")
         .getPublicUrl(filePath);
 
-      // Record in DB
       const { error: dbError } = await supabase
         .from("shipment_documents")
         .insert({
@@ -93,9 +89,7 @@ export default function DocumentsPage() {
           file_url: urlData.publicUrl,
         });
 
-      if (dbError) {
-        alert("Failed to save record: " + dbError.message);
-      } else {
+      if (!dbError) {
         fetchDocuments();
         setInquiryId("");
       }
@@ -103,9 +97,7 @@ export default function DocumentsPage() {
       console.error("Upload error:", err);
     } finally {
       setUploading(false);
-      if (fileInputRef.current) {
-        fileInputRef.current.value = "";
-      }
+      if (fileInputRef.current) fileInputRef.current.value = "";
     }
   }
 
@@ -123,42 +115,45 @@ export default function DocumentsPage() {
   }
 
   return (
-    <div className="p-8">
+    <div className="p-8 md:p-12">
       {/* Header */}
-      <div className="mb-8">
-        <h1 className="text-3xl font-serif font-bold text-[#1B3022]">
-          Documents
+      <div className="mb-12">
+        <div className="flex items-center gap-3 mb-4">
+          <div className="h-[2px] w-8 bg-lot-amber" />
+          <span className="text-[10px] font-bold tracking-[0.4em] text-lot-earth uppercase">
+            Trade Compliance
+          </span>
+        </div>
+        <h1 className="text-4xl md:text-5xl font-serif font-black text-lot-forest tracking-tighter italic">
+          Shipment Documents
         </h1>
-        <p className="text-sm text-gray-500 mt-1">
-          Upload and manage trade documents (Phytosanitary, COO, Bill of Lading)
-        </p>
       </div>
 
       {/* Upload Form */}
-      <div className="bg-white border border-gray-200 rounded-lg p-6 mb-8">
-        <h2 className="text-sm font-bold text-[#1B3022] uppercase tracking-widest mb-4">
-          Upload Document
+      <div className="bg-white border-2 border-lot-forest p-10 mb-12 shadow-xl">
+        <h2 className="text-2xl font-serif font-black text-lot-forest tracking-tight italic mb-10 border-b border-lot-earth/10 pb-6">
+          File Ingestion
         </h2>
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-4 items-end">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-8 items-end">
           <div>
-            <label className="text-[10px] font-bold text-gray-500 uppercase tracking-widest block mb-1">
-              Inquiry ID
+            <label className="text-[10px] font-black text-lot-amber uppercase tracking-[0.3em] block mb-3">
+              Inquiry ID (UUID)
             </label>
             <input
               value={inquiryId}
               onChange={(e) => setInquiryId(e.target.value)}
-              placeholder="Paste inquiry UUID"
-              className="w-full h-10 px-3 border border-gray-200 rounded text-xs focus:border-[#1B3022] focus:outline-none font-mono"
+              placeholder="Paste unique identifier..."
+              className="w-full h-12 px-4 border border-lot-earth/20 bg-lot-paper font-mono text-xs focus:border-lot-amber focus:outline-none transition-colors"
             />
           </div>
           <div>
-            <label className="text-[10px] font-bold text-gray-500 uppercase tracking-widest block mb-1">
-              Document Type
+            <label className="text-[10px] font-black text-lot-amber uppercase tracking-[0.3em] block mb-3">
+              Document Category
             </label>
             <select
               value={selectedDocType}
               onChange={(e) => setSelectedDocType(e.target.value)}
-              className="w-full h-10 px-3 border border-gray-200 rounded text-xs focus:border-[#1B3022] focus:outline-none bg-white"
+              className="w-full h-12 px-4 border border-lot-earth/20 bg-lot-paper text-xs font-bold uppercase tracking-widest focus:border-lot-amber focus:outline-none cursor-pointer"
             >
               {DOC_TYPES.map((t) => (
                 <option key={t} value={t}>{t}</option>
@@ -166,22 +161,22 @@ export default function DocumentsPage() {
             </select>
           </div>
           <div className="md:col-span-2">
-            <label className="text-[10px] font-bold text-gray-500 uppercase tracking-widest block mb-1">
-              File (PDF, JPG, PNG — max 10MB)
+            <label className="text-[10px] font-black text-lot-amber uppercase tracking-[0.3em] block mb-3">
+              Technical File (Max 10MB)
             </label>
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-6">
               <input
                 ref={fileInputRef}
                 type="file"
                 accept=".pdf,.jpg,.jpeg,.png"
                 onChange={handleUpload}
                 disabled={uploading || !inquiryId.trim()}
-                className="text-xs file:mr-4 file:py-2 file:px-4 file:border-0 file:text-[10px] file:font-bold file:uppercase file:tracking-widest file:bg-[#1B3022] file:text-white hover:file:bg-[#2c4c36] file:cursor-pointer disabled:opacity-40"
+                className="text-xs font-bold font-mono file:mr-6 file:py-4 file:px-8 file:border-0 file:text-[10px] file:font-black file:uppercase file:tracking-[0.2em] file:bg-lot-forest file:text-white hover:file:bg-lot-forest/90 file:cursor-pointer disabled:opacity-40"
               />
               {uploading && (
-                <span className="text-xs text-gray-500 flex items-center gap-2">
-                  <div className="w-4 h-4 border-2 border-gray-200 border-t-[#1B3022] rounded-full animate-spin" />
-                  Uploading...
+                <span className="text-[10px] font-black text-lot-forest uppercase tracking-widest flex items-center gap-3 animate-pulse">
+                  <div className="w-4 h-4 border-2 border-lot-earth/10 border-t-lot-amber rounded-full animate-spin" />
+                  Ingesting Data...
                 </span>
               )}
             </div>
@@ -189,78 +184,84 @@ export default function DocumentsPage() {
         </div>
       </div>
 
-      {/* Documents List */}
-      <div className="bg-white border border-gray-200 rounded-lg overflow-hidden">
+      {/* Database Grid */}
+      <div className="bg-white border border-lot-earth/20 overflow-hidden">
         {loading ? (
-          <div className="p-16 text-center text-gray-400">
-            <div className="inline-block w-8 h-8 border-2 border-gray-200 border-t-[#1B3022] rounded-full animate-spin" />
-            <p className="mt-4 text-sm">Loading documents...</p>
+          <div className="p-32 text-center">
+            <div className="inline-block w-8 h-8 border-2 border-lot-earth/10 border-t-lot-amber rounded-full animate-spin" />
           </div>
         ) : documents.length === 0 ? (
-          <div className="p-16 text-center">
-            <FolderOpen className="h-12 w-12 text-gray-300 mx-auto mb-4" />
-            <p className="text-gray-500 font-medium">No documents uploaded</p>
-            <p className="text-xs text-gray-400 mt-1">
-              Upload trade documents for your shipments above.
-            </p>
+          <div className="p-32 text-center">
+            <FolderOpen className="h-10 w-10 text-lot-earth/10 mx-auto mb-6" />
+            <p className="text-xl font-serif text-lot-forest italic">No corresponding records found.</p>
           </div>
         ) : (
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
               <thead>
-                <tr className="bg-gray-50 text-left">
-                  <th className="px-6 py-3 text-[10px] font-bold text-gray-500 uppercase tracking-widest">
-                    Type
+                <tr className="bg-lot-forest text-white text-left">
+                  <th className="px-8 py-5 text-[10px] font-bold uppercase tracking-[0.2em]">
+                    Document Identity
                   </th>
-                  <th className="px-6 py-3 text-[10px] font-bold text-gray-500 uppercase tracking-widest">
-                    Inquiry
+                  <th className="px-8 py-5 text-[10px] font-bold uppercase tracking-[0.2em]">
+                    Source Inquiry
                   </th>
-                  <th className="px-6 py-3 text-[10px] font-bold text-gray-500 uppercase tracking-widest">
-                    Uploaded
+                  <th className="px-8 py-5 text-[10px] font-bold uppercase tracking-[0.2em]">
+                    Ingestion Date
                   </th>
-                  <th className="px-6 py-3 text-[10px] font-bold text-gray-500 uppercase tracking-widest text-right">
-                    Actions
+                  <th className="px-8 py-5 text-[10px] font-bold uppercase tracking-[0.2em] text-right">
+                    Terminal
                   </th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-gray-100">
+              <tbody className="divide-y divide-lot-earth/10">
                 {documents.map((doc) => (
-                  <tr key={doc.id} className="hover:bg-gray-50 transition-colors">
-                    <td className="px-6 py-4">
-                      <div className="flex items-center gap-2">
-                        <FileText className="h-4 w-4 text-[#1B3022]" />
-                        <span className="font-medium text-sm">{doc.doc_type}</span>
+                  <tr key={doc.id} className="hover:bg-lot-paper transition-colors group">
+                    <td className="px-8 py-6">
+                      <div className="flex items-center gap-4">
+                        <div className="p-2 bg-lot-forest/5 text-lot-forest border border-lot-forest/10 group-hover:bg-lot-amber group-hover:text-lot-forest transition-colors">
+                          <FileText className="h-4 w-4" />
+                        </div>
+                        <div>
+                          <p className="font-serif font-black text-lot-forest text-base leading-none group-hover:italic transition-all">
+                             {doc.doc_type}
+                          </p>
+                          <p className="text-[9px] font-bold text-lot-earth/40 uppercase tracking-[0.2em] mt-1">Technical Record</p>
+                        </div>
                       </div>
                     </td>
-                    <td className="px-6 py-4">
-                      <span className="text-xs font-mono text-gray-500">
-                        {doc.inquiry_id.slice(0, 8)}...
+                    <td className="px-8 py-6">
+                      <span className="font-mono text-xs font-bold text-lot-amber tracking-tighter bg-lot-amber/5 px-2 py-1 border border-lot-amber/10">
+                        {doc.inquiry_id.slice(0, 13)}...
                       </span>
                     </td>
-                    <td className="px-6 py-4 text-xs text-gray-500">
-                      {new Date(doc.uploaded_at).toLocaleDateString("en-US", {
-                        month: "short",
-                        day: "numeric",
-                        year: "numeric",
-                      })}
+                    <td className="px-8 py-6">
+                      <div className="flex items-center gap-2 text-[10px] font-bold text-lot-forest uppercase tracking-widest">
+                        <Calendar className="h-3 w-3 opacity-40" />
+                        {new Date(doc.uploaded_at).toLocaleDateString("en-US", {
+                          month: "short",
+                          day: "numeric",
+                          year: "numeric",
+                        })}
+                      </div>
                     </td>
-                    <td className="px-6 py-4 text-right">
-                      <div className="flex items-center gap-2 justify-end">
+                    <td className="px-8 py-6 text-right">
+                      <div className="flex items-center gap-3 justify-end">
                         <a
                           href={doc.file_url}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="p-1.5 text-gray-400 hover:text-[#1B3022] transition-colors"
-                          title="Download"
+                          className="px-4 py-2 border border-lot-earth/20 text-[10px] font-black text-lot-forest uppercase tracking-widest hover:bg-lot-forest hover:text-white transition-all"
+                          title="Download Entry"
                         >
-                          <Download className="h-4 w-4" />
+                          <Download className="h-3.5 w-3.5" />
                         </a>
                         <button
                           onClick={() => deleteDocument(doc.id)}
-                          className="p-1.5 text-gray-400 hover:text-red-500 transition-colors"
-                          title="Delete"
+                          className="px-4 py-2 border border-lot-earth/20 text-[10px] font-black text-red-600 uppercase tracking-widest hover:bg-red-600 hover:text-white transition-all"
+                          title="Purge Record"
                         >
-                          <Trash2 className="h-4 w-4" />
+                          <Trash2 className="h-3.5 w-3.5" />
                         </button>
                       </div>
                     </td>

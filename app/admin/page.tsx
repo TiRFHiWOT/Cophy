@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Link from "next/link";
 import { supabase } from "@/lib/supabase";
 import {
   Package,
@@ -70,7 +71,6 @@ export default function AdminDashboard() {
   useEffect(() => {
     async function fetchStats() {
       try {
-        // Fetch inquiry counts
         const { count: totalInquiries, error: err1 } = await supabase
           .from("inquiries")
           .select("*", { count: "exact", head: true });
@@ -80,22 +80,17 @@ export default function AdminDashboard() {
           .select("*", { count: "exact", head: true })
           .eq("status", "pending");
 
-        // Fetch lot count
         const { count: totalLots, error: err3 } = await supabase
           .from("coffee_lots")
           .select("*", { count: "exact", head: true });
 
-        // Fetch recent inquiries
         const { data: recentInquiries, error: err4 } = await supabase
           .from("inquiries")
           .select("id, company_name, contact_email, type, lot_number, status, created_at")
           .order("created_at", { ascending: false })
           .limit(10);
 
-        if (err1 || err2 || err3 || err4) {
-          console.warn("Supabase query errors:", { err1, err2, err3, err4 });
-          setDbConnected(false);
-        }
+        if (err1 || err2 || err3 || err4) setDbConnected(false);
 
         setStats({
           totalInquiries: totalInquiries || 0,
@@ -104,162 +99,152 @@ export default function AdminDashboard() {
           recentInquiries: recentInquiries || [],
         });
       } catch (e) {
-        console.warn("Failed to fetch dashboard stats:", e);
         setDbConnected(false);
       } finally {
         setLoading(false);
       }
     }
-
     fetchStats();
   }, []);
 
   return (
-    <div className="p-8">
+    <div className="p-8 md:p-12">
       {/* Header */}
-      <div className="mb-8">
-        <h1 className="text-3xl font-serif font-bold text-[#1B3022]">
+      <div className="mb-12">
+        <div className="flex items-center gap-3 mb-4">
+          <div className="h-[2px] w-8 bg-lot-amber" />
+          <span className="text-[10px] font-bold tracking-[0.4em] text-lot-earth uppercase">
+            System Overview
+          </span>
+        </div>
+        <h1 className="text-4xl md:text-5xl font-serif font-black text-lot-forest tracking-tighter italic">
           Dashboard
         </h1>
-        <p className="text-sm text-gray-500 mt-1">
-          Overview of your coffee export operations
-        </p>
       </div>
 
       {/* Connection Warning */}
       {!dbConnected && !loading && (
-        <div className="mb-6 p-4 bg-amber-50 border border-amber-200 rounded-lg flex items-start gap-3">
-          <Clock className="h-5 w-5 text-amber-500 shrink-0 mt-0.5" />
+        <div className="mb-8 border border-lot-amber/30 bg-lot-amber/5 p-6 flex items-start gap-4">
+          <Clock className="h-5 w-5 text-lot-amber shrink-0 mt-0.5" />
           <div>
-            <p className="text-sm font-medium text-amber-800">
-              Database not connected
+            <p className="text-sm font-bold text-lot-forest uppercase tracking-widest">
+              Database Offline
             </p>
-            <p className="text-xs text-amber-700 mt-1">
-              Update your <code className="bg-amber-100 px-1 py-0.5 rounded">.env.local</code> with
-              your Supabase URL and anon key, then run the SQL migration in{" "}
-              <code className="bg-amber-100 px-1 py-0.5 rounded">supabase/migrations/001_initial_schema.sql</code>.
+            <p className="text-xs text-lot-earth mt-2 font-light leading-relaxed">
+              Connection to Supabase could not be established. Ensure your <code className="bg-lot-forest/10 px-1 py-0.5 text-lot-forest">.env.local</code> 
+              contains valid <code className="font-mono">NEXT_PUBLIC_SUPABASE_URL</code> and <code className="font-mono">ANON_KEY</code> credentials. 
+              Running in read-only mock mode.
             </p>
           </div>
         </div>
       )}
 
       {/* Stats Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
-        {STAT_CARDS.map((card) => (
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-0 mb-12 border border-lot-earth/20 bg-white">
+        {STAT_CARDS.map((card, idx) => (
           <div
             key={card.key}
-            className="bg-white border border-gray-200 rounded-lg p-6 hover:shadow-md transition-shadow"
+            className={`p-10 border-lot-earth/20 hover:bg-lot-paper transition-colors ${
+              idx !== STAT_CARDS.length - 1 ? "md:border-r border-b md:border-b-0" : ""
+            }`}
           >
-            <div className="flex items-center justify-between mb-4">
-              <span className="text-xs font-bold text-gray-500 uppercase tracking-widest">
+            <div className="flex items-center justify-between mb-6">
+              <span className="text-[10px] font-black text-lot-earth uppercase tracking-[0.2em]">
                 {card.label}
               </span>
-              <div className={`h-10 w-10 rounded-lg flex items-center justify-center ${card.color}`}>
-                <card.icon className={`h-5 w-5 ${card.iconColor}`} />
-              </div>
+              <card.icon className="h-5 w-5 text-lot-amber opacity-40" />
             </div>
-            <p className="text-3xl font-bold text-[#1B3022]">
-              {loading ? (
-                <span className="inline-block w-12 h-8 bg-gray-100 rounded animate-pulse" />
-              ) : (
-                stats[card.key]
-              )}
+            <p className="text-5xl font-serif font-black text-lot-forest tracking-tighter">
+              {loading ? "..." : stats[card.key]}
             </p>
           </div>
         ))}
       </div>
 
       {/* Recent Inquiries Table */}
-      <div className="bg-white border border-gray-200 rounded-lg overflow-hidden">
-        <div className="px-6 py-4 border-b border-gray-200 flex items-center justify-between">
+      <div className="bg-white border border-lot-earth/20 overflow-hidden">
+        <div className="px-8 py-6 border-b border-lot-earth/20 flex items-center justify-between bg-lot-forest/5">
           <div>
-            <h2 className="text-lg font-bold text-[#1B3022]">
+            <h2 className="text-xl font-serif font-bold text-lot-forest tracking-tight">
               Recent Inquiries
             </h2>
-            <p className="text-xs text-gray-500 mt-0.5">
-              Latest sample and quote requests
-            </p>
           </div>
-          <a
+          <Link
             href="/admin/inquiries"
-            className="text-xs font-bold text-[#1B3022] hover:text-[#2c4c36] flex items-center gap-1 uppercase tracking-widest"
+            className="text-[10px] font-black text-lot-forest hover:text-lot-amber flex items-center gap-2 uppercase tracking-[0.2em] transition-colors"
           >
-            View All
+            Manage All
             <ArrowUpRight className="h-3 w-3" />
-          </a>
+          </Link>
         </div>
 
         {loading ? (
-          <div className="p-12 text-center text-gray-400">
-            <div className="inline-block w-8 h-8 border-2 border-gray-200 border-t-[#1B3022] rounded-full animate-spin" />
-            <p className="mt-4 text-sm">Loading...</p>
+          <div className="p-24 text-center">
+            <div className="inline-block w-8 h-8 border-2 border-lot-earth/10 border-t-lot-amber rounded-full animate-spin" />
           </div>
         ) : stats.recentInquiries.length === 0 ? (
-          <div className="p-12 text-center">
-            <Inbox className="h-12 w-12 text-gray-300 mx-auto mb-4" />
-            <p className="text-gray-500 font-medium">No inquiries yet</p>
-            <p className="text-xs text-gray-400 mt-1">
-              {dbConnected
-                ? "Inquiries from the public site will appear here."
-                : "Connect your Supabase database to get started."}
+          <div className="p-24 text-center">
+            <Inbox className="h-10 w-10 text-lot-earth/20 mx-auto mb-4" />
+            <p className="text-lot-earth font-light text-sm italic">
+              No active leads found in the exchange log.
             </p>
           </div>
         ) : (
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
               <thead>
-                <tr className="bg-gray-50 text-left">
-                  <th className="px-6 py-3 text-[10px] font-bold text-gray-500 uppercase tracking-widest">
-                    Company
+                <tr className="bg-lot-forest text-white text-left">
+                  <th className="px-8 py-4 text-[10px] font-bold uppercase tracking-[0.2em]">
+                    Entity
                   </th>
-                  <th className="px-6 py-3 text-[10px] font-bold text-gray-500 uppercase tracking-widest">
+                  <th className="px-8 py-4 text-[10px] font-bold uppercase tracking-[0.2em]">
                     Type
                   </th>
-                  <th className="px-6 py-3 text-[10px] font-bold text-gray-500 uppercase tracking-widest">
-                    Lot
+                  <th className="px-8 py-4 text-[10px] font-bold uppercase tracking-[0.2em]">
+                    Lot Identifier
                   </th>
-                  <th className="px-6 py-3 text-[10px] font-bold text-gray-500 uppercase tracking-widest">
-                    Status
+                  <th className="px-8 py-4 text-[10px] font-bold uppercase tracking-[0.2em]">
+                    Exchange Status
                   </th>
-                  <th className="px-6 py-3 text-[10px] font-bold text-gray-500 uppercase tracking-widest">
-                    Date
+                  <th className="px-8 py-4 text-[10px] font-bold uppercase tracking-[0.2em] text-right">
+                    Log Date
                   </th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-gray-100">
+              <tbody className="divide-y divide-lot-earth/10">
                 {stats.recentInquiries.map((inquiry) => (
-                  <tr key={inquiry.id} className="hover:bg-gray-50 transition-colors">
-                    <td className="px-6 py-4">
-                      <p className="font-medium text-[#1B3022]">
+                  <tr key={inquiry.id} className="hover:bg-lot-paper transition-colors group">
+                    <td className="px-8 py-5">
+                      <p className="font-bold text-lot-forest text-base leading-none mb-1">
                         {inquiry.company_name}
                       </p>
-                      <p className="text-xs text-gray-400 mt-0.5">
+                      <p className="text-[10px] font-mono text-lot-earth uppercase tracking-widest opacity-60">
                         {inquiry.contact_email}
                       </p>
                     </td>
-                    <td className="px-6 py-4">
-                      <span className="text-xs font-bold uppercase tracking-wider">
+                    <td className="px-8 py-5">
+                      <span className="text-[10px] font-bold uppercase tracking-widest text-lot-forest bg-lot-forest/5 px-2 py-1">
                         {inquiry.type === "sample_request" ? "Sample" : "Quote"}
                       </span>
                     </td>
-                    <td className="px-6 py-4">
-                      <span className="text-xs font-mono text-gray-600">
-                        {inquiry.lot_number || "General"}
+                    <td className="px-8 py-5">
+                      <span className="text-xs font-mono font-bold text-lot-amber">
+                        {inquiry.lot_number || "DIRECT TRADE"}
                       </span>
                     </td>
-                    <td className="px-6 py-4">
+                    <td className="px-8 py-5">
                       <span
-                        className={`inline-flex px-2.5 py-1 text-[10px] font-bold uppercase tracking-widest rounded-full ${
+                        className={`inline-flex px-3 py-1 text-[10px] font-bold uppercase tracking-widest border border-lot-earth/20 ${
                           STATUS_STYLES[inquiry.status] || STATUS_STYLES.pending
                         }`}
                       >
-                        {inquiry.status}
+                        {inquiry.status.replace("_", " ")}
                       </span>
                     </td>
-                    <td className="px-6 py-4 text-xs text-gray-500">
+                    <td className="px-8 py-5 text-[10px] font-mono font-bold text-lot-earth/60 text-right">
                       {new Date(inquiry.created_at).toLocaleDateString("en-US", {
-                        month: "short",
-                        day: "numeric",
+                        month: "2-digit",
+                        day: "2-digit",
                         year: "numeric",
                       })}
                     </td>

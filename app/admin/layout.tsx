@@ -1,4 +1,12 @@
 import type { Metadata } from "next";
+import Link from "next/link";
+import { 
+  LayoutDashboard, 
+  Inbox, 
+  Package, 
+  FileText, 
+  ArrowLeft 
+} from "lucide-react";
 
 export const metadata: Metadata = {
   title: "Admin | Lot 251 Export Portal",
@@ -11,73 +19,68 @@ export default function AdminLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-lot-paper paper-texture">
       {/* Admin Sidebar */}
-      <aside className="fixed top-0 left-0 bottom-0 w-64 bg-[#1B3022] text-white flex flex-col z-40">
+      <aside className="fixed top-0 left-0 bottom-0 w-64 bg-lot-forest text-white flex flex-col z-40 border-r border-white/5">
         {/* Logo */}
-        <div className="px-6 py-6 border-b border-white/10">
-          <h1 className="text-lg font-serif font-bold tracking-tight">
-            Lot 251 <span className="text-[#D9C5B2]">Admin</span>
+        <div className="px-6 py-8 border-b border-white/10">
+          <h1 className="text-xl font-serif font-black tracking-tight leading-none">
+            Lot 251 <span className="text-lot-amber font-mono text-sm block mt-1 uppercase tracking-[0.2em] opacity-80">Admin</span>
           </h1>
-          <p className="text-[10px] text-white/40 uppercase tracking-[0.2em] mt-1">
+          <p className="text-[9px] text-white/30 uppercase tracking-[0.3em] mt-3 font-bold">
             Export Management
           </p>
         </div>
 
         {/* Navigation */}
-        <nav className="flex-1 px-4 py-6 space-y-1 overflow-y-auto">
-          <a
+        <nav className="flex-1 px-0 py-6 space-y-0 overflow-y-auto">
+          <Link
             href="/admin"
-            className="flex items-center gap-3 px-3 py-2.5 text-sm font-medium text-white/80 hover:text-white hover:bg-white/10 transition-all rounded"
+            className="flex items-center gap-3 px-6 py-4 text-xs font-bold uppercase tracking-widest text-white/60 hover:text-white hover:bg-white/5 transition-all border-l-2 border-transparent"
           >
-            <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-              <path strokeLinecap="round" strokeLinejoin="round" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
-            </svg>
+            <LayoutDashboard className="h-4 w-4" />
             Dashboard
-          </a>
-          <a
+          </Link>
+          <Link
             href="/admin/inquiries"
-            className="flex items-center gap-3 px-3 py-2.5 text-sm font-medium text-white/80 hover:text-white hover:bg-white/10 transition-all rounded"
+            className="flex items-center gap-3 px-6 py-4 text-xs font-bold uppercase tracking-widest text-white/60 hover:text-white hover:bg-white/5 transition-all border-l-2 border-transparent"
           >
-            <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-              <path strokeLinecap="round" strokeLinejoin="round" d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4" />
-            </svg>
+            <Inbox className="h-4 w-4" />
             Inquiries
-          </a>
-          <a
+          </Link>
+          <Link
             href="/admin/inventory"
-            className="flex items-center gap-3 px-3 py-2.5 text-sm font-medium text-white/80 hover:text-white hover:bg-white/10 transition-all rounded"
+            className="flex items-center gap-3 px-6 py-4 text-xs font-bold uppercase tracking-widest text-white/60 hover:text-white hover:bg-white/5 transition-all border-l-2 border-transparent"
           >
-            <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-              <path strokeLinecap="round" strokeLinejoin="round" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
-            </svg>
+            <Package className="h-4 w-4" />
             Inventory
-          </a>
-          <a
+          </Link>
+          <Link
             href="/admin/documents"
-            className="flex items-center gap-3 px-3 py-2.5 text-sm font-medium text-white/80 hover:text-white hover:bg-white/10 transition-all rounded"
+            className="flex items-center gap-3 px-6 py-4 text-xs font-bold uppercase tracking-widest text-white/60 hover:text-white hover:bg-white/5 transition-all border-l-2 border-transparent"
           >
-            <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-              <path strokeLinecap="round" strokeLinejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-            </svg>
+            <FileText className="h-4 w-4" />
             Documents
-          </a>
+          </Link>
         </nav>
 
         {/* Footer */}
-        <div className="px-6 py-4 border-t border-white/10">
-          <a
+        <div className="px-6 py-6 border-t border-white/10">
+          <Link
             href="/"
-            className="text-xs text-white/40 hover:text-white/70 transition-colors"
+            className="inline-flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest text-white/30 hover:text-lot-amber transition-colors"
           >
-            ← Back to Public Site
-          </a>
+            <ArrowLeft className="h-3 w-3" />
+            Public Site
+          </Link>
         </div>
       </aside>
 
       {/* Main Content */}
       <main className="ml-64 min-h-screen">
-        {children}
+        <div className="max-w-[1600px] mx-auto">
+          {children}
+        </div>
       </main>
     </div>
   );

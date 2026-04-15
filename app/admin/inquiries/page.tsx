@@ -7,8 +7,11 @@ import {
   Filter,
   ChevronDown,
   Mail,
-  Clock,
   Building2,
+  Globe,
+  Tag,
+  Calendar,
+  Layers,
 } from "lucide-react";
 
 type InquiryStatus = "pending" | "contacted" | "sample_shipped" | "quoted" | "closed";
@@ -40,11 +43,11 @@ const STATUS_OPTIONS: InquiryStatus[] = [
 ];
 
 const STATUS_STYLES: Record<string, string> = {
-  pending: "bg-amber-100 text-amber-800 border-amber-200",
-  contacted: "bg-blue-100 text-blue-800 border-blue-200",
-  sample_shipped: "bg-purple-100 text-purple-800 border-purple-200",
-  quoted: "bg-emerald-100 text-emerald-800 border-emerald-200",
-  closed: "bg-gray-100 text-gray-700 border-gray-200",
+  pending: "bg-amber-50 text-amber-900 border-amber-200",
+  contacted: "bg-blue-50 text-blue-900 border-blue-200",
+  sample_shipped: "bg-purple-50 text-purple-900 border-purple-200",
+  quoted: "bg-emerald-50 text-emerald-900 border-emerald-200",
+  closed: "bg-gray-100 text-gray-900 border-gray-200",
 };
 
 export default function InquiriesPage() {
@@ -71,12 +74,7 @@ export default function InquiriesPage() {
       }
 
       const { data, error } = await query;
-
-      if (error) {
-        console.warn("Failed to fetch inquiries:", error);
-      } else {
-        setInquiries(data || []);
-      }
+      if (!error) setInquiries(data || []);
     } catch (e) {
       console.warn("Inquiry fetch error:", e);
     } finally {
@@ -111,183 +109,176 @@ export default function InquiriesPage() {
   });
 
   return (
-    <div className="p-8">
+    <div className="p-8 md:p-12">
       {/* Header */}
-      <div className="mb-8">
-        <h1 className="text-3xl font-serif font-bold text-[#1B3022]">
-          Inquiries
+      <div className="mb-12">
+        <div className="flex items-center gap-3 mb-4">
+          <div className="h-[2px] w-8 bg-lot-amber" />
+          <span className="text-[10px] font-bold tracking-[0.4em] text-lot-earth uppercase">
+            Lead Management
+          </span>
+        </div>
+        <h1 className="text-4xl md:text-5xl font-serif font-black text-lot-forest tracking-tighter italic">
+          B2B Inquiries
         </h1>
-        <p className="text-sm text-gray-500 mt-1">
-          Manage sample and quote requests from buyers
-        </p>
       </div>
 
       {/* Toolbar */}
-      <div className="flex flex-wrap items-center gap-4 mb-6">
-        <div className="flex-1 min-w-[200px] relative">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
+      <div className="flex flex-wrap items-stretch gap-0 mb-8 border border-lot-earth/20 bg-white shadow-sm">
+        <div className="flex-1 min-w-[300px] relative border-r border-lot-earth/20">
+          <Search className="absolute left-6 top-1/2 -translate-y-1/2 h-4 w-4 text-lot-earth opacity-40" />
           <input
             type="text"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            placeholder="Search company, contact, lot..."
-            className="w-full pl-10 pr-4 h-10 border border-gray-200 rounded-lg text-sm focus:border-[#1B3022] focus:outline-none"
+            placeholder="Filter by company, contact, or lot identifier..."
+            className="w-full pl-14 pr-6 h-14 text-xs font-bold uppercase tracking-widest placeholder:text-lot-earth/30 focus:bg-lot-paper focus:outline-none transition-colors border-none"
           />
         </div>
-        <div className="flex items-center gap-2">
-          <Filter className="h-4 w-4 text-gray-400" />
+        <div className="flex items-center px-6 gap-3 border-r border-lot-earth/20 bg-lot-paper/30">
+          <Filter className="h-4 w-4 text-lot-earth opacity-40" />
           <select
             value={statusFilter}
             onChange={(e) => setStatusFilter(e.target.value)}
-            className="h-10 px-3 border border-gray-200 rounded-lg text-sm focus:border-[#1B3022] focus:outline-none appearance-none bg-white pr-8"
+            className="h-full bg-transparent text-[10px] font-bold uppercase tracking-widest focus:outline-none cursor-pointer pr-4"
           >
-            <option value="all">All Status</option>
+            <option value="all">Every Status</option>
             {STATUS_OPTIONS.map((s) => (
-              <option key={s} value={s}>
-                {s.replace("_", " ")}
-              </option>
+              <option key={s} value={s}>{s.replace("_", " ")}</option>
             ))}
           </select>
         </div>
-        <span className="text-xs text-gray-400 font-medium">
-          {filtered.length} {filtered.length === 1 ? "result" : "results"}
-        </span>
+        <div className="px-8 flex items-center bg-lot-forest text-white">
+          <span className="text-[10px] font-black uppercase tracking-[0.2em]">
+            {filtered.length} Leads
+          </span>
+        </div>
       </div>
 
-      {/* Table */}
-      <div className="bg-white border border-gray-200 rounded-lg overflow-hidden">
+      {/* Database View */}
+      <div className="border border-lot-earth/20 bg-white">
         {loading ? (
-          <div className="p-16 text-center text-gray-400">
-            <div className="inline-block w-8 h-8 border-2 border-gray-200 border-t-[#1B3022] rounded-full animate-spin" />
-            <p className="mt-4 text-sm">Loading inquiries...</p>
+          <div className="p-32 text-center">
+            <div className="inline-block w-8 h-8 border-2 border-lot-earth/10 border-t-lot-amber rounded-full animate-spin" />
+            <p className="mt-6 text-[10px] font-bold uppercase tracking-[0.3em] text-lot-earth/40 animate-pulse">Syncing with Exchange</p>
           </div>
         ) : filtered.length === 0 ? (
-          <div className="p-16 text-center">
-            <Mail className="h-12 w-12 text-gray-300 mx-auto mb-4" />
-            <p className="text-gray-500 font-medium">No inquiries found</p>
+          <div className="p-32 text-center">
+            <Mail className="h-10 w-10 text-lot-earth/10 mx-auto mb-6" />
+            <p className="text-xl font-serif text-lot-forest italic">No corresponding inquiries found.</p>
           </div>
         ) : (
-          <div className="divide-y divide-gray-100">
+          <div className="divide-y divide-lot-earth/10">
             {filtered.map((inq) => (
-              <div key={inq.id}>
+              <div key={inq.id} className="group">
                 {/* Row */}
                 <button
-                  onClick={() =>
-                    setExpandedId(expandedId === inq.id ? null : inq.id)
-                  }
-                  className="w-full px-6 py-4 flex items-center gap-4 text-left hover:bg-gray-50 transition-colors"
+                  onClick={() => setExpandedId(expandedId === inq.id ? null : inq.id)}
+                  className="w-full px-8 py-6 flex items-center gap-8 text-left hover:bg-lot-paper transition-all group/row"
                 >
                   <div className="flex-1 min-w-0">
-                    <div className="flex items-center gap-2 mb-1">
-                      <Building2 className="h-3.5 w-3.5 text-gray-400" />
-                      <span className="font-medium text-[#1B3022] text-sm">
+                    <div className="flex items-center gap-3 mb-2">
+                      <Building2 className="h-3.5 w-3.5 text-lot-amber" />
+                      <span className="font-serif font-black text-lot-forest text-lg leading-none tracking-tight">
                         {inq.company_name}
                       </span>
-                      <span className="text-[10px] text-gray-400">
-                        ({inq.company_country})
+                      <span className="text-[9px] font-mono font-bold text-lot-earth bg-lot-earth/10 px-1.5 py-0.5 uppercase tracking-widest">
+                        {inq.company_country}
                       </span>
                     </div>
-                    <p className="text-xs text-gray-400">
-                      {inq.contact_name} • {inq.contact_email}
-                    </p>
+                    <div className="flex items-center gap-4 text-[10px] font-bold uppercase tracking-[0.2em] text-lot-earth/60">
+                      <span>{inq.contact_name}</span>
+                      <div className="w-1 h-1 rounded-full bg-lot-earth/30" />
+                      <span className="font-mono lowercase tracking-normal">{inq.contact_email}</span>
+                    </div>
                   </div>
 
-                  <span className="text-xs font-bold uppercase tracking-wider text-gray-500 whitespace-nowrap">
-                    {inq.type === "sample_request" ? "Sample" : "Quote"}
-                  </span>
+                  <div className="flex flex-col items-start gap-1">
+                    <span className="text-[10px] font-black uppercase tracking-widest text-lot-earth opacity-40">Contract Type</span>
+                    <span className="text-xs font-bold text-lot-forest">{inq.type === "sample_request" ? "SAMPLE EVALUATION" : "QUOTATION REQUEST"}</span>
+                  </div>
 
-                  <span className="text-xs font-mono text-gray-500 whitespace-nowrap">
-                    {inq.lot_number || "General"}
-                  </span>
+                  <div className="flex flex-col items-start gap-1">
+                    <span className="text-[10px] font-black uppercase tracking-widest text-lot-earth opacity-40">Identifier</span>
+                    <span className="text-xs font-mono font-bold text-lot-amber">{inq.lot_number || "DIRECT-EX"}</span>
+                  </div>
 
-                  <span
-                    className={`inline-flex px-2.5 py-1 text-[10px] font-bold uppercase tracking-widest rounded-full border whitespace-nowrap ${
-                      STATUS_STYLES[inq.status] || STATUS_STYLES.pending
-                    }`}
-                  >
-                    {inq.status.replace("_", " ")}
-                  </span>
+                  <div className="flex flex-col items-end gap-1">
+                    <span className="text-[10px] font-black uppercase tracking-widest text-lot-earth opacity-40">Log Date</span>
+                    <span className="text-xs font-mono font-bold text-lot-forest">
+                      {new Date(inq.created_at).toLocaleDateString("en-US", { month: "2-digit", day: "2-digit", year: "2-digit" })}
+                    </span>
+                  </div>
 
-                  <span className="text-xs text-gray-400 whitespace-nowrap">
-                    {new Date(inq.created_at).toLocaleDateString("en-US", {
-                      month: "short",
-                      day: "numeric",
-                    })}
-                  </span>
-
-                  <ChevronDown
-                    className={`h-4 w-4 text-gray-400 transition-transform ${
-                      expandedId === inq.id ? "rotate-180" : ""
-                    }`}
-                  />
+                  <div className={`px-4 py-2 border border-lot-earth/20 transition-all ${expandedId === inq.id ? "bg-lot-forest text-white" : "bg-white text-lot-forest"}`}>
+                    <ChevronDown className={`h-4 w-4 transition-transform ${expandedId === inq.id ? "rotate-180" : ""}`} />
+                  </div>
                 </button>
 
                 {/* Expanded Detail */}
                 {expandedId === inq.id && (
-                  <div className="px-6 py-5 bg-gray-50 border-t border-gray-100">
-                    <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-6">
-                      <div>
-                        <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-1">
-                          Contact
-                        </p>
-                        <p className="text-sm font-medium">{inq.contact_name}</p>
-                        <p className="text-xs text-gray-500">{inq.contact_email}</p>
-                        {inq.contact_phone && (
-                          <p className="text-xs text-gray-500">{inq.contact_phone}</p>
-                        )}
+                  <div className="px-10 py-10 bg-lot-paper border-y border-lot-earth/10">
+                    <div className="grid grid-cols-1 md:grid-cols-4 gap-12">
+                      <div className="space-y-6">
+                        <div>
+                          <p className="text-[10px] font-black text-lot-amber uppercase tracking-[0.3em] mb-3">Contact Dossier</p>
+                          <p className="text-sm font-black text-lot-forest italic mb-1">{inq.contact_name}</p>
+                          <p className="text-xs font-mono text-lot-earth">{inq.contact_email}</p>
+                          {inq.contact_phone && <p className="text-xs font-mono text-lot-earth mt-1">{inq.contact_phone}</p>}
+                        </div>
                         {inq.contact_role && (
-                          <p className="text-xs text-gray-400 capitalize mt-1">{inq.contact_role}</p>
+                          <div>
+                            <p className="text-[9px] font-bold text-lot-earth/40 uppercase tracking-widest mb-1">Position</p>
+                            <p className="text-xs font-bold text-lot-forest uppercase tracking-widest">{inq.contact_role}</p>
+                          </div>
                         )}
                       </div>
-                      {inq.quantity_bags && (
+
+                      <div className="space-y-6">
                         <div>
-                          <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-1">
-                            Quantity
-                          </p>
-                          <p className="text-sm font-medium">{inq.quantity_bags} bags</p>
-                          <p className="text-xs text-gray-500">
-                            ≈ {inq.quantity_bags * 60}kg
-                          </p>
+                          <p className="text-[10px] font-black text-lot-amber uppercase tracking-[0.3em] mb-3">Specifications</p>
+                          <div className="grid grid-cols-2 gap-4">
+                            <div>
+                              <p className="text-[9px] font-bold text-lot-earth/40 uppercase tracking-widest mb-1">Volume</p>
+                              <p className="text-xs font-bold text-lot-forest">{inq.quantity_bags || 0} BAGS</p>
+                              <p className="text-[10px] font-mono text-lot-earth opacity-60">≈ {(inq.quantity_bags || 0) * 60}kg</p>
+                            </div>
+                            <div>
+                              <p className="text-[9px] font-bold text-lot-earth/40 uppercase tracking-widest mb-1">Incoterm</p>
+                              <p className="text-xs font-bold text-lot-forest">{inq.incoterm || "TBD"}</p>
+                              <p className="text-[10px] font-mono text-lot-earth opacity-60 uppercase">{inq.shipping_method || "TBD"}</p>
+                            </div>
+                          </div>
                         </div>
-                      )}
-                      {inq.shipping_method && (
+                      </div>
+
+                      <div className="md:col-span-2 flex flex-col justify-between">
                         <div>
-                          <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-1">
-                            Shipping
-                          </p>
-                          <p className="text-sm font-medium uppercase">{inq.shipping_method}</p>
-                          {inq.incoterm && (
-                            <p className="text-xs text-gray-500">Incoterm: {inq.incoterm}</p>
-                          )}
+                          <p className="text-[10px] font-black text-lot-amber uppercase tracking-[0.3em] mb-3">Internal Memo</p>
+                          <div className="bg-white p-6 border border-lot-earth/10 min-h-[100px] text-xs font-light leading-relaxed text-lot-earth italic">
+                            {inq.notes || "No additional technical requirements logged for this inquiry."}
+                          </div>
                         </div>
-                      )}
-                      <div>
-                        <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-1">
-                          Update Status
-                        </p>
-                        <select
-                          value={inq.status}
-                          onChange={(e) => updateStatus(inq.id, e.target.value)}
-                          className="h-9 px-3 border border-gray-200 rounded text-xs font-medium focus:border-[#1B3022] focus:outline-none bg-white w-full"
-                        >
-                          {STATUS_OPTIONS.map((s) => (
-                            <option key={s} value={s}>
-                              {s.replace("_", " ")}
-                            </option>
-                          ))}
-                        </select>
+
+                        <div className="mt-8 flex items-center justify-between border-t border-lot-earth/10 pt-6">
+                            <div className="flex items-center gap-3">
+                              <span className="text-[10px] font-black text-lot-forest uppercase tracking-widest">Update State:</span>
+                              <select
+                                value={inq.status}
+                                onChange={(e) => updateStatus(inq.id, e.target.value)}
+                                className="h-10 px-4 border border-lot-earth/20 text-[10px] font-bold uppercase tracking-widest focus:border-lot-amber focus:outline-none bg-white min-w-[180px]"
+                              >
+                                {STATUS_OPTIONS.map((s) => (
+                                  <option key={s} value={s}>{s.replace("_", " ")}</option>
+                                ))}
+                              </select>
+                            </div>
+                            <div className={`px-4 py-2 text-[10px] font-bold uppercase tracking-widest border border-lot-earth/20 ${STATUS_STYLES[inq.status]}`}>
+                              Current: {inq.status.replace("_", " ")}
+                            </div>
+                        </div>
                       </div>
                     </div>
-                    {inq.notes && (
-                      <div>
-                        <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-1">
-                          Notes
-                        </p>
-                        <p className="text-sm text-gray-600 bg-white p-3 border border-gray-200 rounded">
-                          {inq.notes}
-                        </p>
-                      </div>
-                    )}
                   </div>
                 )}
               </div>
