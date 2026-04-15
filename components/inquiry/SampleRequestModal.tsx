@@ -41,7 +41,7 @@ export function SampleRequestModal({ isOpen, onClose, product }: SampleRequestMo
         type: "sample_request",
         email: "anonymous@example.com",
         fullName: "Anonymous",
-      });
+      } as any);
 
       if (!result.success && !result.error?.includes("NEXT_PUBLIC")) {
         setSubmitError(result.error || "Something went wrong.");

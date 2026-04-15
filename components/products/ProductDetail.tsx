@@ -6,7 +6,7 @@ import Link from "next/link";
 import { CoffeeLot } from "@/types";
 import { Button } from "@/components/ui/button";
 import { formatPrice } from "@/lib/formatters";
-import { InquiryModal } from "@/components/inquiry/InquiryModal";
+import { SampleRequestModal } from "@/components/inquiry/SampleRequestModal";
 import {
   ArrowLeft,
   Leaf,
@@ -25,10 +25,7 @@ interface ProductDetailProps {
 export function ProductDetail({ product }: ProductDetailProps) {
   const [selectedImage, setSelectedImage] = useState(0);
   const [inquiryOpen, setInquiryOpen] = useState(false);
-  const [inquiryType, setInquiryType] = useState<"sample" | "quote">("sample");
-
-  const openInquiry = (type: "sample" | "quote") => {
-    setInquiryType(type);
+  const openInquiry = () => {
     setInquiryOpen(true);
   };
 
@@ -147,13 +144,13 @@ export function ProductDetail({ product }: ProductDetailProps) {
               </div>
               <div className="flex flex-col sm:flex-row gap-4">
                 <Button
-                  onClick={() => openInquiry("sample")}
+                  onClick={openInquiry}
                   className="flex-1 h-14 bg-lot-forest hover:bg-lot-forest/90 text-white rounded-none font-bold uppercase tracking-widest text-xs cursor-pointer"
                 >
                   Request 200g Sample
                 </Button>
                 <Button
-                  onClick={() => openInquiry("quote")}
+                  onClick={openInquiry}
                   variant="outline"
                   className="flex-1 h-14 border-2 border-lot-forest text-lot-forest hover:bg-lot-forest hover:text-white rounded-none font-bold uppercase tracking-widest text-xs transition-all cursor-pointer"
                 >
@@ -183,17 +180,15 @@ export function ProductDetail({ product }: ProductDetailProps) {
                 </div>
               </div>
             </div>
-            </div>
           </div>
         </div>
       </div>
 
       {/* Inquiry Modal */}
-      <InquiryModal
+      <SampleRequestModal
         isOpen={inquiryOpen}
         onClose={() => setInquiryOpen(false)}
         product={product}
-        type={inquiryType}
       />
     </>
   );
