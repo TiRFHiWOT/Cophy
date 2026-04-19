@@ -28,7 +28,7 @@ const jetbrainsMono = JetBrains_Mono({
 
 export const metadata: Metadata = {
   title: {
-    default: "Lot 251 — Global Coffee Commodity Exchange",
+    default: "Lot 251 | Global Coffee Commodity Exchange",
     template: "%s | Lot 251 Exchange",
   },
   description:
@@ -50,13 +50,13 @@ export const metadata: Metadata = {
     locale: "en_US",
     url: "https://lot251.com",
     siteName: "Lot 251 Exchange",
-    title: "Lot 251 — Global Coffee Commodity Exchange",
+    title: "Lot 251 | Global Coffee Commodity Exchange",
     description:
       "Premium B2B Ethiopian Speciality Coffee Export Portal. Access technical lot data and request samples directly from origin.",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Lot 251 — Global Coffee Commodity Exchange",
+    title: "Lot 251 | Global Coffee Commodity Exchange",
     description:
       "Premium B2B Ethiopian Speciality Coffee Export Portal. Access technical lot data and request samples.",
   },
