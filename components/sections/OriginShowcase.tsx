@@ -81,7 +81,7 @@ export function OriginShowcase() {
                 className="object-cover transform group-hover:scale-110 transition-transform duration-1000"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-lot-forest/90 via-lot-forest/20 to-transparent" />
-              
+
               <div className="absolute inset-0 p-8 flex flex-col justify-end">
                 <div className="transform translate-y-8 group-hover:translate-y-0 transition-transform duration-500">
                   <span className="text-xs font-bold text-lot-amber font-mono uppercase tracking-widest">{region.altitude}</span>
