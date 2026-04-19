@@ -12,8 +12,8 @@ interface CurrentLotsProps {
 }
 
 export function CurrentLots({ products }: CurrentLotsProps) {
-  // Get featured products for the bento grid display
-  const featuredLots = products.filter((p) => p.featured).slice(0, 5);
+  // Only show top 3 featured products for a balanced row
+  const featuredLots = products.filter((p) => p.featured).slice(0, 3);
 
   return (
     <section className="py-24 md:py-32 bg-white relative overflow-hidden">
@@ -38,7 +38,7 @@ export function CurrentLots({ products }: CurrentLotsProps) {
               Current Offerings.
             </h2>
           </motion.div>
-
+          
           <motion.div
             initial={{ opacity: 0, x: 20 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -62,8 +62,8 @@ export function CurrentLots({ products }: CurrentLotsProps) {
           viewport={{ once: true, margin: "-50px" }}
           transition={{ duration: 0.8, delay: 0.2 }}
         >
-          {/* Using the updated ProductGrid with bento support */}
-          <ProductGrid products={featuredLots} bento={true} />
+          {/* Using bento={false} to ensure equal height 3-column grid */}
+          <ProductGrid products={featuredLots} bento={false} />
         </motion.div>
 
         <div className="mt-20 flex flex-col items-center border-t border-lot-paper pt-12">

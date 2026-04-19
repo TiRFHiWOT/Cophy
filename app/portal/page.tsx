@@ -15,11 +15,13 @@ import {
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
 import { useRouter } from "next/navigation";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import { AccountSettingsModal } from "@/components/portal/AccountSettingsModal";
 
 export default function PartnerPortalPage() {
   const { user, logout } = useAuth();
   const router = useRouter();
+  const [isSettingsOpen, setIsSettingsOpen] = useState(false);
 
   useEffect(() => {
     if (!user) {
@@ -81,7 +83,7 @@ export default function PartnerPortalPage() {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Main Stats/Cards */}
           <div className="lg:col-span-2 space-y-8">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               {dashboardCards.map((card, idx) => (
                 <motion.div
                   key={card.title}
@@ -182,13 +184,22 @@ export default function PartnerPortalPage() {
                   <span className="text-lot-forest font-black uppercase">2 Shipments</span>
                 </div>
               </div>
-              <Button variant="outline" className="w-full mt-8 border-lot-earth/20 text-lot-forest hover:bg-lot-paper uppercase text-[10px] font-bold tracking-widest">
+              <Button 
+                variant="outline" 
+                className="w-full mt-8 border-lot-earth/20 text-lot-forest hover:bg-lot-paper uppercase text-[10px] font-bold tracking-widest"
+                onClick={() => setIsSettingsOpen(true)}
+              >
                 <Settings className="mr-2 h-3.5 w-3.5" /> Account Settings
               </Button>
             </div>
           </div>
         </div>
       </div>
+
+      <AccountSettingsModal 
+        isOpen={isSettingsOpen} 
+        onClose={() => setIsSettingsOpen(false)} 
+      />
     </div>
   );
 }
