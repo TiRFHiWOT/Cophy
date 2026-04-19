@@ -1,4 +1,4 @@
-import Hero from "@/components/sections/Hero";
+import { HeroMinimalist as Hero } from "@/components/sections/HeroMinimalist";
 import { WhyLot251 } from "@/components/sections/WhyLot251";
 import { CurrentLots } from "@/components/sections/CurrentLots";
 import { OriginShowcase } from "@/components/sections/OriginShowcase";
