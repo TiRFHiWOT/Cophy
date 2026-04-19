@@ -120,12 +120,12 @@ function ProductsPage() {
         {/* Description Paragraphs */}
         <div className="space-y-6 mb-12 max-w-4xl">
           <p className="text-lg md:text-xl leading-relaxed text-lot-earth font-light">
-            Access our verified, export-ready inventory of Ethiopian specialty green coffee lots. 
-            All offerings are rigorously scored by SCA-certified Q-graders and meticulously 
+            Access our verified, export-ready inventory of Ethiopian specialty green coffee lots.
+            All offerings are rigorously scored by SCA-certified Q-graders and meticulously
             traced from our partner washing stations.
           </p>
           <p className="text-sm md:text-base leading-relaxed text-lot-earth/80 font-mono font-bold uppercase tracking-widest">
-            Filter by processing method, altitude, and current availability. Review cupping scores, 
+            Filter by processing method, altitude, and current availability. Review cupping scores,
             moisture content, and request samples.
           </p>
         </div>
@@ -176,9 +176,8 @@ function ProductsPage() {
                 variant="ghost"
                 size="icon"
                 onClick={() => setGridSize(2)}
-                className={`h-8 w-8 rounded-none ${
-                  gridSize === 2 ? "bg-gray-100" : "hover:bg-gray-50"
-                }`}
+                className={`h-8 w-8 rounded-none ${gridSize === 2 ? "bg-gray-100" : "hover:bg-gray-50"
+                  }`}
                 aria-label="2 columns"
               >
                 <Grid2x2 className="h-5 w-5 text-gray-700" />
@@ -187,9 +186,8 @@ function ProductsPage() {
                 variant="ghost"
                 size="icon"
                 onClick={() => setGridSize(3)}
-                className={`h-8 w-8 rounded-none ${
-                  gridSize === 3 ? "bg-gray-100" : "hover:bg-gray-50"
-                }`}
+                className={`h-8 w-8 rounded-none ${gridSize === 3 ? "bg-gray-100" : "hover:bg-gray-50"
+                  }`}
                 aria-label="3 columns"
               >
                 <Grid3x3 className="h-5 w-5 text-gray-700" />
@@ -212,7 +210,7 @@ function ProductsPage() {
           onProcessChange={handleProcessChange}
           onClose={() => setShowFilters(false)}
         />
-        <div className="flex-1 lg:pl-10">
+        <div className={`flex-1 ${showFilters ? "lg:pl-4" : ""}`}>
           {/* Products Grid */}
           <div className={`grid ${gridCols[gridSize]} gap-8`}>
             {sortedProducts.map((product, index) => (

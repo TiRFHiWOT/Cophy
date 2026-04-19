@@ -22,7 +22,7 @@
     "fobPriceUsd": 8.75,
     "fobPriceRange": "$8.50 - $9.00",
     "images": [
-      "https://images.unsplash.com/photo-1611854779393-1b2da9d400fe?w=800&h=800&fit=crop"
+      "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?q=80&w=1200&auto=format&fit=crop"
     ],
     "category": "pour-over",
     "inStock": true,
@@ -51,7 +51,7 @@
     "fobPriceUsd": 9.20,
     "fobPriceRange": "$9.00 - $9.50",
     "images": [
-      "https://images.unsplash.com/photo-1559525839-b184a4d698c7?w=800&h=800&fit=crop"
+      "https://images.unsplash.com/photo-1510972527921-ce03766a1cf1?q=80&w=1200&auto=format&fit=crop"
     ],
     "category": "pour-over",
     "inStock": true,
@@ -80,7 +80,7 @@
     "fobPriceUsd": 11.50,
     "fobPriceRange": "$11.00 - $12.00",
     "images": [
-      "https://images.unsplash.com/photo-1447933601403-0c6688de566e?w=800&h=800&fit=crop"
+      "https://images.unsplash.com/photo-1447933601403-0c6688de566e?q=80&w=1200&auto=format&fit=crop"
     ],
     "category": "espresso",
     "inStock": true,
@@ -109,11 +109,11 @@
     "fobPriceUsd": 7.80,
     "fobPriceRange": "$7.50 - $8.20",
     "images": [
-      "https://images.unsplash.com/photo-1514432324607-a2c622d54ea9?w=800&h=800&fit=crop"
+      "https://images.unsplash.com/photo-1442512595331-e89e73853f31?q=80&w=1200&auto=format&fit=crop"
     ],
     "category": "pour-over",
     "inStock": true,
-    "featured": false
+    "featured": true
   },
   {
     "id": "5",
@@ -138,11 +138,11 @@
     "fobPriceUsd": 5.40,
     "fobPriceRange": "$5.20 - $5.80",
     "images": [
-      "https://images.unsplash.com/photo-1517487881594-2787fef5ebf7?w=800&h=800&fit=crop"
+      "https://images.unsplash.com/photo-1611854779393-1b2da9d400fe?q=80&w=1200&auto=format&fit=crop"
     ],
     "category": "espresso",
     "inStock": true,
-    "featured": false
+    "featured": true
   },
   {
     "id": "6",
@@ -167,10 +167,10 @@
     "fobPriceUsd": 6.90,
     "fobPriceRange": "$6.50 - $7.20",
     "images": [
-      "https://images.unsplash.com/photo-1541173104593-494c2e6f4368?w=800&h=800&fit=crop"
+      "https://images.unsplash.com/photo-1509042239860-f550ce710b93?q=80&w=1200&auto=format&fit=crop"
     ],
     "category": "pour-over",
     "inStock": true,
-    "featured": false
+    "featured": true
   }
 ]

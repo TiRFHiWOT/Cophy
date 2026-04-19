@@ -42,7 +42,7 @@ export function LotSpecificationCard({ product, index = 0, featured = false }: L
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-lot-forest/60 via-transparent to-transparent opacity-60 group-hover:opacity-80 transition-opacity duration-500" />
-          
+
           {/* Top Badges */}
           <div className="absolute top-4 left-4 flex flex-col gap-2">
             <div className="bg-lot-forest text-white px-3 py-1 rounded-[2px] text-[10px] font-mono font-bold tracking-widest uppercase border border-white/10 backdrop-blur-md">
@@ -55,13 +55,13 @@ export function LotSpecificationCard({ product, index = 0, featured = false }: L
           </div>
 
           {/* SCA Score Hero Badge */}
-          <div className="absolute top-4 right-4 flex flex-col items-center">
-            <div className="bg-lot-amber text-white p-3 md:p-4 rounded-full shadow-xl flex flex-col items-center justify-center border-2 border-white/20 transform group-hover:rotate-12 transition-transform duration-500">
-              <span className="text-[10px] uppercase font-bold tracking-tighter leading-none opacity-80">SCA</span>
+          <div className="absolute top-2 right-2 flex flex-col items-center">
+            <div className="bg-lot-amber backdrop-blur-xl text-white w-14 h-14 md:w-18 md:h-18 rounded-full shadow-xl flex flex-col items-center justify-center border-2 border-white/20 transform group-hover:rotate-12 transition-transform duration-500">
+              <span className="text-[10px] uppercase font-bold tracking-tighter leading-none opacity-80 mb-0.5">SCA</span>
               <span className="text-xl md:text-2xl font-serif font-black leading-none">{product.scaScore}</span>
             </div>
           </div>
-          
+
           {/* Featured Label */}
           {featured && (
             <div className="absolute bottom-4 left-4 bg-lot-amber text-white px-4 py-1.5 rounded-full text-[10px] font-bold uppercase tracking-[0.2em] shadow-lg animate-pulse">
@@ -118,14 +118,14 @@ export function LotSpecificationCard({ product, index = 0, featured = false }: L
 
           {/* Pricing Info (FOB Range) */}
           <div className="mb-8 flex items-end justify-between border-b border-lot-paper pb-4">
-             <div>
-                <p className="text-[10px] uppercase text-lot-earth font-bold tracking-widest mb-1">Indicative FOB Pricing</p>
-                <p className="text-xl font-mono font-bold text-lot-forest">{product.fobPriceRange || `$${product.fobPriceUsd.toFixed(2)}/kg`}</p>
-             </div>
-             <div className="text-right">
-                <p className="text-[10px] uppercase text-lot-earth font-bold tracking-widest mb-1">Available</p>
-                <p className="text-sm font-semibold text-lot-amber">{product.bagsAvailable} Bags (60kg)</p>
-             </div>
+            <div>
+              <p className="text-[10px] uppercase text-lot-earth font-bold tracking-widest mb-1">Indicative FOB Pricing</p>
+              <p className="text-xl font-mono font-bold text-lot-forest">{product.fobPriceRange || `$${product.fobPriceUsd.toFixed(2)}/kg`}</p>
+            </div>
+            <div className="text-right">
+              <p className="text-[10px] uppercase text-lot-earth font-bold tracking-widest mb-1">Available</p>
+              <p className="text-sm font-semibold text-lot-amber">{product.bagsAvailable} Bags (60kg)</p>
+            </div>
           </div>
 
           {/* CTAs */}

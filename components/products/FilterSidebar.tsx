@@ -153,7 +153,7 @@ export function FilterSidebar({
               variant="ghost"
               size="icon"
               className="h-8 w-8"
-              onClick={onClose || (() => {})}
+              onClick={onClose || (() => { })}
               aria-label="Close filters"
             >
               <X className="h-5 w-5 text-foreground" />
@@ -172,9 +172,8 @@ export function FilterSidebar({
                   COUNTRY OF ORIGIN
                 </h3>
                 <ChevronUp
-                  className={`h-4 w-4 text-gray-600 transition-transform ${
-                    expandedSections.country ? "" : "rotate-180"
-                  }`}
+                  className={`h-4 w-4 text-gray-600 transition-transform ${expandedSections.country ? "" : "rotate-180"
+                    }`}
                 />
               </button>
               {expandedSections.country && (
@@ -216,9 +215,8 @@ export function FilterSidebar({
                   CATEGORY
                 </h3>
                 <ChevronUp
-                  className={`h-4 w-4 text-gray-600 transition-transform ${
-                    expandedSections.category ? "" : "rotate-180"
-                  }`}
+                  className={`h-4 w-4 text-gray-600 transition-transform ${expandedSections.category ? "" : "rotate-180"
+                    }`}
                 />
               </button>
               {expandedSections.category && (
@@ -260,9 +258,8 @@ export function FilterSidebar({
                   PROCESS
                 </h3>
                 <ChevronUp
-                  className={`h-4 w-4 text-gray-600 transition-transform ${
-                    expandedSections.process ? "" : "rotate-180"
-                  }`}
+                  className={`h-4 w-4 text-gray-600 transition-transform ${expandedSections.process ? "" : "rotate-180"
+                    }`}
                 />
               </button>
               {expandedSections.process && (
@@ -317,9 +314,8 @@ export function FilterSidebar({
                 COUNTRY OF ORIGIN
               </h3>
               <ChevronUp
-                className={`h-4 w-4 text-gray-600 transition-transform ${
-                  expandedSections.country ? "" : "rotate-180"
-                }`}
+                className={`h-4 w-4 text-gray-600 transition-transform ${expandedSections.country ? "" : "rotate-180"
+                  }`}
               />
             </button>
             {expandedSections.country && (
@@ -360,9 +356,8 @@ export function FilterSidebar({
                 CATEGORY
               </h3>
               <ChevronUp
-                className={`h-4 w-4 text-gray-600 transition-transform ${
-                  expandedSections.category ? "" : "rotate-180"
-                }`}
+                className={`h-4 w-4 text-gray-600 transition-transform ${expandedSections.category ? "" : "rotate-180"
+                  }`}
               />
             </button>
             {expandedSections.category && (
@@ -403,9 +398,8 @@ export function FilterSidebar({
                 PROCESS
               </h3>
               <ChevronUp
-                className={`h-4 w-4 text-gray-600 transition-transform ${
-                  expandedSections.process ? "" : "rotate-180"
-                }`}
+                className={`h-4 w-4 text-gray-600 transition-transform ${expandedSections.process ? "" : "rotate-180"
+                  }`}
               />
             </button>
             {expandedSections.process && (
