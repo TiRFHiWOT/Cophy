@@ -51,8 +51,8 @@ export default function PartnerPortalPage() {
   ];
 
   return (
-    <div className="min-h-screen bg-lot-paper py-12 md:py-20">
-      <div className="container px-6">
+    <div className="min-h-screen bg-lot-paper py-6 md:py-10">
+      <div className="container px-4 md:px-6">
         {/* Header Section */}
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-16">
           <div>

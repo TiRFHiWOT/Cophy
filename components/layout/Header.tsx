@@ -107,7 +107,7 @@ export function Header() {
               : "bg-transparent border-transparent py-5 md:py-8"
           )}
         >
-          <div className="container flex items-center justify-between px-6">
+          <div className="container flex items-center justify-between px-4 md:px-6">
             <div className="flex-1 lg:flex-none">
               <Logo />
             </div>

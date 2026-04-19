@@ -95,7 +95,7 @@ export default function AdminShell({ children }: { children: React.ReactNode }) 
 
       {/* Main Content Area */}
       <div className="lg:ml-64 flex flex-col min-h-screen">
-        <header className="sticky top-0 z-30 flex h-16 w-full items-center border-b border-lot-earth/10 bg-lot-paper/80 px-4 md:px-8 backdrop-blur-md">
+        <header className="sticky top-0 z-30 flex h-16 w-full items-center border-b border-lot-earth/10 bg-lot-paper/80 px-3 md:px-6 backdrop-blur-md">
           <button 
             className="lg:hidden p-2 mr-2 text-lot-forest hover:bg-lot-forest/5"
             onClick={() => setSidebarOpen(true)}
@@ -105,7 +105,7 @@ export default function AdminShell({ children }: { children: React.ReactNode }) 
           <AdminHeader hideTitleOnMobile />
         </header>
 
-        <main className="flex-1 p-6 md:p-8">
+        <main className="flex-1 p-4 md:p-6">
           <div className="max-w-[1600px] mx-auto">
             {children}
           </div>
