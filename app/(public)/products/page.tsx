@@ -114,7 +114,7 @@ function ProductsPage() {
       {/* Header Section - Full Width */}
       <div className="mb-16">
         <h1 className="text-5xl md:text-7xl text-lot-forest font-serif font-black mb-10 tracking-tighter uppercase">
-          Direct-Trade <span className="text-lot-amber italic">Offer List</span>
+          Direct-Trade <span className="text-lot-amber font-black italic">Offer List</span>
         </h1>
 
         {/* Description Paragraphs */}

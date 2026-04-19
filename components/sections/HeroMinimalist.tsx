@@ -75,8 +75,8 @@ export function HeroMinimalist() {
               </div>
 
               {/* Dynamic Image with Synchronized Progress Bar */}
-              <div className="relative w-full max-w-md lg:max-w-none aspect-[4/3] bg-lot-forest overflow-hidden shadow-2xl">
-                <AnimatePresence initial={false} mode="wait">
+              <div className="relative w-full max-w-md lg:max-w-none aspect-4/3 bg-lot-forest overflow-hidden shadow-2xl">
+                <AnimatePresence initial={false}>
                   <motion.div
                     key={currentImageIndex}
                     initial={{ x: "100%", opacity: 0 }}
