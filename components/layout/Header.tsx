@@ -244,7 +244,7 @@ export function Header() {
         mobileMenuOpen ? "translate-x-0" : "translate-x-full"
       )}>
         <div className="flex justify-between items-center mb-20 text-white">
-          <Logo />
+          <Logo variant="light" />
           <Button variant="ghost" size="icon" onClick={toggleMobileMenu} className="text-white hover:bg-white/10">
             <X className="h-8 w-8" />
           </Button>

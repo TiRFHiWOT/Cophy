@@ -13,7 +13,7 @@ export function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8 mb-20">
           {/* Brand & Mission */}
           <div className="space-y-6">
-            <Logo />
+            <Logo variant="light" />
             <p className="text-sm text-white/60 leading-relaxed font-light mt-4">
               Lot 251 is a global commodity exchange specializing in the direct export of the finest Ethiopian green coffee. Built on 30 years of sourcing heritage.
             </p>
