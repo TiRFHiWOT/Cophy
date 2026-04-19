@@ -145,14 +145,37 @@ export function Header() {
                 <Search className="h-5 w-5" />
               </Button>
 
-              <Button
-                variant="ghost"
-                className="hidden md:flex h-10 px-4 text-[10px] font-bold tracking-widest text-lot-forest hover:bg-lot-amber/10 border border-lot-forest/10 uppercase"
-                onClick={toggleAuthModal}
-              >
-                <User className="mr-2 h-4 w-4" />
-                Partner Portal
-              </Button>
+              {user ? (
+                <div className="hidden md:flex items-center gap-2">
+                  <Link href="/portal">
+                    <Button
+                      variant="ghost"
+                      className="h-10 px-4 text-[10px] font-bold tracking-widest text-lot-forest hover:bg-lot-amber/10 border border-lot-forest/10 uppercase"
+                    >
+                      <User className="mr-2 h-4 w-4" />
+                      Dashboard
+                    </Button>
+                  </Link>
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    className="h-10 w-10 text-lot-forest hover:text-red-600 hover:bg-red-50"
+                    onClick={() => logout()}
+                    title="Logout"
+                  >
+                    <LogOut className="h-4 w-4" />
+                  </Button>
+                </div>
+              ) : (
+                <Button
+                  variant="ghost"
+                  className="hidden md:flex h-10 px-4 text-[10px] font-bold tracking-widest text-lot-forest hover:bg-lot-amber/10 border border-lot-forest/10 uppercase"
+                  onClick={toggleAuthModal}
+                >
+                  <User className="mr-2 h-4 w-4" />
+                  Partner Portal
+                </Button>
+              )}
 
               <Button
                 variant="ghost"
@@ -238,9 +261,36 @@ export function Header() {
             </Link>
           ))}
           <div className="pt-10 border-t border-white/10 flex flex-col space-y-6">
-            <Button variant="outline" className="text-white border-white/20 hover:bg-white/10 uppercase font-bold tracking-widest py-6">
-              Partner Login
-            </Button>
+            {user ? (
+              <>
+                <Link href="/portal" onClick={toggleMobileMenu}>
+                  <Button variant="outline" className="w-full text-white border-white/20 hover:bg-white/10 uppercase font-bold tracking-widest py-6">
+                    Dashboard
+                  </Button>
+                </Link>
+                <Button 
+                  variant="ghost" 
+                  className="text-white/60 hover:text-white uppercase font-bold tracking-widest"
+                  onClick={() => {
+                    logout();
+                    toggleMobileMenu();
+                  }}
+                >
+                  Logout
+                </Button>
+              </>
+            ) : (
+              <Button 
+                variant="outline" 
+                className="text-white border-white/20 hover:bg-white/10 uppercase font-bold tracking-widest py-6"
+                onClick={() => {
+                  toggleAuthModal();
+                  toggleMobileMenu();
+                }}
+              >
+                Partner Login
+              </Button>
+            )}
           </div>
         </nav>
       </div>

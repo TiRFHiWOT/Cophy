@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
+import { useRouter } from "next/navigation";
 import {
   X,
   Eye,
@@ -9,8 +10,9 @@ import {
   Lock,
   User,
   AlertCircle,
-  CheckCircle2,
   Loader2,
+  ShieldCheck,
+  ArrowRight
 } from "lucide-react";
 import { useUI } from "@/context/UIContext";
 import { useAuth } from "@/context/AuthContext";
@@ -20,8 +22,9 @@ import { Label } from "@/components/ui/label";
 import { cn } from "@/lib/utils";
 
 export function AuthModal() {
-  const { authModalOpen, setAuthModalOpen, toggleAuthModal } = useUI();
+  const { authModalOpen, setAuthModalOpen } = useUI();
   const { login, signup, user } = useAuth();
+  const router = useRouter();
   const [isSignup, setIsSignup] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -47,8 +50,8 @@ export function AuthModal() {
   // Password strength calculation
   const getPasswordStrength = (password: string) => {
     if (password.length === 0) return { strength: 0, label: "" };
-    if (password.length < 6) return { strength: 1, label: "Too short" };
-    if (password.length < 8) return { strength: 2, label: "Weak" };
+    if (password.length < 6) return { strength: 1, label: "TOO SHORT" };
+    if (password.length < 8) return { strength: 2, label: "WEAK" };
     const hasUpper = /[A-Z]/.test(password);
     const hasLower = /[a-z]/.test(password);
     const hasNumber = /[0-9]/.test(password);
@@ -56,9 +59,9 @@ export function AuthModal() {
     const score = [hasUpper, hasLower, hasNumber, hasSpecial].filter(
       Boolean
     ).length;
-    if (score <= 2) return { strength: 2, label: "Weak" };
-    if (score === 3) return { strength: 3, label: "Good" };
-    return { strength: 4, label: "Strong" };
+    if (score <= 2) return { strength: 2, label: "WEAK" };
+    if (score === 3) return { strength: 3, label: "GOOD" };
+    return { strength: 4, label: "STRONG" };
   };
 
   const passwordStrength = isSignup ? getPasswordStrength(password) : null;
@@ -77,11 +80,9 @@ export function AuthModal() {
       setShowPassword(false);
       setSuccess(false);
       setIsSignup(false);
-      // Reset the flag after a short delay to prevent immediate closing
       setTimeout(() => {
         justOpenedRef.current = false;
       }, 100);
-      // Focus email input after a short delay
       setTimeout(() => {
         if (emailInputRef.current) {
           emailInputRef.current.focus();
@@ -129,37 +130,8 @@ export function AuthModal() {
     }
     return () => {
       document.body.style.overflow = "unset";
-    };
+    }
   }, [authModalOpen]);
-
-  // Real-time validation
-  useEffect(() => {
-    if (email && !validateEmail(email)) {
-      setEmailError("Please enter a valid email address");
-    } else {
-      setEmailError("");
-    }
-  }, [email]);
-
-  useEffect(() => {
-    if (isSignup && password) {
-      if (password.length < 6) {
-        setPasswordError("Password must be at least 6 characters");
-      } else {
-        setPasswordError("");
-      }
-    } else {
-      setPasswordError("");
-    }
-  }, [password, isSignup]);
-
-  useEffect(() => {
-    if (isSignup && name && name.trim().length < 2) {
-      setNameError("Name must be at least 2 characters");
-    } else {
-      setNameError("");
-    }
-  }, [name, isSignup]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -168,409 +140,273 @@ export function AuthModal() {
     setPasswordError("");
     setNameError("");
 
-    // Validation
     let isValid = true;
-
     if (isSignup) {
       if (!name.trim()) {
         setNameError("Name is required");
         isValid = false;
-      } else if (name.trim().length < 2) {
-        setNameError("Name must be at least 2 characters");
+      }
+      if (!email.trim() || !validateEmail(email)) {
+        setEmailError("Valid email required");
         isValid = false;
       }
-
-      if (!email.trim()) {
-        setEmailError("Email is required");
-        isValid = false;
-      } else if (!validateEmail(email)) {
-        setEmailError("Please enter a valid email address");
-        isValid = false;
-      }
-
-      if (!password.trim()) {
-        setPasswordError("Password is required");
-        isValid = false;
-      } else if (password.length < 6) {
-        setPasswordError("Password must be at least 6 characters");
+      if (!password.trim() || password.length < 6) {
+        setPasswordError("Min. 6 characters required");
         isValid = false;
       }
     } else {
-      if (!email.trim()) {
-        setEmailError("Email is required");
-        isValid = false;
-      } else if (!validateEmail(email)) {
-        setEmailError("Please enter a valid email address");
+      if (!email.trim() || !validateEmail(email)) {
+        setEmailError("Valid email required");
         isValid = false;
       }
-
       if (!password.trim()) {
-        setPasswordError("Password is required");
+        setPasswordError("Password required");
         isValid = false;
       }
     }
 
-    if (!isValid) {
-      return;
-    }
+    if (!isValid) return;
 
     setLoading(true);
 
     try {
       let result = false;
-
       if (isSignup) {
         result = await signup(name.trim(), email.trim(), password);
-        if (!result) {
-          setError("An account with this email already exists");
-        }
+        if (!result) setError("Account already exists with this email.");
       } else {
         result = await login(email.trim(), password);
-        if (!result) {
-          setError("Invalid email or password");
-        }
+        if (!result) setError("Invalid credentials. Access denied.");
       }
 
       if (result) {
+        setSuccess(true);
         if (isSignup) {
-          // For signup, show success and switch to login view
-          const signupEmail = email.trim(); // Save email before clearing
-          setSuccess(true);
+          const signupEmail = email.trim();
           setTimeout(() => {
-            setSuccess(false);
-            setIsSignup(false); // Switch to login view
-            setEmail(signupEmail); // Pre-fill email for login
-            setPassword(""); // Clear password
-            setName(""); // Clear name
-            setError("");
-            setEmailError("");
-            setPasswordError("");
-            setNameError("");
-            // Focus email input after switching to login
-            setTimeout(() => {
-              emailInputRef.current?.focus();
-            }, 100);
-          }, 2000);
-        } else {
-          // For login, show success and close modal
-          setSuccess(true);
-          setTimeout(() => {
-            setAuthModalOpen(false);
-            setEmail("");
-            setPassword("");
-            setName("");
-            setError("");
-            setEmailError("");
-            setPasswordError("");
-            setNameError("");
             setSuccess(false);
             setIsSignup(false);
+            setEmail(signupEmail);
+            setPassword("");
+            setName("");
+          }, 2000);
+        } else {
+          setTimeout(() => {
+            setAuthModalOpen(false);
+            setSuccess(false);
+            router.push("/portal");
           }, 1500);
         }
       }
     } catch (err) {
-      setError("An error occurred. Please try again.");
+      setError("System error during authentication.");
     } finally {
       setLoading(false);
     }
   };
 
-  // Close modal if user is already logged in
-  useEffect(() => {
-    if (user && authModalOpen) {
-      setAuthModalOpen(false);
-    }
-  }, [user, authModalOpen, setAuthModalOpen]);
-
   if (!authModalOpen || user) return null;
 
   return (
     <>
-      {/* Backdrop */}
       <div
-        className="fixed inset-0 bg-black/20 backdrop-blur-sm z-[100] transition-opacity duration-300"
-        onClick={() => {
-          // Prevent closing immediately after opening
-          if (!justOpenedRef.current) {
-            setAuthModalOpen(false);
-          }
-        }}
+        className="fixed inset-0 bg-lot-forest/80 backdrop-blur-md z-[100] transition-opacity duration-500"
+        onClick={() => !justOpenedRef.current && setAuthModalOpen(false)}
         aria-hidden="true"
       />
 
-      {/* Modal Container */}
       <div className="fixed inset-0 z-[101] flex items-center justify-center p-4 pointer-events-none">
-        {/* Modal Content */}
         <div
           ref={modalRef}
           className={cn(
-            "bg-[#F5F1EB] rounded-xl shadow-2xl w-full max-w-md p-8 transform transition-all duration-300 relative pointer-events-auto",
-            authModalOpen
-              ? "opacity-100 scale-100 translate-y-0"
-              : "opacity-0 scale-95 translate-y-4"
+            "bg-lot-paper border border-lot-earth/20 shadow-[-20px_20px_60px_rgba(0,0,0,0.3)] w-full max-w-lg overflow-hidden transform transition-all duration-500 relative pointer-events-auto",
+            authModalOpen ? "opacity-100 scale-100" : "opacity-0 scale-95"
           )}
-          onClick={(e) => {
-            // Prevent clicks inside modal from closing it
-            e.stopPropagation();
-          }}
+          onClick={(e) => e.stopPropagation()}
         >
-          {/* Close Button */}
+          {/* Top Industrial Bar */}
+          <div className="h-2 bg-lot-amber w-full" />
+          
           <button
             onClick={() => setAuthModalOpen(false)}
-            className="absolute top-4 right-4 text-gray-500 hover:text-gray-700 hover:bg-white/50 rounded-full p-1.5 transition-all duration-200"
+            className="absolute top-6 right-6 text-lot-forest/40 hover:text-lot-forest hover:bg-lot-forest/5 rounded-none p-2 transition-all duration-200 z-10"
             aria-label="Close modal"
           >
-            <X className="h-5 w-5" />
+            <X className="h-6 w-6" />
           </button>
 
-          {/* Success State */}
-          {success ? (
-            <div className="text-center py-8">
-              <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-green-100 mb-4">
-                <CheckCircle2 className="h-8 w-8 text-green-600" />
-              </div>
-              <h2 className="text-2xl font-semibold text-foreground mb-2">
-                {isSignup ? "Account Created!" : "Welcome Back!"}
-              </h2>
-              <p className="text-sm text-muted-foreground">
-                {isSignup
-                  ? "Your account has been created successfully. Please sign in to continue."
-                  : "You have been successfully signed in"}
-              </p>
-            </div>
-          ) : (
-            <>
-              {/* Header */}
-              <div className="mb-6">
-                <h2 className="text-2xl font-semibold text-foreground mb-2">
-                  {isSignup ? "Create Account" : "Welcome Back"}
+          <div className="p-10 md:p-14">
+            {success ? (
+              <div className="text-center py-12">
+                <div className="inline-flex items-center justify-center w-20 h-20 bg-lot-forest/5 mb-8">
+                  <ShieldCheck className="h-10 w-10 text-lot-amber" />
+                </div>
+                <h2 className="text-3xl font-serif font-black text-lot-forest mb-4 italic tracking-tighter">
+                  {isSignup ? "ID PROVISIONED" : "ACCESS GRANTED"}
                 </h2>
-                <p className="text-sm text-muted-foreground">
-                  {isSignup
-                    ? "Sign up to start your coffee journey"
-                    : "Sign in to your account"}
+                <div className="h-px w-12 bg-lot-amber mx-auto mb-6" />
+                <p className="text-[10px] font-bold text-lot-earth/60 uppercase tracking-[0.3em]">
+                  {isSignup ? "Direct exchange credentials established." : "Redirecting to Trade Desk..."}
                 </p>
               </div>
-
-              {/* Form */}
-              <form onSubmit={handleSubmit} className="space-y-4">
-                {isSignup && (
-                  <div className="space-y-2">
-                    <Label
-                      htmlFor="name"
-                      className="text-sm font-medium text-foreground"
-                    >
-                      Name
-                    </Label>
-                    <div className="relative">
-                      <User className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
-                      <Input
-                        ref={nameInputRef}
-                        id="name"
-                        type="text"
-                        placeholder="Enter your name"
-                        value={name}
-                        onChange={(e) => setName(e.target.value)}
-                        className={cn(
-                          "bg-white/90 border-gray-300 pl-10 pr-4 focus-visible:outline-none focus-visible:ring-0 transition-all",
-                          nameError
-                            ? "border-red-300 focus-visible:border-red-400"
-                            : ""
-                        )}
-                      />
-                    </div>
-                    {nameError && (
-                      <p className="text-xs text-red-600 flex items-center gap-1">
-                        <AlertCircle className="h-3 w-3" />
-                        {nameError}
-                      </p>
-                    )}
+            ) : (
+              <>
+                <div className="mb-12">
+                  <div className="flex items-center gap-3 mb-4">
+                    <div className="h-[2px] w-8 bg-lot-amber" />
+                    <span className="text-[10px] font-bold tracking-[0.4em] text-lot-earth uppercase">
+                      Portal Entrance
+                    </span>
                   </div>
-                )}
-
-                <div className="space-y-2">
-                  <Label
-                    htmlFor="email"
-                    className="text-sm font-medium text-foreground"
-                  >
-                    Email
-                  </Label>
-                  <div className="relative">
-                    <Mail className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
-                    <Input
-                      ref={emailInputRef}
-                      id="email"
-                      type="email"
-                      placeholder="Enter your email"
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
-                      className={cn(
-                        "bg-white/90 border-gray-300 pl-10 pr-4 focus-visible:outline-none focus-visible:ring-0 transition-all",
-                        emailError
-                          ? "border-red-300 focus-visible:border-red-400"
-                          : ""
-                      )}
-                    />
-                  </div>
-                  {emailError && (
-                    <p className="text-xs text-red-600 flex items-center gap-1">
-                      <AlertCircle className="h-3 w-3" />
-                      {emailError}
-                    </p>
-                  )}
+                  <h2 className="text-4xl md:text-5xl font-serif font-black text-lot-forest mb-4 italic tracking-tighter">
+                    {isSignup ? "Join Exchange" : "Welcome Back"}
+                  </h2>
+                  <p className="text-xs text-lot-earth/70 font-light leading-relaxed max-w-xs">
+                    Access technical lot specifications, logistics data, and direct export tools.
+                  </p>
                 </div>
 
-                <div className="space-y-2">
-                  <div className="flex items-center justify-between">
-                    <Label
-                      htmlFor="password"
-                      className="text-sm font-medium text-foreground"
-                    >
-                      Password
+                <form onSubmit={handleSubmit} className="space-y-6">
+                  {isSignup && (
+                    <div className="space-y-1.5">
+                      <Label htmlFor="name" className="text-[10px] font-black text-lot-forest uppercase tracking-widest">
+                        Legal Entity Name
+                      </Label>
+                      <div className="relative group">
+                        <User className="absolute left-4 top-1/2 -translate-y-1/2 h-4 w-4 text-lot-forest/30 group-focus-within:text-lot-amber transition-colors" />
+                        <Input
+                          ref={nameInputRef}
+                          id="name"
+                          placeholder="ENTER NAME"
+                          value={name}
+                          onChange={(e) => setName(e.target.value)}
+                          className="bg-white border-lot-earth/10 rounded-none h-14 pl-12 pr-4 focus-visible:ring-0 focus-visible:border-lot-amber transition-all text-sm font-bold placeholder:text-lot-earth/20"
+                        />
+                      </div>
+                      {nameError && <p className="text-[9px] text-red-600 font-bold uppercase tracking-widest mt-1 italic">{nameError}</p>}
+                    </div>
+                  )}
+
+                  <div className="space-y-1.5">
+                    <Label htmlFor="email" className="text-[10px] font-black text-lot-forest uppercase tracking-widest">
+                      Corporate Email Address
                     </Label>
-                    {!isSignup && (
+                    <div className="relative group">
+                      <Mail className="absolute left-4 top-1/2 -translate-y-1/2 h-4 w-4 text-lot-forest/30 group-focus-within:text-lot-amber transition-colors" />
+                      <Input
+                        ref={emailInputRef}
+                        id="email"
+                        type="email"
+                        placeholder="EMAIL@LOT251.COM"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        className="bg-white border-lot-earth/10 rounded-none h-14 pl-12 pr-4 focus-visible:ring-0 focus-visible:border-lot-amber transition-all text-sm font-bold placeholder:text-lot-earth/20"
+                      />
+                    </div>
+                    {emailError && <p className="text-[9px] text-red-600 font-bold uppercase tracking-widest mt-1 italic">{emailError}</p>}
+                  </div>
+
+                  <div className="space-y-1.5">
+                    <div className="flex items-center justify-between">
+                      <Label htmlFor="password" className="text-[10px] font-black text-lot-forest uppercase tracking-widest">
+                        Secure Key Phrase
+                      </Label>
+                      {!isSignup && (
+                        <button type="button" className="text-[9px] font-bold text-lot-amber hover:text-lot-forest transition-colors uppercase tracking-widest">
+                          Reset Access?
+                        </button>
+                      )}
+                    </div>
+                    <div className="relative group">
+                      <Lock className="absolute left-4 top-1/2 -translate-y-1/2 h-4 w-4 text-lot-forest/30 group-focus-within:text-lot-amber transition-colors" />
+                      <Input
+                        id="password"
+                        type={showPassword ? "text" : "password"}
+                        placeholder="••••••••••••"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                        className="bg-white border-lot-earth/10 rounded-none h-14 pl-12 pr-12 focus-visible:ring-0 focus-visible:border-lot-amber transition-all text-sm font-bold placeholder:text-lot-earth/20"
+                      />
                       <button
                         type="button"
-                        className="text-xs text-primary hover:text-primary/80 transition-colors"
-                        onClick={() => {
-                          // Forgot password functionality can be added later
-                        }}
+                        onClick={() => setShowPassword(!showPassword)}
+                        className="absolute right-4 top-1/2 -translate-y-1/2 text-lot-forest/30 hover:text-lot-forest transition-colors"
                       >
-                        Forgot password?
+                        {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
                       </button>
-                    )}
-                  </div>
-                  <div className="relative">
-                    <Lock className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
-                    <Input
-                      id="password"
-                      type={showPassword ? "text" : "password"}
-                      placeholder="Enter your password"
-                      value={password}
-                      onChange={(e) => setPassword(e.target.value)}
-                      className={cn(
-                        "bg-white/90 border-gray-300 pl-10 pr-10 focus-visible:outline-none focus-visible:ring-0 transition-all",
-                        passwordError
-                          ? "border-red-300 focus-visible:border-red-400"
-                          : ""
-                      )}
-                    />
-                    <button
-                      type="button"
-                      onClick={() => setShowPassword(!showPassword)}
-                      className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 transition-colors"
-                      aria-label={
-                        showPassword ? "Hide password" : "Show password"
-                      }
-                    >
-                      {showPassword ? (
-                        <EyeOff className="h-4 w-4" />
-                      ) : (
-                        <Eye className="h-4 w-4" />
-                      )}
-                    </button>
-                  </div>
-                  {passwordError && (
-                    <p className="text-xs text-red-600 flex items-center gap-1">
-                      <AlertCircle className="h-3 w-3" />
-                      {passwordError}
-                    </p>
-                  )}
-                  {isSignup &&
-                    password &&
-                    !passwordError &&
-                    passwordStrength && (
-                      <div className="space-y-1.5">
-                        <div className="flex items-center justify-between text-xs">
-                          <span className="text-muted-foreground">
-                            Password strength:
-                          </span>
-                          <span
-                            className={cn(
-                              "font-medium",
-                              passwordStrength.strength <= 2
-                                ? "text-red-600"
-                                : passwordStrength.strength === 3
-                                ? "text-yellow-600"
-                                : "text-green-600"
-                            )}
-                          >
+                    </div>
+                    {passwordError && <p className="text-[9px] text-red-600 font-bold uppercase tracking-widest mt-1 italic">{passwordError}</p>}
+                    
+                    {isSignup && password && !passwordError && passwordStrength && (
+                      <div className="pt-2">
+                        <div className="flex items-center justify-between text-[8px] font-bold tracking-widest uppercase mb-1">
+                          <span className="text-lot-earth/40">Security Density</span>
+                          <span className={cn(
+                            passwordStrength.strength <= 2 ? "text-red-600" : 
+                            passwordStrength.strength === 3 ? "text-amber-500" : "text-emerald-600"
+                          )}>
                             {passwordStrength.label}
                           </span>
                         </div>
-                        <div className="h-1.5 bg-gray-200 rounded-full overflow-hidden">
-                          <div
-                            className={cn(
-                              "h-full transition-all duration-300",
-                              passwordStrength.strength <= 2
-                                ? "bg-red-500"
-                                : passwordStrength.strength === 3
-                                ? "bg-yellow-500"
-                                : "bg-green-500"
-                            )}
-                            style={{
-                              width: `${
-                                (passwordStrength.strength / 4) * 100
-                              }%`,
-                            }}
-                          />
+                        <div className="h-1 bg-lot-forest/5 rounded-none overflow-hidden flex gap-0.5">
+                          {[1, 2, 3, 4].map((step) => (
+                            <div 
+                              key={step}
+                              className={cn(
+                                "h-full flex-1 transition-all duration-500",
+                                step <= passwordStrength.strength 
+                                  ? (passwordStrength.strength <= 2 ? "bg-red-500" : 
+                                     passwordStrength.strength === 3 ? "bg-amber-500" : "bg-emerald-500")
+                                  : "bg-transparent"
+                              )}
+                            />
+                          ))}
                         </div>
                       </div>
                     )}
-                </div>
-
-                {error && (
-                  <div className="p-3 rounded-md bg-red-50 border border-red-200 flex items-start gap-2">
-                    <AlertCircle className="h-4 w-4 text-red-600 mt-0.5 flex-shrink-0" />
-                    <p className="text-sm text-red-600">{error}</p>
                   </div>
-                )}
 
-                <Button
-                  type="submit"
-                  className="w-full bg-primary hover:bg-primary/90 text-primary-foreground h-11 font-medium transition-all duration-200 disabled:opacity-50"
-                  disabled={
-                    loading || !!emailError || !!passwordError || !!nameError
-                  }
-                >
-                  {loading ? (
-                    <>
-                      <Loader2 className="h-4 w-4 mr-2 animate-spin" />
-                      Please wait...
-                    </>
-                  ) : isSignup ? (
-                    "Create Account"
-                  ) : (
-                    "Sign In"
+                  {error && (
+                    <div className="p-4 bg-red-50 border border-red-100 flex items-start gap-3">
+                      <AlertCircle className="h-4 w-4 text-red-600 shrink-0 mt-0.5" />
+                      <p className="text-[10px] font-bold text-red-600 uppercase tracking-widest leading-relaxed">{error}</p>
+                    </div>
                   )}
-                </Button>
-              </form>
 
-              {/* Toggle between login and signup */}
-              <div className="mt-6 text-center">
-                <p className="text-sm text-muted-foreground">
-                  {isSignup
-                    ? "Already have an account? "
-                    : "Don't have an account? "}
-                  <button
-                    type="button"
-                    onClick={(e) => {
-                      e.preventDefault();
-                      e.stopPropagation();
-                      setIsSignup(!isSignup);
-                      setError("");
-                      setEmailError("");
-                      setPasswordError("");
-                      setNameError("");
-                    }}
-                    className="text-primary hover:text-primary/80 font-medium transition-colors underline-offset-4 hover:underline"
+                  <Button
+                    type="submit"
+                    className="w-full bg-lot-forest hover:bg-lot-forest/90 text-white h-16 rounded-none text-xs font-bold uppercase tracking-[0.3em] transition-all duration-300 group shadow-lg"
+                    disabled={loading}
                   >
-                    {isSignup ? "Sign In" : "Sign Up"}
-                  </button>
-                </p>
-              </div>
-            </>
-          )}
+                    {loading ? (
+                      <Loader2 className="h-5 w-5 animate-spin" />
+                    ) : (
+                      <span className="flex items-center gap-3">
+                        {isSignup ? "Establish Connection" : "Authorize Entry"}
+                        <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
+                      </span>
+                    )}
+                  </Button>
+                </form>
+
+                <div className="mt-10 pt-8 border-t border-lot-earth/10 text-center">
+                  <p className="text-[10px] font-bold text-lot-earth/50 uppercase tracking-[0.2em]">
+                    {isSignup ? "Already registered on the exchange?" : "New to Lot 251 Global Logistics?"}
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setIsSignup(!isSignup);
+                        setError("");
+                      }}
+                      className="ml-2 text-lot-amber hover:text-lot-forest transition-colors underline-offset-4 hover:underline"
+                    >
+                      {isSignup ? "Sign In" : "Request Account"}
+                    </button>
+                  </p>
+                </div>
+              </>
+            )}
+          </div>
         </div>
       </div>
     </>
