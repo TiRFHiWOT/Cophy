@@ -58,7 +58,7 @@ function Hero() {
       <div className="absolute inset-0 bg-gradient-to-t from-lot-forest via-transparent to-transparent opacity-40" />
 
       {/* Content */}
-      <div className="container relative z-10 h-full flex flex-col justify-center px-6">
+      <div className="container relative z-10 h-full flex flex-col justify-center pt-40 md:pt-0 px-6">
         <div className="max-w-4xl">
           <motion.div
             initial={{ opacity: 0, x: -30 }}
@@ -73,14 +73,19 @@ function Hero() {
               </span>
             </div>
 
-            <h1 className="text-5xl md:text-7xl lg:text-8xl font-serif font-black mb-8 text-white leading-[0.95] tracking-tighter">
-              Ethiopian Specialty <br />
-              <span className="text-lot-amber italic">for Global Roasters</span>
+            <h1 className="font-serif text-white mb-10 leading-[0.9] tracking-tighter">
+              <span className="block text-2xl md:text-3xl lg:text-4xl font-medium italic text-lot-amber mb-2">
+                Ethiopian Specialty
+              </span>
+              <span className="block text-5xl md:text-8xl lg:text-9xl font-black uppercase tracking-tighter">
+                For Global<br />
+                Roasters
+              </span>
             </h1>
 
             <p className="text-lg md:text-xl mb-12 max-w-2xl text-white/70 leading-relaxed font-light">
-              Single-origin microlots from Sidama, Yirgacheffe, and Guji. 
-              Full identity preservation from drying bed to port. 
+              Single-origin microlots from Sidama, Yirgacheffe, and Guji.
+              Full identity preservation from drying bed to port.
               Sample-to-bag consistency guaranteed.
             </p>
 
@@ -132,8 +137,8 @@ function Hero() {
 
       {/* Decorative Navigation Element */}
       <div className="absolute bottom-12 right-12 hidden lg:flex items-center gap-4">
-         <span className="text-[10px] font-mono text-white/40 uppercase tracking-widest leading-none">Scroll to Explore Lots</span>
-         <div className="w-12 h-px bg-white/20" />
+        <span className="text-[10px] font-mono text-white/40 uppercase tracking-widest leading-none">Scroll to Explore Lots</span>
+        <div className="w-12 h-px bg-white/20" />
       </div>
     </section>
   );
