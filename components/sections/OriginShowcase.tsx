@@ -39,7 +39,7 @@ const regions = [
     desc: "Spicy and distinctly complex washed lots with winey acidity and rounded body.",
     altitude: "1400 - 2200m",
     profile: "Spicy, Winey, Sweet",
-    image: "https://images.unsplash.com/photo-1514432324607-a2c622d54ea9?w=800&h=1000&fit=crop"
+    image: "https://images.unsplash.com/photo-1542382156909-9ae37b3f56fd?w=800&h=1000&fit=crop"
   }
 ];
 
