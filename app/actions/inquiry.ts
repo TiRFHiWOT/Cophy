@@ -23,8 +23,9 @@ export interface InquiryFormData {
   type: "sample_request" | "quote_request";
 }
 
-export async function submitInquiry(data: InquiryFormData) {
+export async function submitInquiry(data: InquiryFormData): Promise<{ success: boolean; error?: string }> {
   // Frontend-only MVP: Success mock without database
   console.log("Mock Ingestion — Inquiry received:", data);
   return { success: true };
 }
+
