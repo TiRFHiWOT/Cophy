@@ -7,7 +7,8 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { X, CheckCircle2, Loader2, AlertTriangle, Package } from "lucide-react";
 import { CoffeeLot } from "@/types";
-import { submitInquiry } from "@/app/actions/inquiry";
+import { submitInquiry, type InquiryResult } from "@/app/actions/inquiry";
+
 
 interface SampleRequestModalProps {
   isOpen: boolean;
@@ -34,7 +35,8 @@ export function SampleRequestModal({ isOpen, onClose, product }: SampleRequestMo
     setSubmitError(null);
 
     try {
-      const result = await submitInquiry({
+      const result: InquiryResult = await submitInquiry({
+
         ...formData,
         lotId: product?.id,
         lotNumber: product?.lotNumber,

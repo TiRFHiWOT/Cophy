@@ -24,7 +24,13 @@ export interface InquiryFormData {
 }
 
 
-export async function submitInquiry(data: InquiryFormData): Promise<{ success: boolean; error?: string }> {
+export type InquiryResult = {
+  success: boolean;
+  error?: string;
+};
+
+export async function submitInquiry(data: InquiryFormData): Promise<InquiryResult> {
+
   // Frontend-only MVP: Success mock without database
   console.log("Mock Ingestion — Inquiry received:", data);
   return { success: true };
