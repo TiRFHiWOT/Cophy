@@ -72,36 +72,37 @@ export default function AdminDashboard() {
 
   useEffect(() => {
     async function fetchStats() {
+      // Load from local data files for frontend-only MVP
       try {
-        const { count: totalInquiries, error: err1 } = await supabase
-          .from("inquiries")
-          .select("*", { count: "exact", head: true });
-
-        const { count: pendingInquiries, error: err2 } = await supabase
-          .from("inquiries")
-          .select("*", { count: "exact", head: true })
-          .eq("status", "pending");
-
-        const { count: totalLots, error: err3 } = await supabase
-          .from("coffee_lots")
-          .select("*", { count: "exact", head: true });
-
-        const { data: recentInquiries, error: err4 } = await supabase
-          .from("inquiries")
-          .select("id, company_name, contact_email, type, lot_number, status, created_at")
-          .order("created_at", { ascending: false })
-          .limit(10);
-
-        if (err1 || err2 || err3 || err4) setDbConnected(false);
-
+        const products = (await import("@/data/products.json")).default;
+        
         setStats({
-          totalInquiries: totalInquiries || 0,
-          pendingInquiries: pendingInquiries || 0,
-          totalLots: totalLots || 0,
-          recentInquiries: recentInquiries || [],
+          totalInquiries: 4, // Mock count
+          pendingInquiries: 2,
+          totalLots: products.length,
+          recentInquiries: [
+            {
+              id: "1",
+              company_name: "Blue Bottle Coffee",
+              contact_email: "buying@bluebottle.com",
+              type: "sample_request",
+              lot_number: "LOT 251-001",
+              status: "pending",
+              created_at: new Date().toISOString(),
+            },
+            {
+              id: "2",
+              company_name: "Intelligentsia",
+              contact_email: "leads@intelli.com",
+              type: "quote_request",
+              lot_number: "LOT 251-003",
+              status: "contacted",
+              created_at: new Date(Date.now() - 86400000).toISOString(),
+            }
+          ],
         });
       } catch (e) {
-        setDbConnected(false);
+        console.warn("Failed to load mock dashboard stats:", e);
       } finally {
         setLoading(false);
       }
@@ -123,23 +124,6 @@ export default function AdminDashboard() {
           Dashboard
         </h1>
       </div>
-
-      {/* Connection Warning */}
-      {!dbConnected && !loading && (
-        <div className="mb-8 border border-lot-amber/30 bg-lot-amber/5 p-6 flex items-start gap-4">
-          <Clock className="h-5 w-5 text-lot-amber shrink-0 mt-0.5" />
-          <div>
-            <p className="text-sm font-bold text-lot-forest uppercase tracking-widest">
-              Database Offline
-            </p>
-            <p className="text-xs text-lot-earth mt-2 font-light leading-relaxed">
-              Connection to Supabase could not be established. Ensure your <code className="bg-lot-forest/10 px-1 py-0.5 text-lot-forest">.env.local</code> 
-              contains valid <code className="font-mono">NEXT_PUBLIC_SUPABASE_URL</code> and <code className="font-mono">ANON_KEY</code> credentials. 
-              Running in read-only mock mode.
-            </p>
-          </div>
-        </div>
-      )}
 
       {/* Stats Grid */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-0 mb-12 border border-lot-earth/20 bg-white">

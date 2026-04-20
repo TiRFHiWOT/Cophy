@@ -48,14 +48,24 @@ export default function DocumentsPage() {
   async function fetchDocuments() {
     setLoading(true);
     try {
-      const { data, error } = await supabase
-        .from("shipment_documents")
-        .select("*")
-        .order("uploaded_at", { ascending: false });
-
-      if (!error && data) setDocuments(data);
+      const saved = localStorage.getItem("coffee_documents_mock");
+      if (saved) {
+        setDocuments(JSON.parse(saved));
+      } else {
+        // Mock initial data
+        const initialDocs: DocRow[] = [
+          {
+            id: "1",
+            inquiry_id: "INQ-251-001",
+            doc_type: "Phytosanitary Certificate",
+            file_url: "#",
+            uploaded_at: new Date().toISOString(),
+          }
+        ];
+        setDocuments(initialDocs);
+      }
     } catch (e) {
-      console.warn("Failed to fetch documents:", e);
+      console.warn("Failed to fetch documents from mock storage:", e);
     } finally {
       setLoading(false);
     }
@@ -67,53 +77,32 @@ export default function DocumentsPage() {
 
     setUploading(true);
 
-    try {
-      const filePath = `${inquiryId}/${Date.now()}_${file.name}`;
-      const { error: uploadError } = await supabase.storage
-        .from("trade-documents")
-        .upload(filePath, file);
+    // Frontend-only mock upload
+    setTimeout(() => {
+      const newDoc: DocRow = {
+        id: Math.random().toString(36).substr(2, 9),
+        inquiry_id: inquiryId,
+        doc_type: selectedDocType,
+        file_url: "#", // Mock URL
+        uploaded_at: new Date().toISOString(),
+      };
 
-      if (uploadError) {
-        alert("Upload failed: " + uploadError.message);
-        setUploading(false);
-        return;
-      }
-
-      const { data: urlData } = supabase.storage
-        .from("trade-documents")
-        .getPublicUrl(filePath);
-
-      const { error: dbError } = await supabase
-        .from("shipment_documents")
-        .insert({
-          inquiry_id: inquiryId,
-          doc_type: selectedDocType,
-          file_url: urlData.publicUrl,
-        });
-
-      if (!dbError) {
-        fetchDocuments();
-        setInquiryId("");
-      }
-    } catch (err) {
-      console.error("Upload error:", err);
-    } finally {
+      const updatedDocs = [newDoc, ...documents];
+      setDocuments(updatedDocs);
+      localStorage.setItem("coffee_documents_mock", JSON.stringify(updatedDocs));
+      
+      setInquiryId("");
       setUploading(false);
       if (fileInputRef.current) fileInputRef.current.value = "";
-    }
+    }, 1500);
   }
 
   async function deleteDocument(id: string) {
     if (!confirm("Delete this document?")) return;
 
-    const { error } = await supabase
-      .from("shipment_documents")
-      .delete()
-      .eq("id", id);
-
-    if (!error) {
-      setDocuments((prev) => prev.filter((d) => d.id !== id));
-    }
+    const updated = documents.filter((d) => d.id !== id);
+    setDocuments(updated);
+    localStorage.setItem("coffee_documents_mock", JSON.stringify(updated));
   }
 
   return (

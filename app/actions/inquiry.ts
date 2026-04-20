@@ -24,28 +24,7 @@ export interface InquiryFormData {
 }
 
 export async function submitInquiry(data: InquiryFormData) {
-  const { error } = await supabase.from("inquiries").insert({
-    company_name: data.companyName,
-    company_country: data.country,
-    company_website: data.website || null,
-    contact_name: data.fullName,
-    contact_email: data.email,
-    contact_phone: data.phone || null,
-    contact_role: data.role || null,
-    lot_id: data.lotId || null,
-    lot_number: data.lotNumber || null,
-    type: data.type,
-    quantity_bags: data.quantityBags ? parseInt(data.quantityBags) : null,
-    shipping_method: data.shippingMethod || null,
-    incoterm: data.incoterm || "FOB",
-    notes: data.notes || null,
-    status: "pending",
-  });
-
-  if (error) {
-    console.error("Failed to submit inquiry:", error);
-    return { success: false, error: error.message };
-  }
-
+  // Frontend-only MVP: Success mock without database
+  console.log("Mock Ingestion — Inquiry received:", data);
   return { success: true };
 }

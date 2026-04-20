@@ -66,37 +66,56 @@ export default function InquiriesPage() {
   async function fetchInquiries() {
     setLoading(true);
     try {
-      let query = supabase
-        .from("inquiries")
-        .select("*")
-        .order("created_at", { ascending: false });
-
-      if (statusFilter !== "all") {
-        query = query.eq("status", statusFilter);
+      const saved = localStorage.getItem("coffee_inquiries_mock");
+      if (saved) {
+        let items: Inquiry[] = JSON.parse(saved);
+        if (statusFilter !== "all") {
+          items = items.filter(i => i.status === statusFilter);
+        }
+        setInquiries(items);
+      } else {
+        // Initial mock seeds for empty system
+        const initialSeeds: Inquiry[] = [
+          {
+            id: "1",
+            company_name: "Blue Bottle Coffee",
+            company_country: "USA",
+            contact_name: "James Freeman",
+            contact_email: "buying@bluebottle.com",
+            contact_phone: "+1 (510) 653-3394",
+            contact_role: "Head of Procurement",
+            lot_number: "LOT 251-001",
+            type: "sample_request",
+            quantity_bags: 5,
+            shipping_method: "Air Freight",
+            incoterm: "FOB",
+            notes: "Looking for high-altitude Sidama lots for our seasonal single-origin release.",
+            status: "pending",
+            created_at: new Date().toISOString(),
+          }
+        ];
+        setInquiries(initialSeeds);
+        localStorage.setItem("coffee_inquiries_mock", JSON.stringify(initialSeeds));
       }
-
-      const { data, error } = await query;
-      if (!error) setInquiries(data || []);
     } catch (e) {
-      console.warn("Inquiry fetch error:", e);
+      console.warn("Failed to fetch mock inquiries:", e);
     } finally {
       setLoading(false);
     }
   }
 
   async function updateStatus(id: string, newStatus: string) {
-    const { error } = await supabase
-      .from("inquiries")
-      .update({ status: newStatus })
-      .eq("id", id);
-
-    if (!error) {
-      setInquiries((prev) =>
-        prev.map((inq) =>
-          inq.id === id ? { ...inq, status: newStatus } : inq
-        )
-      );
-    }
+    const updated = inquiries.map((inq) =>
+      inq.id === id ? { ...inq, status: newStatus } : inq
+    );
+    setInquiries(updated);
+    
+    // Update master record in localStorage
+    const master = JSON.parse(localStorage.getItem("coffee_inquiries_mock") || "[]");
+    const updatedMaster = master.map((inq: any) => 
+      inq.id === id ? { ...inq, status: newStatus } : inq
+    );
+    localStorage.setItem("coffee_inquiries_mock", JSON.stringify(updatedMaster));
   }
 
   const filtered = inquiries.filter((inq) => {

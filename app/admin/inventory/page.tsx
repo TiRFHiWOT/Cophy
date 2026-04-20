@@ -64,14 +64,35 @@ export default function InventoryPage() {
   async function fetchLots() {
     setLoading(true);
     try {
-      const { data, error } = await supabase
-        .from("coffee_lots")
-        .select("*")
-        .order("created_at", { ascending: false });
-
-      if (!error && data) setLots(data);
+      // First check localStorage for any session-saved changes
+      const saved = localStorage.getItem("coffee_inventory_mock");
+      if (saved) {
+        setLots(JSON.parse(saved));
+      } else {
+        // Fallback to static JSON file
+        const data = (await import("@/data/products.json")).default;
+        // Transform JSON schema to match the UI component's Row interface
+        const transformed: CoffeeLotRow[] = (data as any[]).map(item => ({
+          id: item.id,
+          lot_number: item.lotNumber,
+          name: item.name,
+          region: item.region,
+          washing_station: item.washingStation,
+          altitude_range: item.altitudeRange,
+          process_method: item.processMethod,
+          sca_score: item.scaScore,
+          moisture_content: item.moistureContent,
+          harvest_year: item.harvestYear,
+          bags_available: item.bagsAvailable,
+          bag_weight_kg: item.bagWeightKg,
+          fob_price_usd: item.fobPriceUsd,
+          is_published: item.inStock,
+          created_at: new Date().toISOString()
+        }));
+        setLots(transformed);
+      }
     } catch (e) {
-      console.warn("Failed to fetch lots:", e);
+      console.warn("Failed to fetch lots from local data:", e);
     } finally {
       setLoading(false);
     }
@@ -79,48 +100,40 @@ export default function InventoryPage() {
 
   async function addLot() {
     setSaving(true);
-    const { error } = await supabase.from("coffee_lots").insert(newLot);
-    if (!error) {
-      setNewLot(EMPTY_LOT);
-      setShowAddForm(false);
-      fetchLots();
-    }
+    const newEntry: CoffeeLotRow = {
+      ...newLot,
+      id: Math.random().toString(36).substr(2, 9),
+      created_at: new Date().toISOString(),
+    };
+    
+    const updatedLots = [newEntry, ...lots];
+    setLots(updatedLots);
+    localStorage.setItem("coffee_inventory_mock", JSON.stringify(updatedLots));
+    
+    setNewLot(EMPTY_LOT);
+    setShowAddForm(false);
     setSaving(false);
   }
 
   async function updateBags(id: string, bags: number) {
-    const { error } = await supabase
-      .from("coffee_lots")
-      .update({ bags_available: bags })
-      .eq("id", id);
-
-    if (!error) {
-      setLots((prev) =>
-        prev.map((lot) =>
-          lot.id === id ? { ...lot, bags_available: bags } : lot
-        )
-      );
-      setEditingBags((prev) => {
-        const next = { ...prev };
-        delete next[id];
-        return next;
-      });
-    }
+    const updated = lots.map((lot) =>
+      lot.id === id ? { ...lot, bags_available: bags } : lot
+    );
+    setLots(updated);
+    localStorage.setItem("coffee_inventory_mock", JSON.stringify(updated));
+    setEditingBags((prev) => {
+      const next = { ...prev };
+      delete next[id];
+      return next;
+    });
   }
 
   async function togglePublished(id: string, current: boolean) {
-    const { error } = await supabase
-      .from("coffee_lots")
-      .update({ is_published: !current })
-      .eq("id", id);
-
-    if (!error) {
-      setLots((prev) =>
-        prev.map((lot) =>
-          lot.id === id ? { ...lot, is_published: !current } : lot
-        )
-      );
-    }
+    const updated = lots.map((lot) =>
+      lot.id === id ? { ...lot, is_published: !current } : lot
+    );
+    setLots(updated);
+    localStorage.setItem("coffee_inventory_mock", JSON.stringify(updated));
   }
 
   const filtered = lots.filter((lot) => {
