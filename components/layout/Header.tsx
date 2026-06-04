@@ -90,10 +90,29 @@ export function Header() {
             currentScrollTop > 50 ? "h-0 opacity-0" : "h-10 opacity-100 flex items-center"
           )}
         >
-          <div className="container flex items-center justify-center h-full">
-            <p className="font-bold tracking-[0.2em] whitespace-nowrap text-center opacity-80 uppercase">
-              {topbarMessage}
-            </p>
+          <div className="w-full flex items-center h-full overflow-hidden">
+            {/* Desktop centered */}
+            <div className="hidden md:flex w-full items-center justify-center h-full">
+              <p className="font-bold tracking-[0.2em] whitespace-nowrap text-center opacity-80 uppercase">
+                {topbarMessage}
+              </p>
+            </div>
+            {/* Mobile scrolling */}
+            <div className="md:hidden flex items-center h-full w-full overflow-hidden">
+              <div 
+                className="flex whitespace-nowrap w-max" 
+                style={{ animation: 'marquee 60s linear infinite' }}
+              >
+                {[...Array(4)].map((_, i) => (
+                  <div key={i} className="flex items-center shrink-0">
+                    <p className="font-bold tracking-[0.2em] opacity-80 uppercase px-4 shrink-0">
+                      {topbarMessage}
+                    </p>
+                    <span className="opacity-40 px-2 shrink-0">•</span>
+                  </div>
+                ))}
+              </div>
+            </div>
           </div>
         </div>
 
