@@ -74,7 +74,7 @@ export function Header() {
   const searchResults = useMemo(() => {
     if (!searchQuery.trim()) return [];
     const query = searchQuery.toLowerCase().trim();
-    return allProducts.filter((product) => 
+    return allProducts.filter((product) =>
       [product.name, product.region, product.lotNumber].join(" ").toLowerCase().includes(query)
     );
   }, [searchQuery, allProducts]);
@@ -99,8 +99,8 @@ export function Header() {
             </div>
             {/* Mobile scrolling */}
             <div className="md:hidden flex items-center h-full w-full overflow-hidden">
-              <div 
-                className="flex whitespace-nowrap w-max" 
+              <div
+                className="flex whitespace-nowrap w-max"
                 style={{ animation: 'marquee 60s linear infinite' }}
               >
                 {[...Array(4)].map((_, i) => (
@@ -121,8 +121,8 @@ export function Header() {
           ref={headerRef}
           className={cn(
             "w-full transition-all duration-500 z-40 relative border-b",
-            currentScrollTop > 20 
-              ? "bg-white/80 backdrop-blur-md border-lot-earth/10 py-3 shadow-sm" 
+            currentScrollTop > 20
+              ? "bg-white/80 backdrop-blur-md border-lot-earth/10 py-3 shadow-sm"
               : "bg-transparent border-transparent py-5 md:py-8"
           )}
         >
@@ -230,12 +230,12 @@ export function Header() {
                   onChange={(e) => setSearchQuery(e.target.value)}
                 />
               </div>
-              
+
               {searchQuery && (
                 <div className="grid grid-cols-1 gap-4 overflow-y-auto max-h-[60vh]">
                   {searchResults.map(product => (
-                    <Link 
-                      key={product.id} 
+                    <Link
+                      key={product.id}
                       href={`/products/${product.slug}`}
                       className="group flex items-center justify-between p-6 hover:bg-lot-paper border-b border-lot-earth/10"
                       onClick={() => setSearchOpen(false)}
@@ -259,16 +259,14 @@ export function Header() {
 
       {/* Mobile Menu */}
       <div className={cn(
-        "fixed inset-0 z-[60] bg-lot-forest transition-all duration-500 flex flex-col p-8",
+        "fixed inset-0 z-[60] bg-lot-forest transition-all duration-500 flex flex-col p-8 pb-12",
         mobileMenuOpen ? "translate-x-0" : "translate-x-full"
       )}>
-        <div className="flex justify-between items-center mb-20 text-white">
+        <div className="flex justify-center items-center mb-16 text-white">
           <Logo variant="light" />
-          <Button variant="ghost" size="icon" onClick={toggleMobileMenu} className="text-white hover:bg-white/10">
-            <X className="h-8 w-8" />
-          </Button>
         </div>
-        <nav className="flex flex-col space-y-8">
+
+        <nav className="flex flex-col items-center space-y-8 text-center flex-1 overflow-y-auto">
           {navLinks.map((link) => (
             <Link
               key={link.label}
@@ -279,16 +277,16 @@ export function Header() {
               {link.label}
             </Link>
           ))}
-          <div className="pt-10 border-t border-white/10 flex flex-col space-y-6">
+          <div className="pt-10 border-t border-white/10 flex flex-col items-center space-y-6 w-full">
             {user ? (
               <>
                 <Link href="/portal" onClick={toggleMobileMenu}>
-                  <Button variant="outline" className="w-full text-white border-white/20 hover:bg-white/10 uppercase font-bold tracking-widest py-6">
+                  <Button variant="outline" className="w-full bg-transparent text-white border-white/20 hover:bg-white hover:text-lot-forest uppercase font-bold tracking-widest py-6">
                     Dashboard
                   </Button>
                 </Link>
-                <Button 
-                  variant="ghost" 
+                <Button
+                  variant="ghost"
                   className="text-white/60 hover:text-white uppercase font-bold tracking-widest"
                   onClick={() => {
                     logout();
@@ -299,9 +297,9 @@ export function Header() {
                 </Button>
               </>
             ) : (
-              <Button 
-                variant="outline" 
-                className="text-white border-white/20 hover:bg-white/10 uppercase font-bold tracking-widest py-6"
+              <Button
+                variant="outline"
+                className="w-full bg-transparent text-white border-white/20 hover:bg-white hover:text-lot-forest uppercase font-bold tracking-widest py-6"
                 onClick={() => {
                   toggleAuthModal();
                   toggleMobileMenu();
@@ -312,6 +310,18 @@ export function Header() {
             )}
           </div>
         </nav>
+
+        {/* Bottom Close Button */}
+        <div className="flex justify-center mt-8 shrink-0">
+          <Button
+            variant="ghost"
+            size="icon"
+            onClick={toggleMobileMenu}
+            className="text-white hover:bg-white/10 h-16 w-16 rounded-full border border-white/5 hover:border-white transition-all backdrop-blur-sm"
+          >
+            <X className="h-8 w-8" />
+          </Button>
+        </div>
       </div>
     </>
   );
