@@ -95,7 +95,7 @@ export function HeroV2() {
         {/* Dynamic Blueprint Overlays */}
         <div className="absolute inset-0 pointer-events-none z-10 flex flex-col justify-between p-12 text-white/10 italic">
           <div className="flex justify-between items-start">
-             <span className="text-[120px] font-serif font-black leading-none select-none">LOT</span>
+             <span className="text-[120px] font-serif font-black leading-none select-none">HENDI</span>
              <div className="text-right flex flex-col gap-2">
                <span className="block h-px w-32 bg-white/20" />
                <span className="block h-px w-48 bg-white/20" />
@@ -107,7 +107,7 @@ export function HeroV2() {
                 <p className="text-[10px] font-mono tracking-widest uppercase text-lot-amber/40">Technical Coordinates</p>
                 <p className="text-xs font-mono text-white/20">6.0142° N, 38.2120° E // YIRGACHEFFE</p>
              </div>
-             <span className="text-[120px] font-serif font-black leading-none select-none">251</span>
+             <span className="text-[120px] font-serif font-black leading-none select-none">COFFEE</span>
           </div>
         </div>
 

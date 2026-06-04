@@ -2,8 +2,8 @@ import { Leaf, Award, Map, Droplet, Users, ShieldCheck } from "lucide-react";
 import Image from "next/image";
 
 export const metadata = {
-  title: "About Us | Lot 251",
-  description: "Learn about Lot 251, our Ethiopian coffee origin story, and our direct-export transparency model.",
+  title: "About Us | Hendi Coffee",
+  description: "Learn about Hendi Coffee, our Ethiopian coffee origin story, and our direct-export transparency model.",
 };
 
 export default function AboutPage() {
@@ -44,7 +44,7 @@ export default function AboutPage() {
               </span>
             </div>
             <h1 className="text-4xl md:text-6xl lg:text-7xl font-serif font-black mb-6 tracking-tighter leading-tight">
-              About Lot 251
+              About Hendi Coffee
             </h1>
             <p className="text-lg md:text-xl text-white/70 font-light leading-relaxed max-w-2xl mx-auto">
               Bridging the gap between the world's most complex coffee terroirs and premium global roasters through transparency and technical rigor.
@@ -75,10 +75,10 @@ export default function AboutPage() {
                <div className="w-16 h-1 bg-lot-amber" />
                <div className="space-y-6 text-lg text-lot-earth leading-relaxed font-light">
                  <p>
-                   Founded in Addis Ababa, Lot 251 was born out of frustration with the opaque, multi-layer supply chains that often separated exceptional Ethiopian coffees from the roasters who valued them most.
+                   Founded in Addis Ababa, Hendi Coffee was born out of frustration with the opaque, multi-layer supply chains that often separated exceptional Ethiopian coffees from the roasters who valued them most.
                  </p>
                  <p>
-                   Traditionally, coffees passed through the Ethiopia Commodity Exchange (ECX), losing their traceability and individual terroir identities in the process. We established Lot 251 to build a direct bridge.
+                   Traditionally, coffees passed through the Ethiopia Commodity Exchange (ECX), losing their traceability and individual terroir identities in the process. We established Hendi Coffee to build a direct bridge.
                  </p>
                  <p>
                    Our team functions as your boots on the ground. We travel to the dense forests of Guji, the high altitudes of Yirgacheffe, and the drying beds of Sidama to source lots built on meticulous processing. We cup rigorously, secure the contracts, mill to exacting specifications, and manage the logistics all the way to FOB Djibouti.

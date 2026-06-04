@@ -15,7 +15,7 @@ export function Footer() {
           <div className="space-y-6">
             <Logo variant="light" />
             <p className="text-sm text-white/60 leading-relaxed font-light mt-4">
-              Lot 251 is a global commodity exchange specializing in the direct export of the finest Ethiopian green coffee. Built on 30 years of sourcing heritage.
+              Hendi Coffee is a premium specialty coffee company specializing in the direct export of the finest Ethiopian green coffee. Built on 30 years of sourcing heritage.
             </p>
             <div className="flex space-x-4">
               <a href="#" className="h-10 w-10 flex items-center justify-center border border-white/10 hover:border-lot-amber transition-colors">
@@ -77,7 +77,7 @@ export function Footer() {
               </div>
               <div className="flex gap-4 items-center">
                  <Mail className="h-4 w-4 text-lot-amber shrink-0" />
-                 <a href="mailto:contact@lot251.coffee" className="text-xs text-white hover:text-lot-amber transition-colors">contact@lot251.coffee</a>
+                 <a href="mailto:contact@hendicoffee.com" className="text-xs text-white hover:text-lot-amber transition-colors">contact@hendicoffee.com</a>
               </div>
             </div>
           </div>
@@ -85,7 +85,7 @@ export function Footer() {
 
         <div className="pt-10 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-6">
           <div className="text-[10px] text-white/40 font-mono tracking-widest uppercase text-center md:text-left">
-            &copy; {currentYear} Lot 251 Import & Export PLC. Licensed Exporter.
+            &copy; {currentYear} Hendi Coffee. Premium Ethiopian Coffee.
           </div>
           <div className="flex gap-8">
             <Link href="/terms" className="text-[10px] text-white/40 hover:text-white transition-colors uppercase font-bold tracking-widest">Terms</Link>

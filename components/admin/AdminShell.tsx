@@ -41,13 +41,23 @@ export default function AdminShell({ children }: { children: React.ReactNode }) 
       )}>
         {/* Logo */}
         <div className="px-6 py-8 border-b border-white/10 flex items-center justify-between">
-          <div>
-            <h1 className="text-xl font-serif font-black tracking-tight leading-none text-white">
-              Lot 251 <span className="text-lot-amber font-mono text-sm block mt-1 uppercase tracking-[0.2em] opacity-80">Admin</span>
-            </h1>
-            <p className="text-[9px] text-white/30 uppercase tracking-[0.3em] mt-3 font-bold">
-              Export Management
-            </p>
+          <div className="flex items-center gap-3">
+            <svg width="32" height="32" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M22 2C12 2 4 10 4 22C4 34 12 42 22 42" stroke="#F8F7F3" strokeWidth="2.5" strokeLinecap="round" fill="none" />
+              <path d="M22 2C32 2 40 10 40 22C40 34 32 42 22 42" stroke="#F8F7F3" strokeWidth="2.5" strokeLinecap="round" fill="none" />
+              <path d="M22 8C18 14 18 30 22 36" stroke="#D97706" strokeWidth="2" strokeLinecap="round" fill="none" />
+              <line x1="14" y1="22" x2="30" y2="22" stroke="#D97706" strokeWidth="2" strokeLinecap="round" opacity="0.7" />
+              <line x1="14" y1="14" x2="14" y2="30" stroke="#F8F7F3" strokeWidth="2" strokeLinecap="round" />
+              <line x1="30" y1="14" x2="30" y2="30" stroke="#F8F7F3" strokeWidth="2" strokeLinecap="round" />
+            </svg>
+            <div>
+              <h1 className="text-lg font-serif font-black tracking-tight leading-none text-white">
+                HENDI<span className="text-lot-amber">COFFEE</span>
+              </h1>
+              <p className="text-[8px] text-white/30 uppercase tracking-[0.2em] mt-1 font-bold">
+                Admin · Export Management
+              </p>
+            </div>
           </div>
           <button 
             className="lg:hidden text-white/40 hover:text-white p-2"

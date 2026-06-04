@@ -62,8 +62,8 @@ export default function ContactPage() {
                   <Mail className="h-6 w-6 text-lot-amber mt-1 shrink-0" />
                   <div>
                     <h4 className="text-xs font-bold text-lot-earth uppercase tracking-widest mb-1">General & Trade</h4>
-                    <a href="mailto:trade@lot251.coffee" className="text-lg font-bold text-lot-forest hover:text-lot-amber">
-                      trade@lot251.coffee
+                    <a href="mailto:trade@hendicoffee.com" className="text-lg font-bold text-lot-forest hover:text-lot-amber">
+                      trade@hendicoffee.com
                     </a>
                   </div>
                </div>

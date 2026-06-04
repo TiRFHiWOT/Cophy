@@ -297,7 +297,7 @@ export function AuthModal() {
                         ref={emailInputRef}
                         id="email"
                         type="email"
-                        placeholder="EMAIL@LOT251.COM"
+                        placeholder="EMAIL@HENDICOFFEE.COM"
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
                         className="bg-white border-lot-earth/10 rounded-none h-14 pl-12 pr-4 focus-visible:ring-0 focus-visible:border-lot-amber transition-all text-sm font-bold placeholder:text-lot-earth/20"
@@ -391,7 +391,7 @@ export function AuthModal() {
 
                 <div className="mt-10 pt-8 border-t border-lot-earth/10 text-center">
                   <p className="text-[10px] font-bold text-lot-earth/50 uppercase tracking-[0.2em]">
-                    {isSignup ? "Already registered on the exchange?" : "New to Lot 251 Global Logistics?"}
+                    {isSignup ? "Already registered on the exchange?" : "New to Hendi Coffee?"}
                     <button
                       type="button"
                       onClick={() => {

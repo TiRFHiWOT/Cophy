@@ -56,7 +56,7 @@ export default function DocumentsPage() {
         const initialDocs: DocRow[] = [
           {
             id: "1",
-            inquiry_id: "INQ-251-001",
+            inquiry_id: "INQ-HC-001",
             doc_type: "Phytosanitary Certificate",
             file_url: "#",
             uploaded_at: new Date().toISOString(),

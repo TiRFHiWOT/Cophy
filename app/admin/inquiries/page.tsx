@@ -84,7 +84,7 @@ export default function InquiriesPage() {
             contact_email: "buying@bluebottle.com",
             contact_phone: "+1 (510) 653-3394",
             contact_role: "Head of Procurement",
-            lot_number: "LOT 251-001",
+            lot_number: "HC-001",
             type: "sample_request",
             quantity_bags: 5,
             shipping_method: "Air Freight",

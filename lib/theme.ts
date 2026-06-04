@@ -1,6 +1,6 @@
 /**
  * Theme Configuration
- * Warm coffee-inspired design system for Lot 251
+ * Warm coffee-inspired design system for Hendi Coffee
  *
  * This theme creates a warm, inviting coffee shop aesthetic using
  * browns, creams, and amber tones that evoke the feeling of

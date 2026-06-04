@@ -29,9 +29,16 @@ export function HeroMinimalist() {
   return (
     <div className="w-full bg-lot-paper">
       <section className="relative w-full min-h-[calc(100vh-148px)] flex flex-col justify-between overflow-hidden lg:pt-20">
-        {/* Background Subtle Logo */}
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full select-none pointer-events-none opacity-[0.02] z-0">
-          <h2 className="text-[35vw] font-serif font-black leading-none text-lot-forest italic">LOT251</h2>
+        {/* Background Subtle Coffee Bean Mark */}
+        <div className="absolute top-1/2 left-[15%] -translate-y-1/2 select-none pointer-events-none opacity-[0.02] z-0">
+          <svg width="1200" height="1200" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M22 2C12 2 4 10 4 22C4 34 12 42 22 42" stroke="#0A2A22" strokeWidth="1" strokeLinecap="round" fill="none" />
+            <path d="M22 2C32 2 40 10 40 22C40 34 32 42 22 42" stroke="#0A2A22" strokeWidth="1" strokeLinecap="round" fill="none" />
+            <path d="M22 8C18 14 18 30 22 36" stroke="#D97706" strokeWidth="0.8" strokeLinecap="round" fill="none" />
+            <line x1="14" y1="22" x2="30" y2="22" stroke="#D97706" strokeWidth="0.8" strokeLinecap="round" opacity="0.5" />
+            <line x1="14" y1="14" x2="14" y2="30" stroke="#0A2A22" strokeWidth="0.8" strokeLinecap="round" />
+            <line x1="30" y1="14" x2="30" y2="30" stroke="#0A2A22" strokeWidth="0.8" strokeLinecap="round" />
+          </svg>
         </div>
 
         <div className="container relative z-10 px-4 md:px-6 py-12 lg:py-0 flex-1 flex flex-col justify-center">

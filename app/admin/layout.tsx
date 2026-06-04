@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import AdminShell from "@/components/admin/AdminShell";
 
 export const metadata: Metadata = {
-  title: "Admin | Lot 251 Export Portal",
+  title: "Admin | Hendi Coffee",
   description: "Manage coffee lots, inquiries, and trade documents.",
 };
 

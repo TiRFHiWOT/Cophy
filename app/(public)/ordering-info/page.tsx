@@ -13,7 +13,7 @@ import {
 } from "lucide-react";
 
 export const metadata = {
-  title: "Export Logistics & How To Buy | Lot 251",
+  title: "Export Logistics & How To Buy | Hendi Coffee",
   description: "Learn how to procure premium Ethiopian specialty green coffee directly from our export terminal in Addis Ababa.",
 };
 
@@ -57,7 +57,7 @@ export default function OrderingInfoPage() {
     "Bill of Lading (OBL / Seaway)",
     "Commercial Invoice & Packing List",
     "Weight / Stuffing Note",
-    "LOT 251 Quality Certificate"
+    "Hendi Coffee Quality Certificate"
   ];
 
   return (

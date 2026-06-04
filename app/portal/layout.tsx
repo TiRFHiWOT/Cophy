@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import PortalHeader from "@/components/layout/PortalHeader";
 
 export const metadata: Metadata = {
-  title: "Partner Portal | Lot 251 Export Exchange",
+  title: "Partner Portal | Hendi Coffee",
   description: "Authorized access to coffee lots, technical records, and logistics tracking.",
 };
 

@@ -121,7 +121,7 @@ export default function PartnerPortalPage() {
               <div className="p-8">
                 <div className="space-y-6">
                   {[
-                    { title: "Sample Request #251-09", status: "Shipped", date: "2 days ago", icon: CheckCircle2 },
+                    { title: "Sample Request #HC-09", status: "Shipped", date: "2 days ago", icon: CheckCircle2 },
                     { title: "Technical Sheet: Yirgacheffe G1", status: "Updated", date: "4 days ago", icon: Clock },
                   ].map((item, idx) => (
                     <div key={idx} className="flex items-center justify-between py-4 border-b border-lot-earth/5 last:border-0">

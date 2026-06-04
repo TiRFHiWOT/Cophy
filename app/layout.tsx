@@ -28,8 +28,8 @@ const jetbrainsMono = JetBrains_Mono({
 
 export const metadata: Metadata = {
   title: {
-    default: "Lot 251 | Global Coffee Commodity Exchange",
-    template: "%s | Lot 251 Exchange",
+    default: "Hendi Coffee | Premium Ethiopian Specialty Coffee",
+    template: "%s | Hendi Coffee",
   },
   description:
     "Premium B2B Ethiopian Speciality Coffee Export Portal. Technical specifications, transparent logistics, and SCA-scored lots direct from origin.",
@@ -38,25 +38,25 @@ export const metadata: Metadata = {
     "specialty coffee wholesale",
     "green coffee beans",
     "B2B coffee exchange",
-    "Lot 251",
+    "Hendi Coffee",
     "SCA scored coffee",
     "direct trade Ethiopia",
   ],
-  authors: [{ name: "Lot 251 Logistics" }],
-  creator: "Lot 251",
-  publisher: "Lot 251",
+  authors: [{ name: "Hendi Coffee" }],
+  creator: "Hendi Coffee",
+  publisher: "Hendi Coffee",
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: "https://lot251.com",
-    siteName: "Lot 251 Exchange",
-    title: "Lot 251 | Global Coffee Commodity Exchange",
+    url: "https://hendicoffee.com",
+    siteName: "Hendi Coffee",
+    title: "Hendi Coffee | Premium Ethiopian Specialty Coffee",
     description:
       "Premium B2B Ethiopian Speciality Coffee Export Portal. Access technical lot data and request samples directly from origin.",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Lot 251 | Global Coffee Commodity Exchange",
+    title: "Hendi Coffee | Premium Ethiopian Specialty Coffee",
     description:
       "Premium B2B Ethiopian Speciality Coffee Export Portal. Access technical lot data and request samples.",
   },

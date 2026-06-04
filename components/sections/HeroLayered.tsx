@@ -136,7 +136,7 @@ export function HeroLayered() {
 
       <div className="absolute bottom-10 right-10 flex items-center gap-4">
          <div className="flex flex-col items-end">
-           <p className="text-[9px] font-bold text-white/60 uppercase tracking-widest">Protocol 251</p>
+           <p className="text-[9px] font-bold text-white/60 uppercase tracking-widest">Protocol HC</p>
            <p className="text-[8px] font-mono text-lot-amber/40 uppercase">V3.0 // LAYERED DEPTH</p>
          </div>
       </div>

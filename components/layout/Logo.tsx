@@ -10,67 +10,140 @@ interface LogoProps {
 
 export function Logo({ variant = "dark", className = "" }: LogoProps) {
   const isLight = variant === "light";
-  
+
+  // Colors
+  const primary = isLight ? "#FFFFFF" : "#0A2A22";    // forest green / white
+  const accent = "#D97706";                            // amber
+  const subtle = isLight ? "rgba(255,255,255,0.15)" : "rgba(10,42,34,0.08)";
+
   return (
-    <Link href="/" className={`flex items-center gap-3 group ${className}`}>
+    <Link href="/" className={`flex items-center gap-4 group select-none ${className}`}>
+      {/* ── Mark: Stylized coffee bean with "H" negative space ── */}
       <div className="relative">
         <svg
-          width="40"
-          height="40"
-          viewBox="0 0 40 40"
+          width="44"
+          height="44"
+          viewBox="0 0 44 44"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
-          className="transform group-hover:rotate-12 transition-transform duration-700 ease-in-out"
+          className="transition-transform duration-700 ease-out group-hover:scale-110"
         >
-          {/* Industrial Warehouse / Silo Mark */}
+          {/* Outer bean shape (left half) */}
           <path
-            d="M5 15V35H35V15L20 5L5 15Z"
-            stroke={isLight ? "#F8F7F3" : "#0A2A22"}
-            strokeWidth="3"
-            strokeLinejoin="bevel"
+            d="M22 2C12 2 4 10 4 22C4 34 12 42 22 42"
+            stroke={primary}
+            strokeWidth="2.5"
+            strokeLinecap="round"
+            fill="none"
           />
+          {/* Outer bean shape (right half) */}
           <path
-            d="M20 15L20 35"
-            stroke={isLight ? "#F8F7F3" : "#0A2A22"}
-            strokeWidth="3"
+            d="M22 2C32 2 40 10 40 22C40 34 32 42 22 42"
+            stroke={primary}
+            strokeWidth="2.5"
+            strokeLinecap="round"
+            fill="none"
           />
-          <rect
-            x="16"
-            y="24"
-            width="8"
-            height="11"
-            fill="#D97706"
-          />
-          <path
-            d="M0 35H40"
-            stroke={isLight ? "#F8F7F3" : "#0A2A22"}
-            strokeWidth="2"
-          />
-          {/* Subtle Accent Line */}
+
+          {/* Center crease — the signature coffee bean line */}
           <motion.path
-            initial={{ pathLength: 0 }}
-            animate={{ pathLength: 1 }}
-            transition={{ duration: 1, repeat: Infinity, repeatType: "reverse" }}
-            d="M10 10L30 10"
-            stroke="#D97706"
-            strokeWidth="1"
-            className="opacity-40"
+            d="M22 8C18 14 18 30 22 36"
+            stroke={accent}
+            strokeWidth="2"
+            strokeLinecap="round"
+            fill="none"
+            initial={{ pathLength: 0, opacity: 0 }}
+            animate={{ pathLength: 1, opacity: 1 }}
+            transition={{ duration: 1.2, ease: "easeInOut" }}
+          />
+
+          {/* "H" crossbar — embedded in the bean */}
+          <line
+            x1="14"
+            y1="22"
+            x2="30"
+            y2="22"
+            stroke={accent}
+            strokeWidth="2"
+            strokeLinecap="round"
+            opacity="0.7"
+          />
+
+          {/* Left vertical of H */}
+          <line
+            x1="14"
+            y1="14"
+            x2="14"
+            y2="30"
+            stroke={primary}
+            strokeWidth="2"
+            strokeLinecap="round"
+          />
+
+          {/* Right vertical of H */}
+          <line
+            x1="30"
+            y1="14"
+            x2="30"
+            y2="30"
+            stroke={primary}
+            strokeWidth="2"
+            strokeLinecap="round"
+          />
+
+          {/* Decorative dots — coffee cherry cluster */}
+          <circle cx="8" cy="8" r="1.5" fill={accent} opacity="0.3" />
+          <circle cx="36" cy="8" r="1.5" fill={accent} opacity="0.2" />
+          <circle cx="8" cy="36" r="1.5" fill={accent} opacity="0.2" />
+          <circle cx="36" cy="36" r="1.5" fill={accent} opacity="0.3" />
+
+          {/* Animated glow ring on hover — via CSS */}
+          <circle
+            cx="22"
+            cy="22"
+            r="21"
+            stroke={accent}
+            strokeWidth="0.5"
+            fill="none"
+            className="opacity-0 group-hover:opacity-30 transition-opacity duration-700"
           />
         </svg>
+
+        {/* Subtle ambient glow behind the mark */}
+        <div
+          className="absolute inset-0 rounded-full blur-xl opacity-0 group-hover:opacity-20 transition-opacity duration-700 -z-10"
+          style={{ backgroundColor: accent }}
+        />
       </div>
 
-      <div className="flex flex-col leading-none">
-        <div className="flex items-center gap-1">
-          <span className={`text-2xl md:text-3xl font-serif font-black tracking-tighter italic ${isLight ? "text-white" : "text-lot-forest"}`}>
-            LOT 
+      {/* ── Wordmark ── */}
+      <div className="flex flex-col">
+        {/* Primary text */}
+        <div className="flex items-baseline gap-0">
+          <span
+            className={`text-[22px] md:text-[26px] font-serif font-black tracking-[-0.04em] leading-none ${
+              isLight ? "text-white" : "text-lot-forest"
+            }`}
+          >
+            HENDI
           </span>
-          <span className="text-2xl md:text-3xl font-mono font-black text-lot-amber">
-            251
+          <span className="text-[22px] md:text-[26px] font-serif font-black tracking-[-0.04em] leading-none text-lot-amber">
+            COFFEE
           </span>
         </div>
-        <span className={`text-[8px] md:text-[9px] font-black uppercase tracking-[0.5em] mt-1 ${isLight ? "text-white/40" : "text-lot-earth/60"}`}>
-          Identity Preserved
-        </span>
+
+        {/* Separator line + tagline */}
+        <div className="flex items-center gap-2 mt-1.5">
+          <div className="h-px flex-1" style={{ backgroundColor: accent, opacity: 0.4 }} />
+          <span
+            className={`text-[7px] md:text-[8px] font-semibold uppercase tracking-[0.25em] whitespace-nowrap ${
+              isLight ? "text-white/50" : "text-lot-earth/60"
+            }`}
+          >
+            Premium Ethiopian Coffee
+          </span>
+          <div className="h-px flex-1" style={{ backgroundColor: accent, opacity: 0.4 }} />
+        </div>
       </div>
     </Link>
   );

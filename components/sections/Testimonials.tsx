@@ -17,13 +17,13 @@ const testimonials: Testimonial[] = [
     name: "Thomas Andersen",
     role: "Head of Sourcing",
     company: "Nordic Roast A/S",
-    text: "Working with Lot 251 has transformed our Ethiopian portfolio. Their technical data—from water activity to precise screen sizing—is the most reliable we've seen from an Addis exporter. The sample accuracy is impeccable.",
+    text: "Working with Hendi Coffee has transformed our Ethiopian portfolio. Their technical data—from water activity to precise screen sizing—is the most reliable we've seen from an Addis exporter. The sample accuracy is impeccable.",
   },
   {
     name: "Elena Rossi",
     role: "Quality Control",
     company: "Serena Specialty Coffee",
-    text: "The consistency of the G1 Sidama lots we contracted this year was outstanding. Lot 251's direct connection to the washing stations is evident in the cup. They are our primary partner for identity-preserved Ethiopian coffee.",
+    text: "The consistency of the G1 Sidama lots we contracted this year was outstanding. Hendi Coffee's direct connection to the washing stations is evident in the cup. They are our primary partner for identity-preserved Ethiopian coffee.",
   },
 ];
 

@@ -1,7 +1,7 @@
 [
   {
     "id": "1",
-    "lotNumber": "LOT 251-001",
+    "lotNumber": "HC-001",
     "slug": "sidama-natural-gr1-bombe",
     "name": "Natural Sidama Grade 1 · Bombe",
     "description": "Exquisite natural process from the Bombe mountains of Sidama. This lot showcases intense berry notes and a honey-like sweetness that defines high-altitude Sidama naturals.",
@@ -30,7 +30,7 @@
   },
   {
     "id": "2",
-    "lotNumber": "LOT 251-002",
+    "lotNumber": "HC-002",
     "slug": "yirgacheffe-washed-gr1-chelelektu",
     "name": "Washed Yirgacheffe Grade 1 · Chelelektu",
     "description": "Classic Yirgacheffe profile. Exceptionally clean and floral, this lot represents the meticulous processing at the Chelelektu station.",
@@ -59,7 +59,7 @@
   },
   {
     "id": "3",
-    "lotNumber": "LOT 251-003",
+    "lotNumber": "HC-003",
     "slug": "guji-natural-gr1-hambella",
     "name": "Natural Guji Grade 1 · Hambella",
     "description": "From the heart of Hambella, this natural lot is characterized by deep red fruit complexity and a complex floral aroma.",
@@ -88,7 +88,7 @@
   },
   {
     "id": "4",
-    "lotNumber": "LOT 251-004",
+    "lotNumber": "HC-004",
     "slug": "sidama-washed-gr1-bensa",
     "name": "Washed Sidama Grade 1 · Bensa",
     "description": "A vibrant and structured washed lot from Bensa. High clarity and sparkling acidity make this an ideal choice for specialty roasters.",
@@ -117,7 +117,7 @@
   },
   {
     "id": "5",
-    "lotNumber": "LOT 251-005",
+    "lotNumber": "HC-005",
     "slug": "harar-natural-gr4-horse",
     "name": "Natural Harar Grade 4 · Golden Horse",
     "description": "Known for its distinctive 'wild' and fruity profile, this Harar lot is processed traditionally on house rooftops and drying beds.",
@@ -146,7 +146,7 @@
   },
   {
     "id": "6",
-    "lotNumber": "LOT 251-006",
+    "lotNumber": "HC-006",
     "slug": "limu-washed-gr2-gera",
     "name": "Washed Limu Grade 2 · Gera",
     "description": "Grown in the diverse forests of Limu, this washed lot offers a balanced cup with pleasant fruit notes and a sweet finish.",

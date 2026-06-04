@@ -28,7 +28,7 @@ const pillars = [
   },
 ];
 
-export function WhyLot251() {
+export function WhyHendiCoffee() {
   return (
     <section className="w-full bg-lot-paper py-24 md:py-32 border-y border-lot-earth/10">
       <div className="container px-6">
@@ -48,7 +48,7 @@ export function WhyLot251() {
               </h2>
             </div>
             <p className="flex-1 text-sm md:text-base text-lot-earth leading-relaxed font-light md:mb-2">
-              Lot 251 is built on the belief that a high-end specialty market requires high-end technical transparency. 
+              Hendi Coffee is built on the belief that a high-end specialty market requires high-end technical transparency. 
               We provide the data, documentation, and logistical reliability that global roasters need to scale their operations with confidence.
             </p>
           </div>

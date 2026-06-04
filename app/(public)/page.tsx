@@ -1,5 +1,5 @@
 import { HeroMinimalist as Hero } from "@/components/sections/HeroMinimalist";
-import { WhyLot251 } from "@/components/sections/WhyLot251";
+import { WhyHendiCoffee } from "@/components/sections/WhyHendiCoffee";
 import { CurrentLots } from "@/components/sections/CurrentLots";
 import { OriginShowcase } from "@/components/sections/OriginShowcase";
 import { SectionDivider } from "@/components/sections/SectionDivider";
@@ -18,7 +18,7 @@ export default function Home() {
       <Hero />
       
       {/* 2. Technical Excellence & Logistics (Why Us) */}
-      <WhyLot251 />
+      <WhyHendiCoffee />
       
       {/* 3. Current Offerings (Bento Grid) */}
       <CurrentLots products={products} />

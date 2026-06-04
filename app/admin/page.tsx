@@ -86,7 +86,7 @@ export default function AdminDashboard() {
               company_name: "Blue Bottle Coffee",
               contact_email: "buying@bluebottle.com",
               type: "sample_request",
-              lot_number: "LOT 251-001",
+              lot_number: "HC-001",
               status: "pending",
               created_at: new Date().toISOString(),
             },
@@ -95,7 +95,7 @@ export default function AdminDashboard() {
               company_name: "Intelligentsia",
               contact_email: "leads@intelli.com",
               type: "quote_request",
-              lot_number: "LOT 251-003",
+              lot_number: "HC-003",
               status: "contacted",
               created_at: new Date(Date.now() - 86400000).toISOString(),
             }
