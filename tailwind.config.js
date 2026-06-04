@@ -41,7 +41,7 @@ module.exports = {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
-        'lot-amber': 'hsl(25, 95%, 53%)',    // Roast/Precision
+        'lot-amber': 'hsl(25, 45%, 45%)',    // Coffee Brown (was Roast/Precision orange)
         'lot-forest': 'hsl(135, 35%, 20%)',  // Industrial/Origin
         'lot-earth': 'hsl(30, 25%, 55%)',    // Technical Data
         'lot-paper': 'hsl(30, 20%, 97%)',    // Premium Background

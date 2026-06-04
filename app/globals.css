@@ -20,7 +20,7 @@
     --popover: 30 20% 97%;
     --popover-foreground: 135 35% 10%;
 
-    --primary: 25 95% 53%;
+    --primary: 25 45% 45%;
     /* lot-amber */
     --primary-foreground: 30 20% 97%;
 
@@ -32,7 +32,7 @@
     /* lot-earth */
     --muted-foreground: 30 20% 97%;
 
-    --accent: 25 95% 53%;
+    --accent: 25 45% 45%;
     --accent-foreground: 135 35% 10%;
 
     --destructive: 0 84.2% 60.2%;
@@ -53,7 +53,7 @@
     --card-foreground: 30 20% 97%;
     --popover: 135 35% 12%;
     --popover-foreground: 30 20% 97%;
-    --primary: 25 95% 53%;
+    --primary: 25 45% 45%;
     --primary-foreground: 135 35% 8%;
     --secondary: 135 35% 20%;
     --secondary-foreground: 30 20% 97%;

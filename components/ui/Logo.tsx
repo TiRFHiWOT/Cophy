@@ -11,7 +11,7 @@ export function Logo({ variant = "dark", className = "" }: LogoProps) {
   const isLight = variant === "light";
 
   const primary = isLight ? "#FFFFFF" : "#0A2A22";
-  const accent = "#D97706";
+  const accent = "#A66A3F";
 
   return (
     <div className={`flex items-center gap-3 group cursor-pointer ${className}`}>

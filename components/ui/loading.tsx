@@ -33,8 +33,8 @@ export function Loading({
             <svg width="600" height="600" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M22 2C12 2 4 10 4 22C4 34 12 42 22 42" stroke="#0A2A22" strokeWidth="1" strokeLinecap="round" fill="none" />
               <path d="M22 2C32 2 40 10 40 22C40 34 32 42 22 42" stroke="#0A2A22" strokeWidth="1" strokeLinecap="round" fill="none" />
-              <path d="M22 8C18 14 18 30 22 36" stroke="#D97706" strokeWidth="0.8" strokeLinecap="round" fill="none" />
-              <line x1="14" y1="22" x2="30" y2="22" stroke="#D97706" strokeWidth="0.8" strokeLinecap="round" opacity="0.5" />
+              <path d="M22 8C18 14 18 30 22 36" stroke="#A66A3F" strokeWidth="0.8" strokeLinecap="round" fill="none" />
+              <line x1="14" y1="22" x2="30" y2="22" stroke="#A66A3F" strokeWidth="0.8" strokeLinecap="round" opacity="0.5" />
               <line x1="14" y1="14" x2="14" y2="30" stroke="#0A2A22" strokeWidth="0.8" strokeLinecap="round" />
               <line x1="30" y1="14" x2="30" y2="30" stroke="#0A2A22" strokeWidth="0.8" strokeLinecap="round" />
             </svg>

@@ -13,7 +13,7 @@ export function Logo({ variant = "dark", className = "" }: LogoProps) {
 
   // Colors
   const primary = isLight ? "#FFFFFF" : "#0A2A22";    // forest green / white
-  const accent = "#D97706";                            // amber
+  const accent = "#A66A3F";                            // coffee brown
   const subtle = isLight ? "rgba(255,255,255,0.15)" : "rgba(10,42,34,0.08)";
 
   return (
